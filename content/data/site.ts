@@ -1,0 +1,25 @@
+export const site = {
+  name: "Hardik Nishad",
+  title: "Student Developer — Full-Stack & AI Engineer",
+  description: "Full-stack developer & AI engineer. Building smart, scalable products.",
+  url: "https://hardiknishad.dev",
+  email: "hardikxro@gmail.com",
+  github: "https://github.com/hardikxro-commits",
+  location: "India",
+  tagline: "Building the future, one commit at a time.",
+  taglineRoles: ["Full-Stack Developer", "AI Enthusiast", "Problem Solver"],
+  available: true,
+  navLinks: [
+    { href: "/", label: "Home" },
+    { href: "/#about", label: "About" },
+    { href: "/#skills", label: "Skills" },
+    { href: "/#projects", label: "Projects" },
+    { href: "/blog", label: "Blog" },
+    { href: "/now", label: "Now" },
+    { href: "/#contact", label: "Contact" },
+  ] as const,
+  footerLinks: [
+    { href: "/blog", label: "Blog" },
+    { href: "/now", label: "Now" },
+  ] as const,
+};
