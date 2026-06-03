@@ -1,11 +1,10 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DM_Sans, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { CustomCursor } from "@/components/shared/CustomCursor";
 import { NoiseBg } from "@/components/shared/NoiseBg";
-import { FloatingParticles } from "@/components/shared/FloatingParticles";
+import { ClientEffects } from "@/components/layout/ClientEffects";
 import { BackgroundTransition } from "@/components/shared/BackgroundTransition";
 import { site } from "@/content/data/site";
 
@@ -29,6 +28,12 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
   weight: ["400", "500"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0F0B0A",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -82,10 +87,9 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-screen bg-bg-primary text-text-primary antialiased">
+      <body className="min-h-[100dvh] bg-bg-primary text-text-primary antialiased">
         <NoiseBg />
-        <FloatingParticles />
-        <CustomCursor />
+        <ClientEffects />
         <BackgroundTransition />
         <Navbar />
         <main className="flex-1">{children}</main>

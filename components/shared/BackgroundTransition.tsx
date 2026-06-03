@@ -99,12 +99,11 @@ export function BackgroundTransition() {
             className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
             style={{ opacity: loaded && activeIndex === i ? 1 : 0 }}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-fixed bg-center"
-              style={{
-                backgroundImage: `url(${src})`,
-                filter: "brightness(0.25) saturate(0.6)",
-              }}
+            <img
+              src={src}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover brightness-[0.25] saturate-[0.6]"
+              loading={i < 3 ? "eager" : "lazy"}
             />
           </div>
         ))
@@ -113,12 +112,10 @@ export function BackgroundTransition() {
           className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
           style={{ opacity: loaded ? 1 : 0 }}
         >
-          <div
-            className="absolute inset-0 bg-cover bg-fixed bg-center"
-            style={{
-              backgroundImage: `url(${currentSrc})`,
-              filter: "brightness(0.25) saturate(0.6)",
-            }}
+          <img
+            src={currentSrc}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover brightness-[0.25] saturate-[0.6]"
           />
         </div>
       )}

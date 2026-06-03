@@ -25,7 +25,7 @@ export function Testimonials() {
         <div className="grid gap-6 md:grid-cols-2">
           {placeholderTestimonials.map((t, i) => (
             <ScrollReveal key={t.name} delay={i * 0.1}>
-              <div className="flex flex-col items-center justify-center rounded-xl border border-border-default bg-bg-secondary p-10 text-center">
+              <div className="flex flex-col items-center justify-center rounded-xl border border-border-default bg-bg-secondary p-6 sm:p-10 text-center">
                 <MessageSquareQuote size={32} className="mb-4 text-text-muted" />
                 <p className="text-sm leading-relaxed text-text-muted italic max-w-xs">
                   &ldquo;{t.text}&rdquo;
@@ -41,7 +41,7 @@ export function Testimonials() {
 
           {Array.from({ length: 2 }).map((_, i) => (
             <ScrollReveal key={`empty-${i}`} delay={0.2 + i * 0.1}>
-              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border-subtle bg-bg-secondary/30 p-10 text-center">
+              <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border-subtle bg-bg-secondary/30 p-6 sm:p-10 text-center">
                 <div className="h-10 w-10 rounded-full border border-dashed border-border-default flex items-center justify-center text-text-muted">
                   <MessageSquareQuote size={16} />
                 </div>

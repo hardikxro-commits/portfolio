@@ -65,8 +65,9 @@ export function Contact() {
                     <input
                       id="name"
                       {...register("name")}
-                      className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-2.5 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
+                      className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
                       placeholder="Your name"
+                      inputMode="text"
                     />
                     {errors.name && (
                       <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>
@@ -80,8 +81,10 @@ export function Contact() {
                       id="email"
                       type="email"
                       {...register("email")}
-                      className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-2.5 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
+                      className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
                       placeholder="you@example.com"
+                      inputMode="email"
+                      autoComplete="email"
                     />
                     {errors.email && (
                       <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>
@@ -93,12 +96,13 @@ export function Contact() {
                   <label htmlFor="subject" className="block text-sm font-medium text-text-secondary mb-1.5">
                     Subject
                   </label>
-                  <input
-                    id="subject"
-                    {...register("subject")}
-                    className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-2.5 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
-                    placeholder="What's this about?"
-                  />
+                    <input
+                      id="subject"
+                      {...register("subject")}
+                      className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
+                      placeholder="What's this about?"
+                      inputMode="text"
+                    />
                   {errors.subject && (
                     <p className="mt-1 text-xs text-red-400">{errors.subject.message}</p>
                   )}
@@ -108,13 +112,13 @@ export function Contact() {
                   <label htmlFor="message" className="block text-sm font-medium text-text-secondary mb-1.5">
                     Message
                   </label>
-                  <textarea
-                    id="message"
-                    rows={5}
-                    {...register("message")}
-                    className="w-full resize-y rounded-lg border border-border-default bg-bg-secondary px-4 py-2.5 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
-                    placeholder="Tell me about your project, idea, or opportunity..."
-                  />
+                    <textarea
+                      id="message"
+                      rows={5}
+                      {...register("message")}
+                      className="w-full resize-none sm:resize-y rounded-lg border border-border-default bg-bg-secondary px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
+                      placeholder="Tell me about your project, idea, or opportunity..."
+                    />
                   {errors.message && (
                     <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>
                   )}

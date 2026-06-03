@@ -22,8 +22,11 @@ export function FloatingParticles() {
   useEffect(() => {
     if (prefersReduced || !containerRef.current) return;
     const container = containerRef.current;
+    const isMobile = matchMedia("(pointer: coarse)").matches;
+    const count = isMobile ? 6 : 18;
+    const speed = isMobile ? 0.5 : 1;
 
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < count; i++) {
       const el = document.createElement("div");
       const size = 2 + Math.random() * 4;
       el.style.cssText = `
@@ -40,15 +43,24 @@ export function FloatingParticles() {
         el,
         x: Math.random() * 100,
         y: Math.random() * 100,
-        dx: (Math.random() - 0.5) * 0.15,
-        dy: -0.04 - Math.random() * 0.06,
+        dx: (Math.random() - 0.5) * 0.15 * speed,
+        dy: (-0.04 - Math.random() * 0.06) * speed,
         size,
         opacity: 0.15 + Math.random() * 0.25,
       });
     }
 
     let startTime = Date.now();
+    let hidden = false;
+
+    const onVisibility = () => {
+      hidden = document.hidden;
+      if (!hidden) startTime = Date.now();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
     const animate = () => {
+      if (hidden) { rafRef.current = requestAnimationFrame(animate); return; }
       const elapsed = (Date.now() - startTime) / 1000;
       for (const p of particlesRef.current) {
         p.x += p.dx;
@@ -64,6 +76,7 @@ export function FloatingParticles() {
     rafRef.current = requestAnimationFrame(animate);
 
     return () => {
+      document.removeEventListener("visibilitychange", onVisibility);
       cancelAnimationFrame(rafRef.current);
       particlesRef.current.forEach((p) => p.el.remove());
       particlesRef.current = [];

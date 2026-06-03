@@ -36,7 +36,7 @@ export function Hero() {
   }, [prefersReduced, mouseX, mouseY]);
   return (
     <LazyMotion features={domAnimation}>
-    <section id="hero" className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4">
+    <section id="hero" className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-4">
       <div
         className="pointer-events-none absolute inset-0"
         style={{ background: "var(--gradient-hero)" }}
