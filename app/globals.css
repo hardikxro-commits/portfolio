@@ -1,0 +1,221 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-bg-primary: #0F0B0A;
+  --color-bg-secondary: #121213;
+  --color-bg-tertiary: #1B1813;
+  --color-text-primary: #F6FFDC;
+  --color-text-secondary: #CFECF3;
+  --color-text-muted: #9abbc0;
+  --color-accent-primary: #F9B2D7;
+  --color-accent-hover: #e89ec5;
+  --color-accent-sky: #CFECF3;
+  --color-accent-forest: #DAF9DE;
+  --color-accent-sunset: #F6FFDC;
+  --color-accent-red: #e85858;
+  --color-accent-glow: rgba(249, 178, 215, 0.2);
+  --color-accent-subtle: rgba(249, 178, 215, 0.08);
+  --color-border-subtle: #232323;
+  --color-border-default: #28282B;
+  --color-border-strong: rgba(255, 255, 255, 0.12);
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+:root {
+  --gradient-hero: radial-gradient(ellipse 80% 55% at 50% -15%, rgba(249, 178, 215, 0.12) 0%, rgba(207, 236, 243, 0.05) 40%, transparent 70%);
+  --gradient-section: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(249, 178, 215, 0.05) 0%, transparent 60%);
+  --gradient-accent: linear-gradient(135deg, #F9B2D7 0%, #CFECF3 50%, #DAF9DE 100%);
+  --gradient-text: linear-gradient(135deg, #F6FFDC 0%, #F9B2D7 100%);
+  --gradient-warm: linear-gradient(180deg, rgba(249, 178, 215, 0.03) 0%, transparent 100%);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 24px rgba(249, 178, 215, 0.2);
+}
+
+@keyframes noise {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-5%, -10%); }
+  20% { transform: translate(-15%, 5%); }
+  30% { transform: translate(7%, -25%); }
+  40% { transform: translate(-5%, 25%); }
+  50% { transform: translate(-15%, 10%); }
+  60% { transform: translate(15%, 0%); }
+  70% { transform: translate(0%, 15%); }
+  80% { transform: translate(3%, 35%); }
+  90% { transform: translate(-10%, 10%); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+@keyframes bounce-arrow {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(6px); opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-16px) rotate(1deg); }
+  66% { transform: translateY(-8px) rotate(-1deg); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0); }
+  50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translate(var(--dx, 60px), var(--dy, -80px)) scale(0); opacity: 0; }
+}
+
+.noise-overlay::after {
+  content: '';
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+  animation: noise 0.5s steps(4) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .noise-overlay::after {
+    animation: none;
+    display: none;
+  }
+  .floating-particle {
+    display: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 160, 86, 0.25);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 160, 86, 0.4);
+}
+
+::selection {
+  background: rgba(212, 160, 86, 0.25);
+  color: #eeeae3;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* === iOS 26 Liquid Glass === */
+
+.liquid-glass-nav {
+  background: rgba(15, 11, 10, 0.45);
+  backdrop-filter: blur(32px) saturate(1.05);
+  -webkit-backdrop-filter: blur(32px) saturate(1.05);
+}
+
+.liquid-glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(28px) saturate(1.1);
+  -webkit-backdrop-filter: blur(28px) saturate(1.1);
+  box-shadow: 0 2px 40px rgba(0, 0, 0, 0.35);
+}
+
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.015);
+  backdrop-filter: blur(24px) saturate(1.05);
+  -webkit-backdrop-filter: blur(24px) saturate(1.05);
+}
+
+.liquid-glass-strong {
+  background: rgba(255, 255, 255, 0.025);
+  backdrop-filter: blur(28px) saturate(1.1);
+  -webkit-backdrop-filter: blur(28px) saturate(1.1);
+  box-shadow: 0 4px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* Specular highlight + lensing + ambient tint overlay */
+.liquid-glass-overlay {
+  background:
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0.03) 1px,
+      rgba(255, 255, 255, 0.015) 4px,
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse 120% 70% at 50% 12%,
+      rgba(255, 255, 255, 0.035) 0%,
+      transparent 65%
+    ),
+    linear-gradient(
+      160deg,
+      rgba(249, 178, 215, 0.025) 0%,
+      transparent 30%,
+      rgba(207, 236, 243, 0.015) 70%,
+      transparent 100%
+    );
+}
+
+/* Brighter specular on hover */
+.liquid-glass-hover {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.group:hover .liquid-glass-hover,
+:hover > .liquid-glass-hover {
+  opacity: 1;
+}
+
+.liquid-glass-hover-overlay {
+  background:
+    linear-gradient(180deg,
+      rgba(255, 255, 255, 0.16) 0%,
+      rgba(255, 255, 255, 0.04) 1px,
+      rgba(255, 255, 255, 0.02) 4px,
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse 120% 70% at 50% 12%,
+      rgba(255, 255, 255, 0.045) 0%,
+      transparent 65%
+    );
+}
