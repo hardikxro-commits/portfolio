@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 700" fill="none">
+  <defs>
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a1e" stop-opacity="0.95"/>
+      <stop offset="60%" stop-color="#1a1a1e" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#1a1a1e" stop-opacity="0.2"/>
+    </linearGradient>
+    <linearGradient id="cloakHighlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a2a30" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#1a1a1e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Body / Cloak -->
+  <path d="M250 640c-80 0-150-30-195-80 12-140 24-240 36-330 6-45 22-90 58-125 30-30 66-52 101-63 35 11 71 33 101 63 36 35 52 80 58 125 12 90 24 190 36 330-45 50-115 80-195 80z" fill="url(#bodyGrad)"/>
+  <path d="M250 620c-65 0-125-22-165-60 10-120 20-200 28-280 5-40 16-78 45-110 24-26 54-45 82-55h20c28 10 58 29 82 55 29 32 40 70 45 110 8 80 18 160 28 280-40 38-100 60-165 60z" fill="url(#cloakHighlight)"/>
+
+  <!-- Neck shadow -->
+  <rect x="220" y="230" width="60" height="100" rx="10" fill="#141418" opacity="0.8"/>
+
+  <!-- Mask body -->
+  <path d="M250 100c-22 0-45 6-64 18-30 18-53 46-65 78-8 22-12 45-12 66 0 52 16 94 42 122 20 21 46 35 75 40 8 1 16 2 24 2s16-1 24-2c29-5 55-19 75-40 26-28 42-70 42-122 0-21-4-44-12-66-12-32-35-60-65-78-19-12-42-18-64-18z" fill="#f5f3ed"/>
+  <path d="M250 106c-20 0-40 5-58 16-26 16-47 41-58 70-7 20-11 41-11 60 0 47 15 85 38 110 18 19 42 32 67 36h44c25-4 49-17 67-36 23-25 38-63 38-110 0-19-4-40-11-60-11-29-32-54-58-70-18-11-38-16-58-16z" fill="white"/>
+
+  <!-- Left eye -->
+  <path d="M206 178c-5 0-10 2-15 5-11 7-20 20-24 34-3 10-3 20 1 28 5 11 15 19 26 21 7 2 16 1 25-2 11-5 20-14 24-26 3-9 3-19-1-28-5-14-14-25-26-31-5-2-9-2-10-2z" fill="#0a0a0c"/>
+  <path d="M208 184c-4 0-8 1-12 4-9 5-15 15-18 25-2 7-2 14 0 20 3 8 10 14 18 16 5 1 12 1 18-1 9-3 15-11 18-20 2-6 2-13 0-19-3-11-10-18-19-22-3-1-5-2-5-2z" fill="#1a1a1e"/>
+
+  <!-- Right eye -->
+  <path d="M294 178c5 0 10 2 15 5 11 7 20 20 24 34 3 10 3 20-1 28-5 11-15 19-26 21-7 2-16 1-25-2-11-5-20-14-24-26-3-9-3-19 1-28 5-14 14-25 26-31 5-2 9-2 10-2z" fill="#0a0a0c"/>
+  <path d="M292 184c4 0 8 1 12 4 9 5 15 15 18 25 2 7 2 14 0 20-3 8-10 14-18 16-5 1-12 1-18-1-9-3-15-11-18-20-2-6-2-13 0-19 3-11 10-18 19-22 3-1 5-2 5-2z" fill="#1a1a1e"/>
+
+  <!-- Eye shines -->
+  <ellipse cx="205" cy="186" rx="3" ry="5" fill="white" opacity="0.15" transform="rotate(-10 205 186)"/>
+  <ellipse cx="295" cy="186" rx="3" ry="5" fill="white" opacity="0.15" transform="rotate(10 295 186)"/>
+
+  <!-- Purple cheek marks (left) -->
+  <path d="M188 220 Q183 227 186 234" stroke="#7a4b8c" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M183 227 Q178 234 181 241" stroke="#7a4b8c" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <path d="M180 233 Q175 239 178 245" stroke="#7a4b8c" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
+
+  <!-- Purple cheek marks (right) -->
+  <path d="M312 220 Q317 227 314 234" stroke="#7a4b8c" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.7"/>
+  <path d="M317 227 Q322 234 319 241" stroke="#7a4b8c" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.6"/>
+  <path d="M320 233 Q325 239 322 245" stroke="#7a4b8c" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.45"/>
+
+  <!-- Wide smile -->
+  <path d="M218 245 Q230 260 250 265 Q270 260 282 245" stroke="#1a1a1e" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M230 256 Q240 264 250 267 Q260 264 270 256" fill="#1a1a1e" opacity="0.8"/>
+  <path d="M240 260 Q245 265 250 267 Q255 265 260 260" fill="#8b2020" opacity="0.5"/>
+
+  <!-- Subtle nose -->
+  <ellipse cx="250" cy="205" rx="4" ry="2.5" fill="#1a1a1e" opacity="0.06"/>
+</svg>
