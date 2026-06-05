@@ -50,38 +50,43 @@ export function BackgroundTransition() {
   useEffect(() => {
     if (!homePage) return;
 
-    const observers: IntersectionObserver[] = [];
-    let bestIndex = 0;
+    const els = sectionIds
+      .map((id) => document.querySelector(`[id="${id}"]`) as HTMLElement | null)
+      .filter(Boolean) as HTMLElement[];
 
-    sectionIds.forEach((id, index) => {
-      const els = document.querySelectorAll(`[id="${id}"]`);
-      const el = els[0] as HTMLElement | null;
-      if (!el) return;
+    let ticking = false;
 
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              bestIndex = index;
-              setActiveIndex(index);
-              break;
-            }
-          }
-        },
-        { threshold: 0.15, rootMargin: "0px" },
-      );
-      observer.observe(el);
-      observers.push(observer);
-    });
+    const update = () => {
+      ticking = false;
+      const viewportMid = window.scrollY + window.innerHeight / 2;
+      let closest = 0;
+      let closestDist = Infinity;
 
-    const handleScroll = () => {
-      setActiveIndex(bestIndex);
+      els.forEach((el, i) => {
+        const top = el.offsetTop;
+        const bottom = top + el.offsetHeight;
+        const mid = (top + bottom) / 2;
+        const dist = Math.abs(viewportMid - mid);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      });
+
+      setActiveIndex(closest);
     };
 
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    };
+
+    update();
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
-      observers.forEach((o) => o.disconnect());
       window.removeEventListener("scroll", handleScroll);
     };
   }, [homePage]);
