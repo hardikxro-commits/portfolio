@@ -2,6 +2,7 @@
 
 import { site } from "@/content/data/site";
 import { GitFork, Mail } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -11,11 +12,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
           <div className="text-center md:text-left">
-            <a
-              href="/"
-              className="font-display text-lg font-bold tracking-tight text-text-primary"
-            >
-              HN<span className="text-accent-primary">.</span>
+            <a href="/" className="inline-flex items-center gap-2">
+              <Image
+                src="/images/logo.png"
+                alt={site.name}
+                width={36}
+                height={36}
+                className="rounded-lg"
+              />
             </a>
             <p className="mt-1 text-sm text-text-muted italic">
               &ldquo;Building the future, one commit at a time.&rdquo;

@@ -45,7 +45,7 @@ export const featuredProjects: Project[] = [
     githubUrl: "https://github.com/hardikxro-commits/nothing-gallery",
     downloadUrl: "https://github.com/hardikxro-commits/nothing-gallery/releases/download/latest/Nothing-Vault.apk",
     featured: true,
-    image: "/images/projects/nothing-vault-thumb.svg",
+    image: "/images/projects/nothing-vault-thumb.png",
     challenges: [
       "Implementing AES-256-GCM encryption with Android KeyStore for secure photo storage and decryption on-the-fly",
       "Designing a dual-purpose lock screen that authenticates to real vault folders or redirects to a decoy screen on wrong PIN",
