@@ -26,18 +26,30 @@ export function Navbar() {
 
   useEffect(() => {
     if (mobileOpen) {
+      const scrollY = window.scrollY;
       document.body.style.overflow = "hidden";
       document.body.style.position = "fixed";
-      document.body.style.inset = "0";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.dataset.scrollY = String(scrollY);
     } else {
+      const scrollY = Number(document.body.dataset.scrollY || 0);
       document.body.style.overflow = "";
       document.body.style.position = "";
-      document.body.style.inset = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      window.scrollTo(0, scrollY);
     }
     return () => {
+      const scrollY = Number(document.body.dataset.scrollY || 0);
       document.body.style.overflow = "";
       document.body.style.position = "";
-      document.body.style.inset = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      window.scrollTo(0, scrollY);
     };
   }, [mobileOpen]);
 
@@ -70,7 +82,7 @@ export function Navbar() {
               : "rounded-none bg-transparent",
           )}
         >
-          <nav className="relative z-10 flex items-center justify-between px-4 py-2.5 sm:px-5">
+          <nav className="relative z-50 flex items-center justify-between px-4 py-2.5 sm:px-5">
             <a
               href="/"
               className="font-display text-lg font-bold tracking-tight text-text-primary"
