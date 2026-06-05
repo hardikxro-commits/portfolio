@@ -24,7 +24,7 @@ const sectionIds = Object.keys(sectionBackgrounds);
 export function BackgroundTransition() {
   const pathname = usePathname();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
   const imagesRef = useRef<HTMLImageElement[]>([]);
 
   const homePage = pathname === "/";
