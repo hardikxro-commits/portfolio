@@ -5,13 +5,13 @@ import { usePathname } from "next/navigation";
 
 const sectionBackgrounds: Record<string, string> = {
   hero: "/images/hero-bg.jpg",
-  about: "/images/backgrounds/totoro015.jpg",
-  skills: "/images/backgrounds/chihiro020.jpg",
-  roadmap: "/images/backgrounds/howl025.jpg",
-  projects: "/images/backgrounds/laputa005.jpg",
-  timeline: "/images/backgrounds/mononoke010.jpg",
-  testimonials: "/images/backgrounds/majo005.jpg",
-  contact: "/images/backgrounds/nausicaa010.jpg",
+  about: "/images/backgrounds/chihiro039.jpg",
+  skills: "/images/backgrounds/chihiro002.jpg",
+  roadmap: "/images/backgrounds/chihiro045.jpg",
+  projects: "/images/backgrounds/chihiro042.jpg",
+  timeline: "/images/backgrounds/chihiro007.jpg",
+  testimonials: "/images/backgrounds/chihiro003.jpg",
+  contact: "/images/backgrounds/chihiro011.jpg",
 };
 
 const pageBackgrounds: Record<string, string> = {
@@ -36,14 +36,14 @@ export function BackgroundTransition() {
     let loadedCount = 0;
     urls.forEach((url, i) => {
       const img = new Image();
-      img.src = url;
-      imagesRef.current[i] = img;
       const onload = () => {
         loadedCount++;
         if (loadedCount >= urls.length) setLoaded(true);
       };
       img.onload = onload;
       img.onerror = onload;
+      img.src = url;
+      imagesRef.current[i] = img;
     });
   }, [homePage]);
 
