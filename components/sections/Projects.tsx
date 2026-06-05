@@ -6,7 +6,7 @@ import { GlowCard } from "@/components/shared/GlowCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
 import { featuredProjects } from "@/content/data/projects";
-import { GitFork, ExternalLink, ArrowRight } from "lucide-react";
+import { GitFork, ExternalLink, Download, ArrowRight } from "lucide-react";
 
 export function Projects() {
   const featured = featuredProjects.filter((p) => p.featured);
@@ -75,6 +75,18 @@ export function Projects() {
                         aria-label="Live demo"
                       >
                         <ExternalLink size={16} />
+                      </a>
+                    )}
+                    {project.downloadUrl && (
+                      <a
+                        href={project.downloadUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-muted transition-colors hover:text-text-primary"
+                        onClick={(e) => e.stopPropagation()}
+                        aria-label="Download APK"
+                      >
+                        <Download size={16} />
                       </a>
                     )}
                     <span className="ml-auto flex items-center gap-1 text-xs text-accent-primary">

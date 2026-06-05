@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { ArrowLeft, GitFork, ExternalLink, Tag } from "lucide-react";
+import { ArrowLeft, GitFork, ExternalLink, Download, Tag } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
@@ -67,6 +67,12 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
               <Button href={project.liveUrl} variant="primary">
                 <ExternalLink size={14} />
                 Live Demo
+              </Button>
+            )}
+            {project.downloadUrl && (
+              <Button href={project.downloadUrl} variant="primary">
+                <Download size={14} />
+                Download APK
               </Button>
             )}
           </div>

@@ -6,6 +6,7 @@ export interface Project {
   tags: string[];
   githubUrl?: string;
   liveUrl?: string;
+  downloadUrl?: string;
   featured: boolean;
   image: string;
   challenges?: string[];
@@ -42,6 +43,7 @@ export const featuredProjects: Project[] = [
     longDescription: "A secure photo vault app for Android that lets you hide photos behind PIN-protected folders. Each folder has its own PIN — enter the right one to access your vault, enter the wrong one and you're redirected to a decoy screen. Photos are encrypted with AES-256-GCM using Android KeyStore, with PBKDF2 PIN hashing and Android BiometricPrompt integration.",
     tags: ["Kotlin", "Jetpack Compose", "Android", "AES Encryption"],
     githubUrl: "https://github.com/hardikxro-commits/nothing-gallery",
+    downloadUrl: "https://github.com/hardikxro-commits/nothing-gallery/releases/download/latest/Nothing-Vault.apk",
     featured: true,
     image: "/images/projects/nothing-vault-thumb.jpg",
     challenges: [
