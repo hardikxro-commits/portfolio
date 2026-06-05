@@ -26,7 +26,7 @@ export function Hero() {
 
         <div className="mt-10 flex items-center gap-6">
           <a
-            href="/#projects"
+            href="/projects"
             className="group relative inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-accent-primary hover:bg-accent-primary/10 hover:text-accent-primary"
           >
             View Projects

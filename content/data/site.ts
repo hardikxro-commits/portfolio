@@ -12,11 +12,11 @@ export const site = {
   navLinks: [
     { href: "/", label: "Home" },
     { href: "/#about", label: "About" },
-    { href: "/#skills", label: "Skills" },
-    { href: "/#projects", label: "Projects" },
+    { href: "/skills", label: "Skills" },
+    { href: "/projects", label: "Projects" },
     { href: "/blog", label: "Blog" },
     { href: "/now", label: "Now" },
-    { href: "/#contact", label: "Contact" },
+    { href: "/contact", label: "Contact" },
   ] as const,
   footerLinks: [
     { href: "/blog", label: "Blog" },
