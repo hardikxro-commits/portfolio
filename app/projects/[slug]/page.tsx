@@ -26,6 +26,8 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
   const project = featuredProjects.find((p) => p.slug === slug);
   if (!project) notFound();
 
+  const hasScreenshots = project.screenshots && project.screenshots.length > 0;
+
   return (
     <article className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
       <div className="max-w-4xl">
@@ -37,56 +39,64 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
           Back to projects
         </Link>
 
-        <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-            {project.title}
-          </h1>
-          <p className="mt-4 text-lg leading-relaxed text-text-secondary">
-            {project.longDescription || project.description}
-          </p>
+        <div className={`${hasScreenshots ? "md:grid md:grid-cols-5 md:gap-8" : ""}`}>
+          <div className={`${hasScreenshots ? "md:col-span-3" : ""} mb-8`}>
+            <h1 className="font-display text-4xl font-bold tracking-tight text-text-primary sm:text-5xl">
+              {project.title}
+            </h1>
+            <p className="mt-4 text-xl leading-relaxed text-text-secondary">
+              {project.longDescription || project.description}
+            </p>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 rounded-full bg-accent-subtle px-3 py-1 text-xs font-medium text-accent-primary"
-              >
-                <Tag size={10} />
-                {tag}
-              </span>
-            ))}
+            <div className="mt-4 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-1 rounded-full bg-accent-subtle px-3 py-1 text-xs font-medium text-accent-primary"
+                >
+                  <Tag size={10} />
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              {project.githubUrl && (
+                <Button href={project.githubUrl} variant="outline">
+                  <GitFork size={14} />
+                  Source Code
+                </Button>
+              )}
+              {project.liveUrl && (
+                <Button href={project.liveUrl} variant="primary">
+                  <ExternalLink size={14} />
+                  Live Demo
+                </Button>
+              )}
+              {project.downloadUrl && (
+                <Button href={project.downloadUrl} variant="primary">
+                  <Download size={14} />
+                  Download APK
+                </Button>
+              )}
+            </div>
+
+            <div className="relative mt-6 aspect-video overflow-hidden rounded-xl bg-bg-tertiary max-w-sm">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 300px"
+              />
+            </div>
           </div>
 
-          <div className="mt-6 flex gap-3">
-            {project.githubUrl && (
-              <Button href={project.githubUrl} variant="outline">
-                <GitFork size={14} />
-                Source Code
-              </Button>
-            )}
-            {project.liveUrl && (
-              <Button href={project.liveUrl} variant="primary">
-                <ExternalLink size={14} />
-                Live Demo
-              </Button>
-            )}
-            {project.downloadUrl && (
-              <Button href={project.downloadUrl} variant="primary">
-                <Download size={14} />
-                Download APK
-              </Button>
-            )}
-          </div>
-        </div>
-
-        <div className="relative mb-8 aspect-video overflow-hidden rounded-xl bg-bg-tertiary">
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 800px"
-          />
+          {hasScreenshots && (
+            <div className="md:col-span-2 mb-8">
+              <ScreenshotCarousel screenshots={project.screenshots!} />
+            </div>
+          )}
         </div>
 
         {project.challenges && project.challenges.length > 0 && (
@@ -96,7 +106,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
             </h2>
             <ul className="space-y-3">
               {project.challenges.map((c, i) => (
-                <li key={i} className="flex gap-3 text-sm text-text-secondary">
+                <li key={i} className="flex gap-3 text-base text-text-secondary">
                   <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-subtle text-[10px] font-medium text-accent-primary">
                     {i + 1}
                   </span>
@@ -114,7 +124,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
             </h2>
             <ul className="space-y-3">
               {project.learnings.map((l, i) => (
-                <li key={i} className="flex gap-3 text-sm text-text-secondary">
+                <li key={i} className="flex gap-3 text-base text-text-secondary">
                   <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-500/10 text-[10px] font-medium text-green-400">
                     &#10003;
                   </span>
@@ -122,15 +132,6 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
                 </li>
               ))}
             </ul>
-          </section>
-        )}
-
-        {project.screenshots && project.screenshots.length > 0 && (
-          <section className="mt-12">
-            <h2 className="font-display text-xl font-semibold text-text-primary mb-6">
-              Screenshots
-            </h2>
-            <ScreenshotCarousel screenshots={project.screenshots} />
           </section>
         )}
       </div>
