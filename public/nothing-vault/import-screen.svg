@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 915" width="412" height="915">
+  <!-- Dark background -->
+  <rect width="412" height="915" fill="#0D0D0D"/>
+
+  <!-- Back arrow -->
+  <text x="24" y="60" fill="#F5F5F5" font-family="sans-serif" font-size="22">←</text>
+  <text x="206" y="60" text-anchor="middle" fill="#F5F5F5" font-family="sans-serif" font-size="16" font-weight="500">Import Photos</text>
+
+  <!-- Icon -->
+  <g transform="translate(160, 250)">
+    <rect x="0" y="10" width="92" height="72" rx="8" fill="none" stroke="#6C63FF" stroke-width="2"/>
+    <circle cx="46" cy="28" r="12" fill="none" stroke="#6C63FF" stroke-width="2"/>
+    <polyline points="20,82 35,55 55,70 72,40 92,82" fill="none" stroke="#6C63FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Title -->
+  <text x="206" y="370" text-anchor="middle" fill="#F5F5F5" font-family="sans-serif" font-size="18" font-weight="500">Import Photos</text>
+
+  <!-- Description -->
+  <text x="206" y="402" text-anchor="middle" fill="#9E9E9E" font-family="sans-serif" font-size="13">Photos are encrypted and stored securely.</text>
+  <text x="206" y="422" text-anchor="middle" fill="#9E9E9E" font-family="sans-serif" font-size="13">Originals can be deleted after import.</text>
+
+  <!-- Select button -->
+  <rect x="106" y="460" width="200" height="48" rx="24" fill="#6C63FF"/>
+  <text x="206" y="490" text-anchor="middle" fill="#F5F5F5" font-family="sans-serif" font-size="14" font-weight="500">Select photos</text>
+
+  <!-- Progress section -->
+  <rect x="24" y="550" width="364" height="120" rx="16" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  <text x="40" y="580" fill="#9E9E9E" font-family="sans-serif" font-size="12">Encrypting 2 of 5...</text>
+
+  <!-- Progress bar bg -->
+  <rect x="40" y="595" width="332" height="4" rx="2" fill="rgba(255,255,255,0.1)"/>
+
+  <!-- Progress bar fill -->
+  <rect x="40" y="595" width="132" height="4" rx="2" fill="#6C63FF"/>
+
+  <!-- Spinner -->
+  <circle cx="206" cy="635" r="10" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="3"/>
+  <path d="M 206 625 A 10 10 0 0 1 216 635" fill="none" stroke="#6C63FF" stroke-width="3" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 412 915" width="412" height="915">
+  <rect width="412" height="915" fill="#000000"/>
+
+  <!-- Placeholder image - gradient representation -->
+  <defs>
+    <linearGradient id="imgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2a1a4e"/>
+      <stop offset="50%" stop-color="#1a1a3e"/>
+      <stop offset="100%" stop-color="#0a0a2e"/>
+    </linearGradient>
+  </defs>
+  <rect x="40" y="200" width="332" height="500" rx="0" fill="url(#imgGrad)"/>
+
+  <!-- Photo content: a landscape-like abstract -->
+  <circle cx="200" cy="350" r="40" fill="rgba(108,99,255,0.2)"/>
+  <circle cx="260" cy="380" r="25" fill="rgba(108,99,255,0.15)"/>
+  <rect x="0" y="520" width="412" height="180" fill="rgba(0,0,0,0.3)"/>
+
+  <!-- Top close button -->
+  <rect x="24" y="56" width="36" height="36" rx="18" fill="rgba(0,0,0,0.5)"/>
+  <text x="42" y="80" text-anchor="middle" fill="#F5F5F5" font-family="sans-serif" font-size="18">✕</text>
+
+  <!-- Bottom controls -->
+  <rect x="24" y="790" width="36" height="36" rx="18" fill="rgba(0,0,0,0.5)"/>
+  <text x="42" y="814" text-anchor="middle" fill="#F5F5F5" font-family="sans-serif" font-size="16">→</text>
+
+  <!-- Delete button (red) -->
+  <rect x="352" y="790" width="36" height="36" rx="18" fill="rgba(207,102,121,0.3)"/>
+  <text x="370" y="815" text-anchor="middle" fill="#CF6679" font-family="sans-serif" font-size="16">🗑</text>
+
+  <!-- Recover button -->
+  <rect x="306" y="790" width="36" height="36" rx="18" fill="rgba(108,99,255,0.3)"/>
+  <text x="324" y="815" text-anchor="middle" fill="#6C63FF" font-family="sans-serif" font-size="16">↓</text>
+
+  <!-- Counter -->
+  <text x="206" y="50" text-anchor="middle" fill="#9E9E9E" font-family="sans-serif" font-size="12">2 / 3</text>
+</svg>
