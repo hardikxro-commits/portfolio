@@ -47,7 +47,7 @@ export default async function BlogPostPage({
         </Link>
 
         {slug === "building-nothing-vault" ? (
-          <div className="md:grid md:grid-cols-2 md:gap-12">
+          <div className="md:grid md:grid-cols-[3fr_2fr] md:gap-12">
             <header className="mb-8">
               <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
                 {post.title}
@@ -77,7 +77,7 @@ export default async function BlogPostPage({
               </div>
             </header>
 
-            <div className="md:flex md:items-center md:justify-center mb-8">
+            <div className="md:flex md:items-center md:justify-end mb-8">
               <ScreenshotCarousel
                 screenshots={[
                   { src: "/nothing-vault/01-folder-name.jpeg", label: "Creating a folder \u2014 enter a name" },

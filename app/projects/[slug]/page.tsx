@@ -39,7 +39,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
           Back to projects
         </Link>
 
-        <div className={`${hasScreenshots ? "md:grid md:grid-cols-2 md:gap-12" : ""}`}>
+        <div className={`${hasScreenshots ? "md:grid md:grid-cols-[3fr_2fr] md:gap-12" : ""}`}>
           <div className={`${hasScreenshots ? "" : ""} mb-8`}>
             <h1 className="font-display text-4xl font-bold tracking-tight text-text-primary sm:text-5xl">
               {project.title}
@@ -93,7 +93,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
           </div>
 
           {hasScreenshots && (
-            <div className="md:flex md:items-center md:justify-center mb-8">
+            <div className="md:flex md:items-center md:justify-end mb-8">
               <ScreenshotCarousel screenshots={project.screenshots!} />
             </div>
           )}
