@@ -27,7 +27,7 @@ export function Hero() {
         <div className="mt-10 flex items-center gap-6">
           <a
             href="/projects"
-            className="group relative inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-accent-primary hover:bg-accent-primary/10 hover:text-accent-primary"
+            className="group relative inline-flex items-center gap-2 rounded-full border border-border-default px-6 py-3 text-sm font-medium text-text-primary transition-all duration-300 hover:border-accent-primary hover:bg-accent-primary/10 hover:text-accent-primary"
           >
             View Projects
             <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>

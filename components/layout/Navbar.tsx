@@ -78,7 +78,7 @@ export function Navbar() {
           className={cn(
             "relative overflow-hidden transition-all duration-500",
             scrolled
-              ? "rounded-2xl border border-white/[0.06] liquid-glass-nav shadow-2xl shadow-black/40"
+              ? "rounded-2xl border border-border-subtle liquid-glass-nav shadow-2xl"
               : "rounded-none bg-transparent",
           )}
         >
@@ -91,12 +91,12 @@ export function Navbar() {
             </a>
 
             <div className="hidden items-center md:flex">
-              <div className="flex items-center gap-0.5 rounded-xl bg-white/[0.03] px-1 py-0.5">
+              <div className="flex items-center gap-0.5 rounded-xl bg-black/[0.03] px-1 py-0.5">
                 {site.navLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
-                    className="rounded-lg px-3.5 py-1.5 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:bg-white/[0.06]"
+                    className="rounded-lg px-3.5 py-1.5 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:bg-black/[0.05]"
                   >
                     {link.label}
                   </a>

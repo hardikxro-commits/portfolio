@@ -30,7 +30,7 @@ export function Button({
     variant === "ghost" &&
       "text-text-secondary hover:text-text-primary hover:bg-accent-subtle",
     variant === "outline" &&
-      "border border-white/[0.06] bg-bg-secondary text-text-secondary hover:border-white/[0.12] hover:text-text-primary",
+      "border border-border-subtle bg-bg-secondary text-text-secondary hover:border-border-default hover:text-text-primary",
     size === "sm" && "px-3 py-1.5 text-xs",
     size === "md" && "px-5 py-2.5 text-sm",
     size === "lg" && "px-7 py-3 text-base",

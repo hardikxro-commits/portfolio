@@ -54,7 +54,7 @@ export default function NowPage() {
               {nowData.currentProjects.map((project) => (
                 <div
                   key={project.name}
-                  className="relative overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary p-4"
+                  className="relative overflow-hidden rounded-lg border border-border-subtle bg-bg-secondary p-4"
                 >
                   <div className="relative z-10"
                 >
@@ -127,7 +127,7 @@ export default function NowPage() {
                 Ultimate Goal
               </h2>
             </div>
-            <div className="relative overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary p-6">
+            <div className="relative overflow-hidden rounded-lg border border-border-subtle bg-bg-secondary p-6">
               <div className="relative z-10">
                 <p className="font-display text-xl font-bold text-accent-primary">
                   &ldquo;{nowData.ultimateGoal}&rdquo;

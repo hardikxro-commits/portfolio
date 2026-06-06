@@ -15,8 +15,8 @@ export function GlowCard({
   href,
 }: GlowCardProps) {
   const classes = cn(
-    "relative overflow-hidden rounded-xl border border-white/[0.06] p-6 transition-all duration-300 bg-bg-secondary",
-    "has-hover:hover:border-white/[0.12] has-hover:hover:-translate-y-1",
+    "relative overflow-hidden rounded-xl border border-border-subtle p-6 transition-all duration-300 bg-bg-secondary",
+    "has-hover:hover:border-border-default has-hover:hover:-translate-y-1",
     className,
   );
 

@@ -3,27 +3,27 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-bg-primary: #0a0a0a;
-  --color-bg-secondary: #141414;
-  --color-bg-tertiary: #1a1a1a;
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
-  --color-accent-primary: #3b82f6;
-  --color-accent-hover: #2563eb;
-  --color-accent-subtle: rgba(59, 130, 246, 0.1);
-  --color-accent-border: rgba(59, 130, 246, 0.3);
-  --color-border-subtle: #27272a;
-  --color-border-default: #27272a;
+  --color-bg-primary: #FFFDF2;
+  --color-bg-secondary: #FFFDF2;
+  --color-bg-tertiary: #FFFDF2;
+  --color-text-primary: #000000;
+  --color-text-secondary: #333333;
+  --color-text-muted: #666666;
+  --color-accent-primary: #000000;
+  --color-accent-hover: #333333;
+  --color-accent-subtle: rgba(0, 0, 0, 0.05);
+  --color-accent-border: rgba(0, 0, 0, 0.15);
+  --color-border-subtle: #E5E3D8;
+  --color-border-default: #D4D2C8;
   --font-sans: "DM Sans", system-ui, sans-serif;
   --font-display: "Bricolage Grotesque", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
 
 :root {
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes bounce-arrow {
@@ -51,16 +51,16 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(59, 130, 246, 0.25);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(59, 130, 246, 0.4);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 ::selection {
-  background: rgba(59, 130, 246, 0.25);
-  color: #fafafa;
+  background: rgba(0, 0, 0, 0.1);
+  color: #000000;
 }
 
 body {
@@ -74,7 +74,7 @@ body {
 /* === Card & Container Backgrounds === */
 
 .liquid-glass-nav {
-  background: rgba(15, 11, 10, 0.85);
+  background: rgba(255, 253, 242, 0.95);
 }
 
 .liquid-glass-card {

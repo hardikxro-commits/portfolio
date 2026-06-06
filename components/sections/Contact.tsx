@@ -154,7 +154,7 @@ export function Contact() {
           <div className="lg:col-span-2">
             <ScrollReveal delay={0.2}>
               <div className="space-y-6">
-                <div className="relative overflow-hidden rounded-xl border border-white/[0.06] bg-bg-secondary p-5">
+                <div className="relative overflow-hidden rounded-xl border border-border-subtle bg-bg-secondary p-5">
                   <div className="relative z-10">
                   <h3 className="text-sm font-medium text-text-primary">Let&apos;s collaborate</h3>
                   <p className="mt-1 text-xs leading-relaxed text-text-secondary">
@@ -167,7 +167,7 @@ export function Contact() {
                 <div className="space-y-3">
                   <a
                     href={`mailto:${site.email}`}
-                    className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary p-3.5 text-sm text-text-secondary transition-colors hover:border-white/[0.12] hover:text-text-primary"
+                    className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-border-subtle bg-bg-secondary p-3.5 text-sm text-text-secondary transition-colors hover:border-border-default hover:text-text-primary"
                   >
                     <Mail size={16} className="text-accent-primary" />
                     <span className="relative z-10">{site.email}</span>
@@ -176,7 +176,7 @@ export function Contact() {
                     href={site.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary p-3.5 text-sm text-text-secondary transition-colors hover:border-white/[0.12] hover:text-text-primary"
+                    className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-border-subtle bg-bg-secondary p-3.5 text-sm text-text-secondary transition-colors hover:border-border-default hover:text-text-primary"
                   >
                     <GitFork size={16} className="text-accent-primary" />
                     <span>GitHub</span>
