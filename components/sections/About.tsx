@@ -7,7 +7,7 @@ import { Code2, ArrowRight } from "lucide-react";
 export function About() {
   return (
     <section id="about" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="relative mx-auto max-w-7xl">
+      <div className="relative max-w-7xl">
         <SectionHeading
           title="About Me"
           subtitle="Just a student who started coding and hasn't stopped"

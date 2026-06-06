@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 export function Testimonials() {
   return (
     <section id="testimonials" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl">
+      <div>
         <SectionHeading
           title="Testimonials"
           subtitle="What people have said about working with me"

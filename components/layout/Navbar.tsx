@@ -71,7 +71,7 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className={cn(
-        "mx-auto transition-all duration-500",
+        "transition-all duration-500",
         scrolled ? "max-w-4xl px-3 pt-2 sm:pt-3" : "max-w-7xl px-4 sm:px-6 lg:px-8 pt-4",
       )}>
         <div
@@ -131,7 +131,7 @@ export function Navbar() {
             animate="visible"
             exit="exit"
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 md:hidden liquid-glass-nav"
+            className="fixed inset-0 z-40 flex flex-col items-start gap-6 px-4 pt-28 md:hidden liquid-glass-nav"
           >
             {site.navLinks.map((link, i) => (
               <motion.a

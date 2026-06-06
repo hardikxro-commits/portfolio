@@ -7,7 +7,7 @@ import { CalendarDays, Clock, ArrowRight } from "lucide-react";
 export function Blog() {
   return (
     <section id="blog" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl">
+      <div className="max-w-4xl">
         <SectionHeading
           title="Blog"
           subtitle="Random thoughts and things I&apos;ve learned while building stuff"

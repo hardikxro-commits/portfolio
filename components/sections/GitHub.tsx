@@ -23,7 +23,7 @@ export function GitHub() {
   if (error) {
     return (
       <section className="px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl">
+        <div className="max-w-7xl">
           <p className="text-text-muted">GitHub data temporarily unavailable.</p>
         </div>
       </section>
@@ -32,7 +32,7 @@ export function GitHub() {
 
   return (
     <section id="github" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+      <div className="max-w-7xl">
         <SectionHeading
           title="GitHub Dashboard"
           subtitle="My GitHub activity and coding stats"
@@ -237,7 +237,7 @@ function LanguageDonut({ languages }: { languages: Record<string, number> }) {
     .join(", ");
 
   return (
-    <div className="flex flex-col items-center gap-4 sm:flex-row">
+    <div className="flex flex-col items-start gap-4 sm:flex-row">
       <div
         className="h-32 w-32 shrink-0 rounded-full"
         style={{

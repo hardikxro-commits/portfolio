@@ -46,7 +46,7 @@ export function Hero() {
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
         <a
           href="#about"
-          className="flex flex-col items-center gap-1 text-text-muted transition-colors hover:text-text-primary"
+          className="flex flex-col items-start gap-1 text-text-muted transition-colors hover:text-text-primary"
           style={{ animation: "bounce-arrow 2s ease-in-out infinite" }}
         >
           <span className="text-xs tracking-widest uppercase">Scroll</span>

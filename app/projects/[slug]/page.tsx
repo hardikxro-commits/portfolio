@@ -27,7 +27,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
 
   return (
     <article className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl">
+      <div className="max-w-4xl">
         <Link
           href="/#projects"
           className="group mb-8 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"

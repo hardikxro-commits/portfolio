@@ -9,7 +9,7 @@ import { CheckCircle2, Circle, Play } from "lucide-react";
 export function Roadmap() {
   return (
     <section id="roadmap" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-4xl">
+      <div className="max-w-4xl">
         <SectionHeading
           title="Learning Roadmap"
           subtitle="What I&apos;m planning to learn next"

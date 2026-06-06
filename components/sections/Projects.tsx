@@ -14,7 +14,7 @@ export function Projects() {
 
   return (
     <section id="projects" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+      <div>
         <SectionHeading
           title="Projects"
           subtitle="Stuff I&apos;ve built, from idea to shipping"

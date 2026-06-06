@@ -35,7 +35,7 @@ export function Skills() {
 
   return (
     <section id="skills" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+      <div>
         <SectionHeading
           title="Skills & Tools"
           subtitle="Languages, tools, and frameworks I use"
@@ -68,7 +68,7 @@ export function Skills() {
               animate={{ opacity: 1, x: 0 }}
               exit={prefersReduced ? {} : { opacity: 0, x: 10 }}
               transition={{ duration: 0.2 }}
-              className="mx-auto grid max-w-3xl gap-4"
+              className="grid max-w-3xl gap-4"
             >
               {filteredSkills.map((skill, i) => (
                 <SkillBar key={skill.name} skill={skill} index={i} prefersReduced={prefersReduced} />
