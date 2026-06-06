@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowLeft, CalendarDays, Clock, Tag } from "lucide-react";
 import { blogPosts } from "@/content/data/blog";
 import { ScreenshotCarousel } from "@/components/shared/ScreenshotCarousel";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -79,11 +81,10 @@ export default async function BlogPostPage({
               </div>
             </header>
 
-            <div
-              className="prose prose-invert max-w-none leading-relaxed text-text-secondary"
-              style={{ whiteSpace: "pre-wrap" }}
-            >
-              {post.content}
+            <div className="prose prose-invert max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {post.content}
+              </ReactMarkdown>
             </div>
 
             {isVault && (

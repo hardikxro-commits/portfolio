@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -83,4 +84,35 @@ body {
 
 .liquid-glass {
   background: var(--color-bg-secondary);
+}
+
+.prose {
+  --tw-prose-body: var(--color-text-secondary);
+  --tw-prose-headings: var(--color-text-primary);
+  --tw-prose-links: var(--color-accent-primary);
+  --tw-prose-bold: var(--color-text-primary);
+  --tw-prose-counters: var(--color-text-muted);
+  --tw-prose-bullets: var(--color-text-muted);
+  --tw-prose-hr: var(--color-border-subtle, rgba(0,0,0,0.1));
+  --tw-prose-quotes: var(--color-text-secondary);
+  --tw-prose-quote-borders: var(--color-accent-primary);
+  --tw-prose-code: var(--color-text-primary);
+  --tw-prose-pre-code: #e5e5e5;
+  --tw-prose-pre-bg: rgba(0,0,0,0.05);
+  --tw-prose-th-borders: var(--color-border-subtle, rgba(0,0,0,0.1));
+  --tw-prose-td-borders: var(--color-border-subtle, rgba(0,0,0,0.1));
+}
+
+.prose code {
+  font-size: 0.875em;
+  font-weight: 500;
+  background: rgba(0,0,0,0.05);
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+}
+
+.prose pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
 }
