@@ -88,17 +88,17 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
         initial={{ opacity: 0, x: 40 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        className="mx-auto max-w-[340px]"
+        className="w-full"
       >
         <div
-          className="relative overflow-hidden rounded-3xl shadow-2xl cursor-pointer"
+          className="overflow-hidden rounded-3xl shadow-2xl cursor-pointer bg-bg-secondary"
           onMouseDown={handleMouseDown}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}
           onClick={() => setDrawerOpen(true)}
           style={{ userSelect: "none" }}
         >
-          <div className="relative aspect-[412/915]">
+          <div className="relative aspect-[412/915] max-h-[75vh]">
             <AnimatePresence mode="wait" custom={direction}>
               <motion.img
                 key={current}
@@ -118,51 +118,48 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
             {current > 0 && (
               <button
                 onClick={(e) => { e.stopPropagation(); prev(); }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
+                className="absolute left-2 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
                 aria-label="Previous"
               >
-                <ChevronLeft size={20} />
+                <ChevronLeft size={22} />
               </button>
             )}
 
             {current < screenshots.length - 1 && (
               <button
                 onClick={(e) => { e.stopPropagation(); next(); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
+                className="absolute right-2 top-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
                 aria-label="Next"
               >
-                <ChevronRight size={20} />
+                <ChevronRight size={22} />
               </button>
             )}
           </div>
-        </div>
 
-        <div className="mt-4 flex items-center justify-center gap-1.5">
-          {screenshots.map((_, i) => (
-            <motion.button
-              key={i}
-              onClick={(e) => { e.stopPropagation(); setCurrent(i); }}
-              className="rounded-full"
-              animate={{
-                width: i === current ? 20 : 6,
-                height: 6,
-                backgroundColor: i === current ? "#3b82f6" : "rgba(156,163,175,0.4)",
-              }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
+          <div className="border-t border-border-subtle px-4 py-3">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium text-text-primary">
+                {slide.label}
+              </p>
+              <div className="flex items-center gap-1.5">
+                {screenshots.map((_, i) => (
+                  <motion.button
+                    key={i}
+                    onClick={(e) => { e.stopPropagation(); setCurrent(i); }}
+                    className="rounded-full"
+                    animate={{
+                      width: i === current ? 16 : 5,
+                      height: 5,
+                      backgroundColor: i === current ? "#3b82f6" : "rgba(156,163,175,0.4)",
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    aria-label={`Go to slide ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-
-        <motion.p
-          key={current}
-          initial={{ opacity: 0, y: 5 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
-          className="mt-3 text-center text-sm text-text-secondary"
-        >
-          {slide.label}
-        </motion.p>
       </motion.div>
 
       {typeof document !== "undefined" && createPortal(
