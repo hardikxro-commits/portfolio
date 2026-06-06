@@ -39,7 +39,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
           Back to projects
         </Link>
 
-        <div className={`${hasScreenshots ? "md:grid md:grid-cols-[1fr_520px] md:gap-12" : ""}`}>
+        <div className={`${hasScreenshots ? "md:grid md:grid-cols-[1fr_520px] md:gap-24" : ""}`}>
           <div className="mb-8">
             <h1 className="font-display text-4xl font-bold tracking-tight text-text-primary sm:text-5xl">
               {project.title}
