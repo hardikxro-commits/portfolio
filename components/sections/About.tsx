@@ -7,10 +7,6 @@ import { Code2, ArrowRight } from "lucide-react";
 export function About() {
   return (
     <section id="about" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{ background: "var(--gradient-section)" }}
-      />
       <div className="relative mx-auto max-w-7xl">
         <SectionHeading
           title="About Me"

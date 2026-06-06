@@ -44,7 +44,7 @@ export default function NowPage() {
 
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10 text-blue-400">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
                 <Code2 size={16} />
               </div>
               <h2 className="font-display text-lg font-semibold text-text-primary">
@@ -82,7 +82,7 @@ export default function NowPage() {
 
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-500/10 text-green-400">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
                 <Target size={16} />
               </div>
               <h2 className="font-display text-lg font-semibold text-text-primary">
@@ -103,7 +103,7 @@ export default function NowPage() {
 
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
                 <Bookmark size={16} />
               </div>
               <h2 className="font-display text-lg font-semibold text-text-primary">
@@ -121,7 +121,7 @@ export default function NowPage() {
 
           <section>
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10 text-amber-400">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
                 <Crown size={16} />
               </div>
               <h2 className="font-display text-lg font-semibold text-text-primary">
@@ -130,7 +130,7 @@ export default function NowPage() {
             </div>
             <div className="relative overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary p-6 text-center">
               <div className="relative z-10">
-                <p className="font-display text-xl font-bold text-amber-400">
+                <p className="font-display text-xl font-bold text-accent-primary">
                   &ldquo;{nowData.ultimateGoal}&rdquo;
                 </p>
               </div>

@@ -30,10 +30,7 @@ export function SectionHeading({
           <ChevronRight className="h-3 w-3" />
         </span>
       )}
-      <h2
-        className="font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl"
-        style={{ background: "var(--gradient-text)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
-      >
+      <h2 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl md:text-5xl">
         {title}
       </h2>
       {subtitle && (

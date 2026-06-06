@@ -31,11 +31,11 @@ const iconMap: Record<string, LucideIcon> = {
 };
 
 const typeColors: Record<string, string> = {
-  education: "border-blue-500/30 bg-blue-500/10 text-blue-400",
+  education: "border-accent-border bg-accent-subtle text-accent-primary",
   project: "border-accent-border bg-accent-subtle text-accent-primary",
-  certification: "border-amber-500/30 bg-amber-500/10 text-amber-400",
-  career: "border-green-500/30 bg-green-500/10 text-green-400",
-  goal: "border-purple-500/30 bg-purple-500/10 text-purple-400",
+  certification: "border-accent-border bg-accent-subtle text-accent-primary",
+  career: "border-accent-border bg-accent-subtle text-accent-primary",
+  goal: "border-accent-border bg-accent-subtle text-accent-primary",
 };
 
 export function Timeline() {

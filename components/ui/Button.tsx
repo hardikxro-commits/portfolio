@@ -26,7 +26,7 @@ export function Button({
     "relative inline-flex items-center justify-center gap-2 overflow-hidden font-medium transition-all duration-200 rounded-lg",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
     variant === "primary" &&
-      "bg-accent-primary text-white hover:bg-accent-hover shadow-lg shadow-accent-glow active:scale-[0.98]",
+      "bg-accent-primary text-white hover:bg-accent-hover active:scale-[0.98]",
     variant === "ghost" &&
       "text-text-secondary hover:text-text-primary hover:bg-accent-subtle",
     variant === "outline" &&

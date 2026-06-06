@@ -50,7 +50,7 @@ export function Skills() {
               className={cn(
                 "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200",
                 activeTab === cat
-                  ? "bg-accent-primary text-white shadow-lg shadow-accent-glow"
+                  ? "bg-accent-primary text-white shadow-lg"
                   : "bg-bg-tertiary text-text-secondary hover:text-text-primary hover:bg-bg-tertiary/80",
               )}
             >
@@ -108,7 +108,7 @@ function SkillBar({
             </div>
             <div className="flex items-center h-3">
               <m.div
-                className="h-2 w-2 rounded-full bg-accent-red"
+                className="h-2 w-2 rounded-full bg-red-500"
                 initial={prefersReduced ? false : { opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
@@ -131,7 +131,7 @@ function SkillBar({
           </div>
           <div className="relative h-1.5 overflow-hidden rounded-full bg-bg-tertiary/50">
             <m.div
-              className="h-full rounded-full bg-gradient-to-r from-accent-primary to-accent-cyan"
+              className="h-full rounded-full bg-accent-primary"
               initial={prefersReduced ? false : { scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}

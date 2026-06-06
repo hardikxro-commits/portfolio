@@ -68,7 +68,7 @@ function AIAssistantContent() {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-accent-primary text-white shadow-lg shadow-accent-glow transition-all duration-200 hover:bg-accent-hover hover:scale-105 active:scale-95"
+        className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-accent-primary text-white shadow-lg transition-all duration-200 hover:bg-accent-hover hover:scale-105 active:scale-95"
         aria-label="Toggle AI assistant"
       >
         {open ? <X size={20} /> : <MessageCircle size={20} />}
