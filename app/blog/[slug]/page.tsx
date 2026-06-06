@@ -48,7 +48,7 @@ export default async function BlogPostPage({
           Back to blog
         </Link>
 
-        <div className={`${isVault ? "md:grid md:grid-cols-[1fr_320px] md:gap-12" : ""}`}>
+        <div className={`${isVault ? "md:grid md:grid-cols-[1fr_420px] md:gap-16" : ""}`}>
           <div>
             <header className="mb-10">
               <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">

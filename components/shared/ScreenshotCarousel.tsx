@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Screenshot {
   src: string;
@@ -16,12 +17,15 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
   const [current, setCurrent] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef(0);
+  const [direction, setDirection] = useState(0);
 
   const prev = useCallback(() => {
+    setDirection(-1);
     setCurrent((c) => (c > 0 ? c - 1 : c));
   }, []);
 
   const next = useCallback(() => {
+    setDirection(1);
     setCurrent((c) => (c < screenshots.length - 1 ? c + 1 : c));
   }, [screenshots.length]);
 
@@ -48,6 +52,7 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
     setIsDragging(false);
     const diff = e.clientX - dragStartX.current;
     if (Math.abs(diff) > 50) {
+      setDirection(diff > 0 ? -1 : 1);
       diff > 0 ? prev() : next();
     }
   };
@@ -56,8 +61,19 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
     setIsDragging(false);
   };
 
+  const variants = {
+    enter: (d: number) => ({ x: d * 80, opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit: (d: number) => ({ x: d * -80, opacity: 0 }),
+  };
+
   return (
-    <div className="mx-auto max-w-[280px]">
+    <motion.div
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      className="mx-auto max-w-[280px]"
+    >
       <div
         className="relative rounded-[2.5rem] border-[3px] border-gray-700 bg-gray-800 shadow-2xl"
         onMouseDown={handleMouseDown}
@@ -71,12 +87,21 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
 
         <div className="m-[3px] overflow-hidden rounded-[2.2rem] bg-black">
           <div className="relative aspect-[412/915]">
-            <img
-              src={slide.src}
-              alt={slide.label}
-              className="h-full w-full object-contain"
-              draggable={false}
-            />
+            <AnimatePresence mode="wait" custom={direction}>
+              <motion.img
+                key={current}
+                src={slide.src}
+                alt={slide.label}
+                custom={direction}
+                variants={variants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="absolute inset-0 h-full w-full object-contain"
+                draggable={false}
+              />
+            </AnimatePresence>
 
             {current > 0 && (
               <button
@@ -101,14 +126,16 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
 
           <div className="flex items-center justify-center gap-1.5 px-4 pb-3 pt-2">
             {screenshots.map((_, i) => (
-              <button
+              <motion.button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`rounded-full transition-all ${
-                  i === current
-                    ? "h-1.5 w-5 bg-accent-primary"
-                    : "h-1.5 w-1.5 bg-white/30 hover:bg-white/50"
-                }`}
+                className="rounded-full"
+                animate={{
+                  width: i === current ? 20 : 6,
+                  height: 6,
+                  backgroundColor: i === current ? "#3b82f6" : "rgba(255,255,255,0.3)",
+                }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
                 aria-label={`Go to slide ${i + 1}`}
               />
             ))}
@@ -116,9 +143,15 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
         </div>
       </div>
 
-      <p className="mt-4 text-center text-sm text-text-secondary">
+      <motion.p
+        key={current}
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.1 }}
+        className="mt-4 text-center text-sm text-text-secondary"
+      >
         {slide.label}
-      </p>
-    </div>
+      </motion.p>
+    </motion.div>
   );
 }
