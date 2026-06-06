@@ -109,7 +109,7 @@ export default async function BlogPostPage({
           </div>
 
           {isVault && (
-            <div className="hidden md:block md:w-[520px] md:shrink-0">
+            <div className="hidden md:block md:w-[520px] md:shrink-0 md:sticky md:top-28 md:self-start">
               <ScreenshotCarousel
                 screenshots={[
                   { src: "/nothing-vault/01-folder-name.jpeg", label: "Creating a folder \u2014 enter a name" },
