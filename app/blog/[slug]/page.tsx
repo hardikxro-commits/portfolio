@@ -50,7 +50,7 @@ export default async function BlogPostPage({
           Back to blog
         </Link>
 
-        <div className={`${isVault ? "md:grid md:grid-cols-[1fr_520px] md:gap-24" : ""}`}>
+        <div className={`${isVault ? "md:pr-[616px]" : ""}`}>
           <div>
             <header className="mb-10">
               <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
@@ -107,26 +107,27 @@ export default async function BlogPostPage({
               </div>
             )}
           </div>
-
-          {isVault && (
-            <div className="hidden md:block">
-              <div className="md:sticky md:top-28 md:self-start md:flex md:justify-end">
-                <ScreenshotCarousel
-                  screenshots={[
-                    { src: "/nothing-vault/01-folder-name.jpeg", label: "Creating a folder \u2014 enter a name" },
-                    { src: "/nothing-vault/02-folder-pin.jpeg", label: "Setting a PIN for the folder" },
-                    { src: "/nothing-vault/03-folder-created.jpeg", label: "Option to create another folder" },
-                    { src: "/nothing-vault/04-lock-screen.jpeg", label: "Lock screen \u2014 enter your PIN" },
-                    { src: "/nothing-vault/05-vault-gallery.jpeg", label: "Vault gallery with no photos yet" },
-                    { src: "/nothing-vault/06-import-screen.jpeg", label: "Import photos or videos" },
-                    { src: "/nothing-vault/07-gallery-with-photos.jpeg", label: "Gallery with imported photos" },
-                    { src: "/nothing-vault/08-photo-viewer.jpeg", label: "Full-screen photo preview" },
-                  ]}
-                />
-              </div>
-            </div>
-          )}
         </div>
+
+        {isVault && (
+          <div
+            className="hidden md:block fixed"
+            style={{ top: '7rem', width: '520px', right: 'max(1rem, calc((100vw - 1152px) / 2))' }}
+          >
+            <ScreenshotCarousel
+              screenshots={[
+                { src: "/nothing-vault/01-folder-name.jpeg", label: "Creating a folder \u2014 enter a name" },
+                { src: "/nothing-vault/02-folder-pin.jpeg", label: "Setting a PIN for the folder" },
+                { src: "/nothing-vault/03-folder-created.jpeg", label: "Option to create another folder" },
+                { src: "/nothing-vault/04-lock-screen.jpeg", label: "Lock screen \u2014 enter your PIN" },
+                { src: "/nothing-vault/05-vault-gallery.jpeg", label: "Vault gallery with no photos yet" },
+                { src: "/nothing-vault/06-import-screen.jpeg", label: "Import photos or videos" },
+                { src: "/nothing-vault/07-gallery-with-photos.jpeg", label: "Gallery with imported photos" },
+                { src: "/nothing-vault/08-photo-viewer.jpeg", label: "Full-screen photo preview" },
+              ]}
+            />
+          </div>
+        )}
       </div>
     </article>
   );

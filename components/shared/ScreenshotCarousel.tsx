@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -14,19 +14,18 @@ interface ScreenshotCarouselProps {
 }
 
 const CARD_W = 240;
-const CONTAINER_H = 535;
-
 const POSITIONS = [
-  { left: "-12%", scale: 0.28, opacity: 0.15, z: 0 },
-  { left: "16%", scale: 0.58, opacity: 0.50, z: 1 },
-  { left: "50%", scale: 1.00, opacity: 1.00, z: 2 },
-  { left: "84%", scale: 0.58, opacity: 0.50, z: 1 },
-  { left: "112%", scale: 0.28, opacity: 0.15, z: 0 },
+  { scale: 0.28, opacity: 0.15, z: 0, marginL: -68 },
+  { scale: 0.58, opacity: 0.50, z: 1, marginL: -48 },
+  { scale: 1.00, opacity: 1.00, z: 2, marginL: 0 },
+  { scale: 0.58, opacity: 0.50, z: 1, marginL: -48 },
+  { scale: 0.28, opacity: 0.15, z: 0, marginL: -68 },
 ];
 
 export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
   const len = screenshots.length;
   const [current, setCurrent] = useState(0);
+  const [pos, setPos] = useState(POSITIONS);
 
   const prev = useCallback(() => {
     setCurrent((c) => (c - 1 + len) % len);
@@ -51,9 +50,9 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
 
   if (!len) return null;
 
-  const cards = POSITIONS.map((pos, i) => {
+  const cards = pos.map((p, i) => {
     const idx = (current + i - 2 + len) % len;
-    return { ...pos, idx, shot: screenshots[idx] };
+    return { ...p, idx, shot: screenshots[idx] };
   });
 
   return (
@@ -63,39 +62,41 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
       transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
       className="w-full"
     >
-      <div
-        className="relative w-full overflow-hidden"
-        style={{ height: CONTAINER_H }}
-      >
-        <AnimatePresence>
-          {cards.map((card) => (
-            <motion.div
-              key={card.idx}
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{
-                left: card.left,
-                scale: card.scale,
-                opacity: card.opacity,
-                zIndex: card.z,
-              }}
-              exit={{ opacity: 0, scale: 0.5 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 cursor-pointer overflow-hidden rounded-2xl"
-              style={{ width: CARD_W, aspectRatio: "412/915" }}
-              onClick={() => {
-                const idx = cards.indexOf(card);
-                if (idx !== 2) goTo(card.idx);
-              }}
-            >
-              <img
-                src={card.shot.src}
-                alt={card.shot.label}
-                className="h-full w-full object-contain"
-                draggable={false}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
+      <div className="relative w-full">
+        <div className="flex items-center justify-center">
+          <div className="flex items-center" style={{ marginLeft: 68 }}>
+            {cards.map((card, i) => (
+              <motion.div
+                key={card.idx}
+                layout
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{
+                  scale: card.scale,
+                  opacity: card.opacity,
+                  zIndex: card.z,
+                }}
+                exit={{ opacity: 0, scale: 0.5 }}
+                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                className="shrink-0 cursor-pointer overflow-hidden rounded-2xl"
+                style={{
+                  width: CARD_W,
+                  aspectRatio: "412/915",
+                  marginLeft: card.marginL,
+                }}
+                onClick={() => {
+                  if (i !== 2) goTo(card.idx);
+                }}
+              >
+                <img
+                  src={card.shot.src}
+                  alt={card.shot.label}
+                  className="h-full w-full object-contain"
+                  draggable={false}
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
 
         <button
           onClick={prev}
