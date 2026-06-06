@@ -31,15 +31,15 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
   return (
     <article className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
       <div className="max-w-5xl">
-        <Link
-          href="/#projects"
-          className="group mb-8 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"
-        >
-          <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
-          Back to projects
-        </Link>
-
         <div className={`${hasScreenshots ? "md:pr-[616px]" : ""}`}>
+          <Link
+            href="/#projects"
+            className="group mb-8 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"
+          >
+            <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
+            Back to projects
+          </Link>
+
           <div className="mb-8">
             <h1 className="font-display text-4xl font-bold tracking-tight text-text-primary sm:text-5xl">
               {project.title}
@@ -91,6 +91,42 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
               />
             </div>
           </div>
+
+          {project.challenges && project.challenges.length > 0 && (
+            <section className="mb-8">
+              <h2 className="font-display text-xl font-semibold text-text-primary mb-4">
+                Challenges
+              </h2>
+              <ul className="space-y-3">
+                {project.challenges.map((c, i) => (
+                  <li key={i} className="flex gap-3 text-base text-text-secondary">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-subtle text-[10px] font-medium text-accent-primary">
+                      {i + 1}
+                    </span>
+                    {c}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {project.learnings && project.learnings.length > 0 && (
+            <section>
+              <h2 className="font-display text-xl font-semibold text-text-primary mb-4">
+                What I Learned
+              </h2>
+              <ul className="space-y-3">
+                {project.learnings.map((l, i) => (
+                  <li key={i} className="flex gap-3 text-base text-text-secondary">
+                    <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-500/10 text-[10px] font-medium text-green-400">
+                      &#10003;
+                    </span>
+                    {l}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
         </div>
 
         {hasScreenshots && (
@@ -100,42 +136,6 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
           >
             <ScreenshotCarousel screenshots={project.screenshots!} />
           </div>
-        )}
-
-        {project.challenges && project.challenges.length > 0 && (
-          <section className="mb-8">
-            <h2 className="font-display text-xl font-semibold text-text-primary mb-4">
-              Challenges
-            </h2>
-            <ul className="space-y-3">
-              {project.challenges.map((c, i) => (
-                <li key={i} className="flex gap-3 text-base text-text-secondary">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-subtle text-[10px] font-medium text-accent-primary">
-                    {i + 1}
-                  </span>
-                  {c}
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
-
-        {project.learnings && project.learnings.length > 0 && (
-          <section>
-            <h2 className="font-display text-xl font-semibold text-text-primary mb-4">
-              What I Learned
-            </h2>
-            <ul className="space-y-3">
-              {project.learnings.map((l, i) => (
-                <li key={i} className="flex gap-3 text-base text-text-secondary">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-500/10 text-[10px] font-medium text-green-400">
-                    &#10003;
-                  </span>
-                  {l}
-                </li>
-              ))}
-            </ul>
-          </section>
         )}
       </div>
     </article>

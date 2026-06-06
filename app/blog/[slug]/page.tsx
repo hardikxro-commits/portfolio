@@ -39,18 +39,18 @@ export default async function BlogPostPage({
   return (
     <article className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
       <div className="max-w-6xl">
-        <Link
-          href="/blog"
-          className="group mb-8 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"
-        >
-          <ArrowLeft
-            size={14}
-            className="transition-transform group-hover:-translate-x-1"
-          />
-          Back to blog
-        </Link>
-
         <div className={`${isVault ? "md:pr-[616px]" : ""}`}>
+          <Link
+            href="/blog"
+            className="group mb-8 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"
+          >
+            <ArrowLeft
+              size={14}
+              className="transition-transform group-hover:-translate-x-1"
+            />
+            Back to blog
+          </Link>
+
           <div>
             <header className="mb-10">
               <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
