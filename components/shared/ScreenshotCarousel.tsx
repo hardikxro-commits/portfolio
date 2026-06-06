@@ -13,15 +13,15 @@ interface ScreenshotCarouselProps {
   screenshots: Screenshot[];
 }
 
-const CARD_W = 140;
-const CONTAINER_H = 325;
+const CARD_W = 240;
+const CONTAINER_H = 535;
 
 const POSITIONS = [
-  { left: "-5%", scale: 0.30, opacity: 0.15, z: 0 },
-  { left: "18%", scale: 0.58, opacity: 0.50, z: 1 },
+  { left: "-12%", scale: 0.28, opacity: 0.15, z: 0 },
+  { left: "16%", scale: 0.58, opacity: 0.50, z: 1 },
   { left: "50%", scale: 1.00, opacity: 1.00, z: 2 },
-  { left: "82%", scale: 0.58, opacity: 0.50, z: 1 },
-  { left: "105%", scale: 0.30, opacity: 0.15, z: 0 },
+  { left: "84%", scale: 0.58, opacity: 0.50, z: 1 },
+  { left: "112%", scale: 0.28, opacity: 0.15, z: 0 },
 ];
 
 export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
