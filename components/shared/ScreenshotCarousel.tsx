@@ -27,22 +27,18 @@ const POSITIONS = [
 export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
   const len = screenshots.length;
   const [current, setCurrent] = useState(0);
-  const [dir, setDir] = useState(0);
 
   const prev = useCallback(() => {
-    setDir(-1);
     setCurrent((c) => (c - 1 + len) % len);
   }, [len]);
 
   const next = useCallback(() => {
-    setDir(1);
     setCurrent((c) => (c + 1) % len);
   }, [len]);
 
   const goTo = useCallback((i: number) => {
-    setDir(i > current ? 1 : -1);
     setCurrent(i);
-  }, [current]);
+  }, []);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -71,11 +67,10 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
         className="relative w-full overflow-hidden"
         style={{ height: CONTAINER_H }}
       >
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence>
           {cards.map((card) => (
             <motion.div
               key={card.idx}
-              layout
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{
                 left: card.left,
