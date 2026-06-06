@@ -10,7 +10,7 @@ export function Footer() {
     <footer className="border-t border-border-subtle bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between">
-          <div className="text-center md:text-left">
+          <div>
             <a
               href="/"
               className="font-display text-lg font-bold tracking-tight text-text-primary"
@@ -55,7 +55,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 border-t border-border-subtle pt-6 text-center text-xs text-text-muted">
+        <div className="mt-8 border-t border-border-subtle pt-6 text-xs text-text-muted">
           &copy; {year} {site.name}.
         </div>
       </div>

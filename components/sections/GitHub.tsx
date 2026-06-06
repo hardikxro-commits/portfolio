@@ -23,7 +23,7 @@ export function GitHub() {
   if (error) {
     return (
       <section className="px-4 py-24 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-7xl text-center">
+        <div className="mx-auto max-w-7xl">
           <p className="text-text-muted">GitHub data temporarily unavailable.</p>
         </div>
       </section>
@@ -169,7 +169,7 @@ function StatCard({
   return (
     <div
       ref={ref}
-      className="rounded-xl border border-border-default bg-bg-secondary p-4 text-center"
+      className="rounded-xl border border-border-default bg-bg-secondary p-4"
     >
       <div className="font-display text-2xl font-bold text-text-primary">
         {count.toLocaleString()}

@@ -11,7 +11,6 @@ export function About() {
         <SectionHeading
           title="About Me"
           subtitle="Just a student who started coding and hasn't stopped"
-          align="left"
           badge="Story"
         />
 

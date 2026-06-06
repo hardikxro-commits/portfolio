@@ -17,7 +17,6 @@ export default function NowPage() {
           title="Now"
           subtitle="What I'm focused on right now"
           badge="Current"
-          align="left"
         />
 
         <div className="space-y-10">
@@ -128,7 +127,7 @@ export default function NowPage() {
                 Ultimate Goal
               </h2>
             </div>
-            <div className="relative overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary p-6 text-center">
+            <div className="relative overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary p-6">
               <div className="relative z-10">
                 <p className="font-display text-xl font-bold text-accent-primary">
                   &ldquo;{nowData.ultimateGoal}&rdquo;

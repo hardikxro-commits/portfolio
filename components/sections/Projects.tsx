@@ -148,7 +148,7 @@ export function Projects() {
         )}
 
         <ScrollReveal delay={0.3}>
-          <div className="mt-10 text-center">
+           <div className="mt-10">
             <a
               href="https://github.com/hardikxro-commits"
               target="_blank"

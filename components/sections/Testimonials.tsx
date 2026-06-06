@@ -10,7 +10,7 @@ export function Testimonials() {
           badge="Social Proof"
         />
 
-        <div className="rounded-xl border border-dashed border-border-subtle p-12 text-center">
+        <div className="rounded-xl border border-dashed border-border-subtle p-12">
           <p className="text-sm text-text-muted">
             No testimonials yet. If we&apos;ve worked together, I&apos;d love to hear from you.
           </p>

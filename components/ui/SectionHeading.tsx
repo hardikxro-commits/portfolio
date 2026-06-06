@@ -5,7 +5,6 @@ interface SectionHeadingProps {
   title: string;
   subtitle?: string;
   className?: string;
-  align?: "left" | "center";
   badge?: string;
 }
 
@@ -13,17 +12,10 @@ export function SectionHeading({
   title,
   subtitle,
   className,
-  align = "center",
   badge,
 }: SectionHeadingProps) {
   return (
-    <div
-      className={cn(
-        "mb-12 md:mb-16",
-        align === "center" && "text-center",
-        className,
-      )}
-    >
+    <div className={cn("mb-12 md:mb-16", className)}>
       {badge && (
         <span className="inline-flex items-center gap-1 rounded-full border border-accent-border bg-accent-subtle px-3 py-1 text-xs font-medium text-accent-primary mb-4">
           {badge}
@@ -34,7 +26,7 @@ export function SectionHeading({
         {title}
       </h2>
       {subtitle && (
-        <p className="mt-4 text-lg text-text-secondary max-w-2xl mx-auto">
+        <p className="mt-4 text-lg text-text-secondary max-w-2xl">
           {subtitle}
         </p>
       )}
