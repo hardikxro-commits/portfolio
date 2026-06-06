@@ -12,7 +12,7 @@ export function Roadmap() {
       <div className="mx-auto max-w-4xl">
         <SectionHeading
           title="Learning Roadmap"
-          subtitle="My structured path to becoming a full-stack & AI engineer"
+          subtitle="What I&apos;m planning to learn next"
           badge="Journey"
         />
 

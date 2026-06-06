@@ -10,7 +10,7 @@ export function About() {
       <div className="relative mx-auto max-w-7xl">
         <SectionHeading
           title="About Me"
-          subtitle="An aspiring developer driven by curiosity"
+          subtitle="Just a student who started coding and hasn't stopped"
           align="left"
           badge="Story"
         />
@@ -19,41 +19,41 @@ export function About() {
           <div className="lg:col-span-3 space-y-6">
             <ScrollReveal>
               <p className="text-lg leading-relaxed text-text-secondary">
-                Hey! I&apos;m <span className="font-medium text-text-primary">Hardik Nishad</span>,
-                an aspiring developer from Mumbai, India. I&apos;m currently an SYJC student
-                studying PCMB (Physics, Chemistry, Mathematics, Biology).
+                Hey, I&apos;m <span className="font-medium text-text-primary">Hardik Nishad</span>
+                — a student from Mumbai, India. I&apos;m in SYJC right now, studying Physics,
+                Chemistry, Math, and Biology.
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.1}>
               <p className="text-base leading-relaxed text-text-secondary">
-                I started my programming journey last year in 2025 — not because I had a
-                grand vision, but because I felt left behind watching my generation build
-                incredible things while I hadn&apos;t even started.
+                I started coding in 2025. Not because I had some grand plan — I just
+                looked around and saw people my age building cool stuff while I hadn&apos;t
+                even started yet. That was enough.
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.2}>
               <p className="text-base leading-relaxed text-text-secondary">
-                Today, I&apos;m not tied to any particular project. I&apos;m learning to bring my
-                imagination to life — those 3 AM thoughts, the random ideas, the apps and
-                websites that pop into my head. I want to build all of them.
+                These days I&apos;m not tied to any one thing. I have ideas at 3 AM, random
+                app concepts, websites I want to try building. I&apos;m learning how to turn
+                those into real things.
               </p>
             </ScrollReveal>
 
             <ScrollReveal delay={0.3}>
-              <div className="relative border-l-2 border-accent-primary/40 pl-5 italic text-text-secondary">
+              <div className="relative border-l-2 border-accent-primary/40 pl-5 text-text-secondary">
                 <p className="text-base leading-relaxed">
-                  No grand motive. No revolution. No five-year plan. I just want to make
-                  things — driven by nothing but sheer curiosity.
+                  No big mission. No revolution. No five-year plan. I just like making
+                  things. That&apos;s really it.
                 </p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal delay={0.4}>
               <p className="text-base leading-relaxed text-text-secondary">
-                Down the line, I&apos;m looking forward to studying Computer Science and
-                seeing where this journey takes me.
+                Down the line I want to study Computer Science and see where this whole
+                thing takes me.
               </p>
             </ScrollReveal>
 
@@ -62,7 +62,7 @@ export function About() {
                 href="/now"
                 className="group inline-flex items-center gap-2 text-sm font-medium text-accent-primary transition-colors hover:text-accent-hover"
               >
-                See what I&apos;m working on now
+                What I&apos;m working on now
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
               </a>
             </ScrollReveal>
@@ -78,16 +78,13 @@ export function About() {
                 </div>
                 <pre className="overflow-x-auto text-xs leading-relaxed text-text-secondary">
                   <code>{`const hardik = {
-  role: "Aspiring Developer",
   location: "Mumbai, India",
-  education: "SYJC — PCMB",
-  languages: ["HTML", "JavaScript", "Python"],
+  studying: "SYJC — PCMB",
+  learning: ["HTML", "JavaScript", "Python"],
   tools: ["VS Code", "Framer", "Git"],
-  started: "2025",
-  motive: "Sheer curiosity",
-  dream: "Build every
-    3 AM thought",
-  goal: "Study CSE"
+  startedCoding: "2025",
+  why: "Felt left behind, wanted to catch up",
+  goal: "Study CS, build random ideas"
 };`}</code>
                 </pre>
               </div>

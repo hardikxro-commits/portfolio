@@ -17,7 +17,7 @@ export function Projects() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           title="Projects"
-          subtitle="Things I&apos;ve built — from idea to deployment"
+          subtitle="Stuff I&apos;ve built, from idea to shipping"
           badge="Work"
         />
 

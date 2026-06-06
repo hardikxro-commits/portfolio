@@ -1,13 +1,13 @@
 export const site = {
   name: "Hardik Nishad",
-  title: "Student Developer — Full-Stack & AI Engineer",
-  description: "Full-stack developer & AI engineer. Building smart, scalable products.",
+  title: "Student & Developer",
+  description: "I write code, build things, and try to get a little better every day.",
   url: "https://hardiknishad.dev",
   email: "hardikxro@gmail.com",
   github: "https://github.com/hardikxro-commits",
   location: "India",
-  tagline: "Building the future, one commit at a time.",
-  taglineRoles: ["Full-Stack Developer", "AI Enthusiast", "Problem Solver"],
+  tagline: "Just building things and learning along the way.",
+  taglineRoles: ["Developer", "Student", "Lifelong Learner"],
   available: true,
   navLinks: [
     { href: "/", label: "Home" },

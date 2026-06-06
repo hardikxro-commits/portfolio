@@ -13,7 +13,7 @@ export function Hero() {
     >
       <div className="relative z-10 max-w-3xl">
         <p className="text-sm font-medium tracking-[0.2em] text-text-muted uppercase">
-          Student
+          Student & Developer
         </p>
 
         <h1 className="mt-4 font-display text-5xl font-bold leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">

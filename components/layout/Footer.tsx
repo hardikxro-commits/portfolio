@@ -18,7 +18,7 @@ export function Footer() {
               HN<span className="text-accent-primary">.</span>
             </a>
             <p className="mt-1 text-sm text-text-muted italic">
-              &ldquo;Building the future, one commit at a time.&rdquo;
+              &ldquo;{site.tagline}&rdquo;
             </p>
           </div>
 
@@ -56,7 +56,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 border-t border-border-subtle pt-6 text-center text-xs text-text-muted">
-          &copy; {year} {site.name}. Built with Next.js & Framer Motion.
+          &copy; {year} {site.name}.
         </div>
       </div>
     </footer>

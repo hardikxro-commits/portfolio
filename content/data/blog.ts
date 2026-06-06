@@ -11,9 +11,9 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "building-nothing-vault",
-    title: "Building Nothing Vault: A Secure Photo Vault for Android",
+    title: "Building Nothing Vault: A Photo Vault for Android",
     description:
-      "How I built an Android photo vault with AES-256 encryption, biometric auth, PIN-protected folders, and a decoy screen — all following Nothing's design language.",
+      "How I built an Android app that hides photos behind PIN-protected folders, uses encryption, and fakes being a broken app if you enter the wrong PIN.",
     date: "June 5, 2026",
     tags: ["Kotlin", "Jetpack Compose", "Android", "Security"],
     readingTime: "6 min read",
@@ -107,7 +107,7 @@ Nothing Vault taught me that the best security is invisible. If no one knows the
     slug: "building-jobdesdecode",
     title: "Building JobDesDecode: My First Real Project",
     description:
-      "How I built an AI-powered job description decoder from scratch — the idea, the stack, the struggles, and what I learned along the way.",
+      "How I built a tool that cuts through corporate jargon and tells you what a job description actually means — and the mess I made along the way.",
     date: "June 1, 2026",
     tags: ["JavaScript", "React", "AI", "Cloudflare Workers"],
     readingTime: "5 min read",

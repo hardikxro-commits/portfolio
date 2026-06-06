@@ -38,7 +38,7 @@ export function Skills() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           title="Skills & Tools"
-          subtitle="Technologies I work with, organized by domain"
+          subtitle="Languages, tools, and frameworks I use"
           badge="Tech Stack"
         />
 

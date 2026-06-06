@@ -10,7 +10,7 @@ export function Blog() {
       <div className="mx-auto max-w-4xl">
         <SectionHeading
           title="Blog"
-          subtitle="Thoughts, tutorials, and learnings from my journey"
+          subtitle="Random thoughts and things I&apos;ve learned while building stuff"
           badge="Writing"
         />
 

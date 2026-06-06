@@ -44,7 +44,7 @@ export function Timeline() {
       <div className="mx-auto max-w-4xl">
         <SectionHeading
           title="Timeline"
-          subtitle="My journey so far — and where I&apos;m heading"
+          subtitle="Stuff I&apos;ve done so far"
           badge="History"
         />
 

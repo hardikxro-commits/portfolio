@@ -35,7 +35,7 @@ export function GitHub() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           title="GitHub Dashboard"
-          subtitle="Open source activity and coding stats"
+          subtitle="My GitHub activity and coding stats"
           badge="Code"
         />
 

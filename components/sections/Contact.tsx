@@ -49,7 +49,7 @@ export function Contact() {
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           title="Get in Touch"
-          subtitle="Open to internships, freelance, open-source collaboration"
+          subtitle="I&apos;m looking for internships and cool projects to work on"
           badge="Contact"
         />
 
@@ -158,9 +158,8 @@ export function Contact() {
                   <div className="relative z-10">
                   <h3 className="text-sm font-medium text-text-primary">Let&apos;s collaborate</h3>
                   <p className="mt-1 text-xs leading-relaxed text-text-secondary">
-                    Whether you have a project idea, an internship opportunity, or just want to 
-                    connect — I&apos;d love to hear from you. I&apos;m always open to new challenges 
-                    and collaborations.
+                    Got a project idea, an internship opening, or just want to say hi? 
+                    I&apos;d love to hear from you.
                   </p>
                   </div>
                   </div>

@@ -6,7 +6,7 @@ export function Testimonials() {
       <div className="mx-auto max-w-4xl">
         <SectionHeading
           title="Testimonials"
-          subtitle="What people say about working with me"
+          subtitle="What people have said about working with me"
           badge="Social Proof"
         />
 

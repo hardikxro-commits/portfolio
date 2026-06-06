@@ -1,7 +1,7 @@
 export const nowData = {
   currentlyLearning: [
-    "HTML — semantic markup, accessibility, document structure",
-    "JavaScript — variables, functions, DOM manipulation, ES6+",
+    "HTML — learning to write clean, accessible markup",
+    "JavaScript — getting comfortable with DOM stuff and ES6+ features",
     "Python — syntax, data structures, basic scripting",
   ],
   currentProjects: [
