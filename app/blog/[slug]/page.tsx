@@ -61,53 +61,58 @@ export default async function BlogPostPage({
           Back to blog
         </Link>
 
-        <header className="mb-10">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-            {post.title}
-          </h1>
+        <div className={`${isVault ? "md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:items-start" : ""}`}>
+          <div className={`${isVault ? "md:min-w-0 md:overflow-hidden" : ""}`}>
+            <header className="mb-10">
+              <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+                {post.title}
+              </h1>
 
-          <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-text-muted">
-            <span className="inline-flex items-center gap-1.5">
-              <CalendarDays size={14} />
-              {post.date}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock size={14} />
-              {post.readingTime}
-            </span>
+              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-text-muted">
+                <span className="inline-flex items-center gap-1.5">
+                  <CalendarDays size={14} />
+                  {post.date}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock size={14} />
+                  {post.readingTime}
+                </span>
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="inline-flex items-center gap-1 rounded-full bg-accent-subtle px-3 py-1 text-xs font-medium text-accent-primary"
+                  >
+                    <Tag size={10} />
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </header>
+
+            <div className="prose prose-invert max-w-none">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {post.content}
+              </ReactMarkdown>
+            </div>
+
+            {isVault && (
+              <div className="mt-10 md:hidden">
+                <h2 className="font-display text-xl font-semibold text-text-primary mb-6">
+                  Screenshots
+                </h2>
+                <ScreenshotCarousel screenshots={vaultScreenshots} />
+              </div>
+            )}
           </div>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1 rounded-full bg-accent-subtle px-3 py-1 text-xs font-medium text-accent-primary"
-              >
-                <Tag size={10} />
-                {tag}
-              </span>
-            ))}
-          </div>
-        </header>
-
-        {isVault && (
-          <div className="mb-10 md:hidden">
-            <h2 className="font-display text-xl font-semibold text-text-primary mb-6">
-              Screenshots
-            </h2>
-            <ScreenshotCarousel screenshots={vaultScreenshots} />
-          </div>
-        )}
-
-        <div className="prose prose-invert max-w-none md:flow-root">
           {isVault && (
-            <div className="hidden md:block md:float-right md:w-[520px] md:ml-8 md:mb-6 not-prose">
+            <div className="hidden md:block md:sticky md:top-24 md:self-start md:min-w-0 md:overflow-hidden md:max-w-full">
               <ScreenshotCarousel screenshots={vaultScreenshots} />
             </div>
           )}
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {post.content}
-          </ReactMarkdown>
         </div>
       </div>
     </article>

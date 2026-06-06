@@ -90,8 +90,9 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
                 <img
                   src={card.shot.src}
                   alt={card.shot.label}
-                  className="h-full w-full object-contain"
+                  className="h-full w-full max-w-full object-contain"
                   draggable={false}
+                  style={{ height: 'auto' }}
                 />
               </motion.div>
             ))}
