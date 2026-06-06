@@ -72,75 +72,69 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-      className="mx-auto max-w-[280px]"
+      className="mx-auto max-w-[340px]"
     >
       <div
-        className="relative rounded-[2.5rem] border-[3px] border-gray-700 bg-gray-800 shadow-2xl"
+        className="relative overflow-hidden rounded-3xl shadow-2xl"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
         style={{ userSelect: "none" }}
       >
-        <div className="absolute left-1/2 top-0 z-10 h-5 w-28 -translate-x-1/2 rounded-b-2xl bg-gray-800">
-          <div className="mx-auto mt-1.5 h-1 w-10 rounded-full bg-gray-600" />
+        <div className="relative aspect-[412/915]">
+          <AnimatePresence mode="wait" custom={direction}>
+            <motion.img
+              key={current}
+              src={slide.src}
+              alt={slide.label}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="absolute inset-0 h-full w-full object-contain"
+              draggable={false}
+            />
+          </AnimatePresence>
+
+          {current > 0 && (
+            <button
+              onClick={prev}
+              className="absolute left-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
+              aria-label="Previous"
+            >
+              <ChevronLeft size={20} />
+            </button>
+          )}
+
+          {current < screenshots.length - 1 && (
+            <button
+              onClick={next}
+              className="absolute right-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
+              aria-label="Next"
+            >
+              <ChevronRight size={20} />
+            </button>
+          )}
         </div>
+      </div>
 
-        <div className="m-[3px] overflow-hidden rounded-[2.2rem] bg-black">
-          <div className="relative aspect-[412/915]">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.img
-                key={current}
-                src={slide.src}
-                alt={slide.label}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                className="absolute inset-0 h-full w-full object-contain"
-                draggable={false}
-              />
-            </AnimatePresence>
-
-            {current > 0 && (
-              <button
-                onClick={prev}
-                className="absolute left-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
-                aria-label="Previous"
-              >
-                <ChevronLeft size={20} />
-              </button>
-            )}
-
-            {current < screenshots.length - 1 && (
-              <button
-                onClick={next}
-                className="absolute right-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
-                aria-label="Next"
-              >
-                <ChevronRight size={20} />
-              </button>
-            )}
-          </div>
-
-          <div className="flex items-center justify-center gap-1.5 px-4 pb-3 pt-2">
-            {screenshots.map((_, i) => (
-              <motion.button
-                key={i}
-                onClick={() => setCurrent(i)}
-                className="rounded-full"
-                animate={{
-                  width: i === current ? 20 : 6,
-                  height: 6,
-                  backgroundColor: i === current ? "#3b82f6" : "rgba(255,255,255,0.3)",
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-                aria-label={`Go to slide ${i + 1}`}
-              />
-            ))}
-          </div>
-        </div>
+      <div className="mt-4 flex items-center justify-center gap-1.5">
+        {screenshots.map((_, i) => (
+          <motion.button
+            key={i}
+            onClick={() => setCurrent(i)}
+            className="rounded-full"
+            animate={{
+              width: i === current ? 20 : 6,
+              height: 6,
+              backgroundColor: i === current ? "#3b82f6" : "rgba(156,163,175,0.4)",
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            aria-label={`Go to slide ${i + 1}`}
+          />
+        ))}
       </div>
 
       <motion.p
@@ -148,7 +142,7 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
         initial={{ opacity: 0, y: 5 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3, delay: 0.1 }}
-        className="mt-4 text-center text-sm text-text-secondary"
+        className="mt-3 text-center text-sm text-text-secondary"
       >
         {slide.label}
       </motion.p>
