@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -13,34 +13,36 @@ interface ScreenshotCarouselProps {
   screenshots: Screenshot[];
 }
 
-const CARD_W = 130;
-const ASPECT = 412 / 915;
-const CARD_H = CARD_W / ASPECT;
+const CARD_W = 140;
+const CONTAINER_H = 325;
 
 const POSITIONS = [
-  { left: "-8%", scale: 0.35, opacity: 0.15, z: 0 },
-  { left: "20%", scale: 0.64, opacity: 0.50, z: 1 },
+  { left: "-5%", scale: 0.30, opacity: 0.15, z: 0 },
+  { left: "18%", scale: 0.58, opacity: 0.50, z: 1 },
   { left: "50%", scale: 1.00, opacity: 1.00, z: 2 },
-  { left: "80%", scale: 0.64, opacity: 0.50, z: 1 },
-  { left: "108%", scale: 0.35, opacity: 0.15, z: 0 },
+  { left: "82%", scale: 0.58, opacity: 0.50, z: 1 },
+  { left: "105%", scale: 0.30, opacity: 0.15, z: 0 },
 ];
 
 export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
   const len = screenshots.length;
   const [current, setCurrent] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [dir, setDir] = useState(0);
 
   const prev = useCallback(() => {
+    setDir(-1);
     setCurrent((c) => (c - 1 + len) % len);
   }, [len]);
 
   const next = useCallback(() => {
+    setDir(1);
     setCurrent((c) => (c + 1) % len);
   }, [len]);
 
   const goTo = useCallback((i: number) => {
+    setDir(i > current ? 1 : -1);
     setCurrent(i);
-  }, []);
+  }, [current]);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -55,19 +57,8 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
 
   const cards = POSITIONS.map((pos, i) => {
     const idx = (current + i - 2 + len) % len;
-    const shot = screenshots[idx];
-    return { ...pos, idx, shot };
+    return { ...pos, idx, shot: screenshots[idx] };
   });
-
-  const handleSwipe = useCallback((e: React.MouseEvent, end: boolean) => {
-    if (!end) return;
-    const diff = e.clientX - dragStart.current;
-    if (Math.abs(diff) > 40) {
-      diff > 0 ? prev() : next();
-    }
-  }, [prev, next]);
-
-  const dragStart = useRef(0);
 
   return (
     <motion.div
@@ -77,12 +68,8 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
       className="w-full"
     >
       <div
-        ref={containerRef}
-        className="relative w-full overflow-hidden cursor-grab active:cursor-grabbing"
-        style={{ height: CARD_H + 16 }}
-        onMouseDown={(e) => { dragStart.current = e.clientX; }}
-        onMouseUp={(e) => handleSwipe(e, true)}
-        onMouseLeave={(e) => handleSwipe(e, true)}
+        className="relative w-full overflow-hidden"
+        style={{ height: CONTAINER_H }}
       >
         <AnimatePresence mode="popLayout">
           {cards.map((card) => (
@@ -101,8 +88,8 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
               className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 cursor-pointer overflow-hidden rounded-2xl"
               style={{ width: CARD_W, aspectRatio: "412/915" }}
               onClick={() => {
-                const clickIdx = cards.indexOf(card);
-                if (clickIdx !== 2) goTo(card.idx);
+                const idx = cards.indexOf(card);
+                if (idx !== 2) goTo(card.idx);
               }}
             >
               <img
@@ -117,18 +104,18 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
 
         <button
           onClick={prev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white transition-all hover:bg-black/60"
+          className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white transition-all hover:bg-black/60 active:scale-95"
           aria-label="Previous"
         >
-          <ChevronLeft size={18} />
+          <ChevronLeft size={20} />
         </button>
 
         <button
           onClick={next}
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white transition-all hover:bg-black/60"
+          className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white transition-all hover:bg-black/60 active:scale-95"
           aria-label="Next"
         >
-          <ChevronRight size={18} />
+          <ChevronRight size={20} />
         </button>
       </div>
     </motion.div>
