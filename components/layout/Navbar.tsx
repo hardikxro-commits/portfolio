@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { site } from "@/content/data/site";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
 
 const menuVariants = {
   hidden: { opacity: 0, y: -16, scale: 0.96 },
@@ -84,14 +83,11 @@ export function Navbar() {
           )}
         >
           <nav className="relative z-50 flex items-center justify-between px-4 py-2.5 sm:px-5">
-            <a href="/" className="flex items-center gap-2">
-              <Image
-                src="/images/logo.png"
-                alt={site.name}
-                width={36}
-                height={36}
-                className="rounded-lg"
-              />
+            <a
+              href="/"
+              className="font-display text-lg font-bold tracking-tight text-text-primary"
+            >
+              HN<span className="text-accent-primary">.</span>
             </a>
 
             <div className="hidden items-center md:flex">

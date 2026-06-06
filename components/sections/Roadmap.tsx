@@ -41,7 +41,7 @@ export function Roadmap() {
                           ? "border-green-500/20 bg-green-500/5"
                           : item.status === "current"
                             ? "border-accent-border bg-accent-subtle"
-                            : "border-white/[0.06] liquid-glass",
+                            : "border-white/[0.06] bg-bg-secondary",
                       )}
                     >
                       <span

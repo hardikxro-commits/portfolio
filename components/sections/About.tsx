@@ -75,8 +75,6 @@ export function About() {
           <div className="lg:col-span-2">
             <ScrollReveal delay={0.3}>
               <div className="sticky top-24 relative overflow-hidden rounded-xl border border-white/[0.06] p-5">
-                <div className="pointer-events-none absolute inset-0 rounded-xl liquid-glass-card" />
-                <div className="pointer-events-none absolute inset-0 rounded-xl liquid-glass-overlay" />
                 <div className="relative z-10">
                 <div className="mb-3 flex items-center gap-2 text-xs text-text-muted">
                   <Code2 size={14} />

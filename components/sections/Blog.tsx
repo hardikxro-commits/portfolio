@@ -19,10 +19,8 @@ export function Blog() {
             <ScrollReveal key={post.slug} delay={i * 0.1}>
               <a
                 href={`/blog/${post.slug}`}
-                className="group relative block overflow-hidden rounded-xl border border-white/[0.06] p-4 sm:p-6 transition-all duration-300 has-hover:hover:border-white/[0.12] has-hover:hover:-translate-y-0.5"
+                className="group relative block overflow-hidden rounded-xl border border-white/[0.06] bg-bg-secondary p-4 sm:p-6 transition-all duration-300 has-hover:hover:border-white/[0.12] has-hover:hover:-translate-y-0.5"
               >
-                <div className="pointer-events-none absolute inset-0 rounded-xl liquid-glass-card" />
-                <div className="pointer-events-none absolute inset-0 rounded-xl liquid-glass-overlay" />
                 <div className="relative z-10">
                   <div className="flex flex-wrap items-center gap-3 text-xs text-text-muted">
                     <span className="inline-flex items-center gap-1">

@@ -95,9 +95,7 @@ function SkillBar({
   if (isZero) {
     return (
       <ScrollReveal delay={index * 0.05}>
-        <div className="group relative overflow-hidden rounded-lg border border-white/[0.06] px-5 py-3.5 transition-colors hover:border-white/[0.12]">
-          <div className="pointer-events-none absolute inset-0 rounded-lg liquid-glass" />
-          <div className="pointer-events-none absolute inset-0 rounded-lg liquid-glass-overlay" />
+        <div className="group relative overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary px-5 py-3.5 transition-colors hover:border-white/[0.12]">
           <div className="relative z-10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -125,9 +123,7 @@ function SkillBar({
 
   return (
     <ScrollReveal delay={index * 0.05}>
-      <div className="group relative overflow-hidden rounded-lg border border-white/[0.06] px-5 py-3.5 transition-colors hover:border-white/[0.12]">
-        <div className="pointer-events-none absolute inset-0 rounded-lg liquid-glass" />
-        <div className="pointer-events-none absolute inset-0 rounded-lg liquid-glass-overlay" />
+      <div className="group relative overflow-hidden rounded-lg border border-white/[0.06] bg-bg-secondary px-5 py-3.5 transition-colors hover:border-white/[0.12]">
         <div className="relative z-10">
           <div className="flex items-center justify-between">
             <span className="text-sm font-medium text-text-primary">{skill.name}</span>
