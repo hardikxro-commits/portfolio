@@ -57,60 +57,66 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
   };
 
   return (
-    <div className="mx-auto max-w-sm">
+    <div className="mx-auto max-w-[280px]">
       <div
-        className="relative overflow-hidden rounded-xl border border-border-subtle bg-bg-secondary"
+        className="relative rounded-[2.5rem] border-[3px] border-gray-700 bg-gray-800 shadow-2xl"
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
         style={{ userSelect: "none" }}
       >
-        <div className="aspect-[412/915] relative">
-          <img
-            src={slide.src}
-            alt={slide.label}
-            className="h-full w-full object-contain"
-            draggable={false}
-          />
+        <div className="absolute left-1/2 top-0 z-10 h-5 w-28 -translate-x-1/2 rounded-b-2xl bg-gray-800">
+          <div className="mx-auto mt-1.5 h-1 w-10 rounded-full bg-gray-600" />
         </div>
 
-        {current > 0 && (
-          <button
-            onClick={prev}
-            className="absolute left-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white transition-colors hover:bg-black/70"
-            aria-label="Previous"
-          >
-            <ChevronLeft size={18} />
-          </button>
-        )}
-
-        {current < screenshots.length - 1 && (
-          <button
-            onClick={next}
-            className="absolute right-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white transition-colors hover:bg-black/70"
-            aria-label="Next"
-          >
-            <ChevronRight size={18} />
-          </button>
-        )}
-
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-          {screenshots.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrent(i)}
-              className={`h-1.5 rounded-full transition-all ${
-                i === current
-                  ? "w-5 bg-accent-primary"
-                  : "w-1.5 bg-white/40 hover:bg-white/60"
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
+        <div className="m-[3px] overflow-hidden rounded-[2.2rem] bg-black">
+          <div className="relative aspect-[412/915]">
+            <img
+              src={slide.src}
+              alt={slide.label}
+              className="h-full w-full object-contain"
+              draggable={false}
             />
-          ))}
+
+            {current > 0 && (
+              <button
+                onClick={prev}
+                className="absolute left-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
+                aria-label="Previous"
+              >
+                <ChevronLeft size={20} />
+              </button>
+            )}
+
+            {current < screenshots.length - 1 && (
+              <button
+                onClick={next}
+                className="absolute right-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-black/60 text-white transition-all hover:bg-black/80 hover:scale-110"
+                aria-label="Next"
+              >
+                <ChevronRight size={20} />
+              </button>
+            )}
+          </div>
+
+          <div className="flex items-center justify-center gap-1.5 px-4 pb-3 pt-2">
+            {screenshots.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`rounded-full transition-all ${
+                  i === current
+                    ? "h-1.5 w-5 bg-accent-primary"
+                    : "h-1.5 w-1.5 bg-white/30 hover:bg-white/50"
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
-      <p className="mt-3 text-center text-sm text-text-secondary">
+      <p className="mt-4 text-center text-sm text-text-secondary">
         {slide.label}
       </p>
     </div>
