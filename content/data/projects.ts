@@ -1,3 +1,8 @@
+export interface Screenshot {
+  src: string;
+  label: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -9,6 +14,7 @@ export interface Project {
   downloadUrl?: string;
   featured: boolean;
   image: string;
+  screenshots?: Screenshot[];
   challenges?: string[];
   learnings?: string[];
   date: string;
@@ -46,6 +52,16 @@ export const featuredProjects: Project[] = [
     downloadUrl: "https://github.com/hardikxro-commits/nothing-gallery/releases/download/latest/Nothing-Vault.apk",
     featured: true,
     image: "/images/projects/nothing-vault-thumb.png",
+    screenshots: [
+      { src: "/nothing-vault/01-folder-name.jpeg", label: "Creating a folder — enter a name" },
+      { src: "/nothing-vault/02-folder-pin.jpeg", label: "Setting a PIN for the folder" },
+      { src: "/nothing-vault/03-folder-created.jpeg", label: "Option to create another folder" },
+      { src: "/nothing-vault/04-lock-screen.jpeg", label: "Lock screen — enter your PIN" },
+      { src: "/nothing-vault/05-vault-gallery.jpeg", label: "Vault gallery with no photos yet" },
+      { src: "/nothing-vault/06-import-screen.jpeg", label: "Import photos or videos" },
+      { src: "/nothing-vault/07-gallery-with-photos.jpeg", label: "Gallery with imported photos" },
+      { src: "/nothing-vault/08-photo-viewer.jpeg", label: "Full-screen photo preview" },
+    ],
     challenges: [
       "Getting encryption to actually work — Android's KeyStore is picky about how you set up your crypto keys",
       "Building a lock screen that either unlocks a folder or shows a decoy, depending on which PIN you type",

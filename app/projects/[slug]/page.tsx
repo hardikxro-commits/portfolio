@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
 import { featuredProjects } from "@/content/data/projects";
+import { ScreenshotCarousel } from "@/components/shared/ScreenshotCarousel";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -124,42 +125,12 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
           </section>
         )}
 
-        {slug === "nothing-vault" && (
+        {project.screenshots && project.screenshots.length > 0 && (
           <section className="mt-12">
             <h2 className="font-display text-xl font-semibold text-text-primary mb-6">
               Screenshots
             </h2>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {[
-                { src: "/nothing-vault/lock-screen.svg", label: "Lock Screen" },
-                { src: "/nothing-vault/decoy-screen.svg", label: "Decoy Screen" },
-                { src: "/nothing-vault/vault-gallery.svg", label: "Vault Gallery" },
-                { src: "/nothing-vault/import-screen.svg", label: "Import Photos" },
-                { src: "/nothing-vault/photo-viewer.svg", label: "Photo Viewer" },
-                { src: "/nothing-vault/setup-screen.svg", label: "Setup Wizard" },
-              ].map((screenshot) => (
-                <a
-                  key={screenshot.src}
-                  href={screenshot.src}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative overflow-hidden rounded-xl border border-border-subtle bg-bg-secondary transition-colors hover:border-border-default"
-                >
-                  <div className="aspect-[412/915] max-h-[300px] overflow-hidden">
-                    <img
-                      src={screenshot.src}
-                      alt={screenshot.label}
-                      className="h-full w-full object-contain object-top"
-                    />
-                  </div>
-                  <div className="border-t border-border-subtle px-3 py-2">
-                    <p className="text-xs font-medium text-text-secondary group-hover:text-text-primary">
-                      {screenshot.label}
-                    </p>
-                  </div>
-                </a>
-              ))}
-            </div>
+            <ScreenshotCarousel screenshots={project.screenshots} />
           </section>
         )}
       </div>

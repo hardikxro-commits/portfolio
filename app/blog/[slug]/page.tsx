@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays, Clock, Tag } from "lucide-react";
 import { blogPosts } from "@/content/data/blog";
+import { ScreenshotCarousel } from "@/components/shared/ScreenshotCarousel";
 import type { Metadata } from "next";
 
 export function generateStaticParams() {
@@ -80,6 +81,26 @@ export default async function BlogPostPage({
         >
           {post.content}
         </div>
+
+        {slug === "building-nothing-vault" && (
+          <section className="mt-12">
+            <h2 className="font-display text-xl font-semibold text-text-primary mb-6">
+              Screenshots
+            </h2>
+            <ScreenshotCarousel
+              screenshots={[
+                { src: "/nothing-vault/01-folder-name.jpeg", label: "Creating a folder — enter a name" },
+                { src: "/nothing-vault/02-folder-pin.jpeg", label: "Setting a PIN for the folder" },
+                { src: "/nothing-vault/03-folder-created.jpeg", label: "Option to create another folder" },
+                { src: "/nothing-vault/04-lock-screen.jpeg", label: "Lock screen — enter your PIN" },
+                { src: "/nothing-vault/05-vault-gallery.jpeg", label: "Vault gallery with no photos yet" },
+                { src: "/nothing-vault/06-import-screen.jpeg", label: "Import photos or videos" },
+                { src: "/nothing-vault/07-gallery-with-photos.jpeg", label: "Gallery with imported photos" },
+                { src: "/nothing-vault/08-photo-viewer.jpeg", label: "Full-screen photo preview" },
+              ]}
+            />
+          </section>
+        )}
       </div>
     </article>
   );
