@@ -39,7 +39,7 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
           Back to projects
         </Link>
 
-        <div className={`${hasScreenshots ? "md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-8 md:items-start" : ""}`}>
+        <div className={`${hasScreenshots ? "md:grid md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:gap-24 md:items-start" : ""}`}>
           <div className={`${hasScreenshots ? "md:min-w-0 md:overflow-hidden" : ""}`}>
             <div className="mb-8">
               <h1 className="font-display text-4xl font-bold tracking-tight text-text-primary sm:text-5xl">
