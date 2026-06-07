@@ -20,13 +20,6 @@ export interface GitHubRepo {
   fork: boolean;
 }
 
-export interface GitHubEvent {
-  id: string;
-  type: string;
-  repo: { name: string };
-  created_at: string;
-}
-
 export interface ContributionDay {
   date: string;
   count: number;
@@ -71,10 +64,61 @@ export async function getRepos(): Promise<GitHubRepo[]> {
     .slice(0, 6);
 }
 
-export async function getStats(): Promise<GitHubStats> {
-  const [user, repos] = await Promise.all([getUser(), getRepos()]);
+async function fetchContributions(): Promise<ContributionDay[]> {
+  const res = await fetch(
+    `https://github.com/users/${GITHUB_USERNAME}/contributions`,
+    {
+      headers: { "User-Agent": "hardiknishad-portfolio" },
+      next: { revalidate: 43200 },
+    },
+  );
+  if (!res.ok) throw new Error(`Contributions fetch error: ${res.status}`);
+  const html = await res.text();
+  const dayRegex = /<rect[^>]*data-date="([^"]*)"[^>]*data-level="([^"]*)"[^>]*data-count="([^"]*)"[^>]*\/?>/g;
+  const days: ContributionDay[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = dayRegex.exec(html)) !== null) {
+    days.push({
+      date: match[1],
+      level: parseInt(match[2], 10) as 0 | 1 | 2 | 3 | 4,
+      count: parseInt(match[3], 10),
+    });
+  }
+  return days;
+}
 
-  const totalStars = repos.reduce((a, r) => a + r.stargazers_count, 0);
+function calculateStreak(days: ContributionDay[]): number {
+  let streak = 0;
+  for (let i = days.length - 1; i >= 0; i--) {
+    if (days[i].count > 0) streak++;
+    else break;
+  }
+  return streak;
+}
+
+interface SearchResult {
+  total_count: number;
+}
+
+async function searchCount(query: string): Promise<number> {
+  try {
+    const result = await githubFetch<SearchResult>(
+      `/search/issues?q=${encodeURIComponent(query)}&per_page=1`,
+    );
+    return result.total_count;
+  } catch {
+    return 0;
+  }
+}
+
+export async function getStats(): Promise<GitHubStats> {
+  const [user, repos, contributions, totalPRs, totalIssues] = await Promise.all([
+    getUser(),
+    getRepos(),
+    fetchContributions(),
+    searchCount(`author:${GITHUB_USERNAME}+type:pr`),
+    searchCount(`author:${GITHUB_USERNAME}+type:issue`),
+  ]);
 
   const languageMap: Record<string, number> = {};
   for (const repo of repos) {
@@ -83,33 +127,18 @@ export async function getStats(): Promise<GitHubStats> {
     }
   }
 
+  const totalCommits = contributions.reduce((sum, d) => sum + d.count, 0);
+  const currentStreak = calculateStreak(contributions);
+
   return {
-    totalCommits: 20,
-    totalPRs: 1,
-    totalIssues: 1,
-    currentStreak: 5,
-    contributions: generateMockContributions(),
+    totalCommits,
+    totalPRs,
+    totalIssues,
+    currentStreak,
+    contributions,
     topRepos: repos.slice(0, 3),
     languages: languageMap,
   };
-}
-
-function generateMockContributions(): ContributionDay[] {
-  const days: ContributionDay[] = [];
-  const today = new Date();
-  const accountCreation = new Date("2026-05-24");
-  for (let i = 364; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const isActive = d >= accountCreation;
-    const level = isActive ? (Math.random() > 0.5 ? (Math.floor(Math.random() * 3) + 1) as 1 | 2 | 3 : 0) : 0;
-    days.push({
-      date: d.toISOString().split("T")[0],
-      count: level === 0 ? 0 : Math.floor(Math.random() * 8) + 1,
-      level: level as 0 | 1 | 2 | 3 | 4,
-    });
-  }
-  return days;
 }
 
 export async function getGitHubData(): Promise<{

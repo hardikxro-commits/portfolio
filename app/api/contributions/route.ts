@@ -2,12 +2,6 @@ import { NextResponse } from "next/server";
 
 const GITHUB_USERNAME = "hardikxro-commits";
 
-interface DayData {
-  date: string;
-  count: number;
-  level: number;
-}
-
 export const revalidate = 43200;
 
 export async function GET() {
@@ -25,7 +19,7 @@ export async function GET() {
     const html = await res.text();
 
     const dayRegex = /<rect[^>]*data-date="([^"]*)"[^>]*data-level="([^"]*)"[^>]*data-count="([^"]*)"[^>]*\/?>/g;
-    const days: DayData[] = [];
+    const days: { date: string; count: number; level: number }[] = [];
     let match: RegExpExecArray | null;
 
     while ((match = dayRegex.exec(html)) !== null) {
