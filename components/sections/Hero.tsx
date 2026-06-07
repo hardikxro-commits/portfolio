@@ -11,7 +11,7 @@ export function Hero() {
       id="hero"
       className="relative flex min-h-[100dvh] flex-col items-start justify-center overflow-hidden px-6 sm:px-12 lg:px-20"
     >
-      <div className="relative z-10 max-w-3xl">
+      <div className="relative z-10">
         <p className="text-sm font-medium tracking-[0.2em] text-text-muted uppercase">
           Student & Developer
         </p>

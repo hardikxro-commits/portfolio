@@ -41,7 +41,7 @@ const typeColors: Record<string, string> = {
 export function Timeline() {
   return (
     <section id="timeline" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="max-w-4xl">
+      <div>
         <SectionHeading
           title="Timeline"
           subtitle="Stuff I&apos;ve done so far"

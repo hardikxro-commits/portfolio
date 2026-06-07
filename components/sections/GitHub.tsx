@@ -23,16 +23,14 @@ export function GitHub() {
   if (error) {
     return (
       <section className="px-4 py-24 sm:px-6 lg:px-8">
-        <div className="max-w-7xl">
-          <p className="text-text-muted">GitHub data temporarily unavailable.</p>
-        </div>
+        <p className="text-text-muted">GitHub data temporarily unavailable.</p>
       </section>
     );
   }
 
   return (
     <section id="github" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="max-w-7xl">
+      <div>
         <SectionHeading
           title="GitHub Dashboard"
           subtitle="My GitHub activity and coding stats"

@@ -68,7 +68,7 @@ export function Skills() {
               animate={{ opacity: 1, x: 0 }}
               exit={prefersReduced ? {} : { opacity: 0, x: 10 }}
               transition={{ duration: 0.2 }}
-              className="grid max-w-3xl gap-4"
+              className="grid gap-4"
             >
               {filteredSkills.map((skill, i) => (
                 <SkillBar key={skill.name} skill={skill} index={i} prefersReduced={prefersReduced} />

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function NowPage() {
   return (
     <div className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
-      <div className="max-w-4xl">
+      <div>
         <SectionHeading
           title="Now"
           subtitle="What I'm focused on right now"

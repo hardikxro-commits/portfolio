@@ -46,7 +46,7 @@ export function Contact() {
 
   return (
     <section id="contact" className="relative px-4 py-24 sm:px-6 lg:px-8">
-      <div className="max-w-7xl">
+      <div>
         <SectionHeading
           title="Get in Touch"
           subtitle="I&apos;m looking for internships and cool projects to work on"

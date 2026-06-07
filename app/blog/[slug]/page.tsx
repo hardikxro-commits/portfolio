@@ -49,72 +49,60 @@ export default async function BlogPostPage({
 
   return (
     <article className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
-      <div className="max-w-6xl">
-        <Link
-          href="/blog"
-          className="group mb-8 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"
-        >
-          <ArrowLeft
-            size={14}
-            className="transition-transform group-hover:-translate-x-1"
-          />
-          Back to blog
-        </Link>
+      <Link
+        href="/blog"
+        className="group mb-8 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"
+      >
+        <ArrowLeft
+          size={14}
+          className="transition-transform group-hover:-translate-x-1"
+        />
+        Back to blog
+      </Link>
 
-        <div className={`${isVault ? "md:grid md:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] md:gap-8" : ""}`}>
-          <div className={`${isVault ? "md:min-w-0 md:h-full" : ""}`}>
-            <header className="mb-10">
-              <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-                {post.title}
-              </h1>
+      <header className="mb-10">
+        <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
+          {post.title}
+        </h1>
 
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-text-muted">
-                <span className="inline-flex items-center gap-1.5">
-                  <CalendarDays size={14} />
-                  {post.date}
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Clock size={14} />
-                  {post.readingTime}
-                </span>
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center gap-1 rounded-full bg-accent-subtle px-3 py-1 text-xs font-medium text-accent-primary"
-                  >
-                    <Tag size={10} />
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </header>
-
-            <div className="prose prose-invert max-w-none">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {post.content}
-              </ReactMarkdown>
-            </div>
-
-            {isVault && (
-              <div className="mt-10 md:hidden">
-                <h2 className="font-display text-xl font-semibold text-text-primary mb-6">
-                  Screenshots
-                </h2>
-                <ScreenshotCarousel screenshots={vaultScreenshots} />
-              </div>
-            )}
-          </div>
-
-          {isVault && (
-            <div className="hidden md:block md:sticky md:top-24 md:self-start md:min-w-0 md:overflow-hidden md:max-w-full">
-              <ScreenshotCarousel screenshots={vaultScreenshots} />
-            </div>
-          )}
+        <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-text-muted">
+          <span className="inline-flex items-center gap-1.5">
+            <CalendarDays size={14} />
+            {post.date}
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Clock size={14} />
+            {post.readingTime}
+          </span>
         </div>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {post.tags.map((tag) => (
+            <span
+              key={tag}
+              className="inline-flex items-center gap-1 rounded-full bg-accent-subtle px-3 py-1 text-xs font-medium text-accent-primary"
+            >
+              <Tag size={10} />
+              {tag}
+            </span>
+          ))}
+        </div>
+      </header>
+
+      <div className="prose prose-invert max-w-none">
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {post.content}
+        </ReactMarkdown>
       </div>
+
+      {isVault && (
+        <div className="mt-10">
+          <h2 className="font-display text-xl font-semibold text-text-primary mb-6">
+            Screenshots
+          </h2>
+          <ScreenshotCarousel screenshots={vaultScreenshots} />
+        </div>
+      )}
     </article>
   );
 }
