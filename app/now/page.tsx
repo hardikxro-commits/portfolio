@@ -13,7 +13,7 @@ const timeline = [
     content: (
       <ul className="space-y-2">
         {nowData.currentlyLearning.map((item, i) => (
-          <li key={i} className="text-sm text-text-secondary">{item}</li>
+          <li key={i} className="text-base leading-relaxed text-text-secondary">{item}</li>
         ))}
       </ul>
     ),
@@ -23,8 +23,8 @@ const timeline = [
     content: (
       <ul className="space-y-2">
         {nowData.currentProjects.map((p) => (
-          <li key={p.name} className="text-sm text-text-secondary">
-            <span className="font-medium text-text-primary">{p.name}</span>
+          <li key={p.name} className="text-base leading-relaxed text-text-secondary">
+            <span className="font-semibold text-text-primary">{p.name}</span>
             {" — "}{p.description}
           </li>
         ))}
@@ -36,7 +36,7 @@ const timeline = [
     content: (
       <ul className="space-y-2">
         {nowData.currentGoals.map((goal, i) => (
-          <li key={i} className="text-sm text-text-secondary">{goal}</li>
+          <li key={i} className="text-base leading-relaxed text-text-secondary">{goal}</li>
         ))}
       </ul>
     ),
@@ -44,9 +44,9 @@ const timeline = [
   {
     label: "Reading",
     content: (
-      <ul className="space-y-1">
+      <ul className="space-y-1.5">
         {nowData.readingList.map((book, i) => (
-          <li key={i} className="text-sm italic text-text-muted">&mdash; {book}</li>
+          <li key={i} className="text-base italic leading-relaxed text-text-muted">&mdash; {book}</li>
         ))}
       </ul>
     ),
@@ -54,7 +54,7 @@ const timeline = [
   {
     label: "Goal",
     content: (
-      <p className="font-display text-base font-bold text-accent-primary">
+      <p className="font-display text-lg font-bold text-accent-primary">
         &ldquo;{nowData.ultimateGoal}&rdquo;
       </p>
     ),
@@ -77,8 +77,8 @@ export default function NowPage() {
           <div className="space-y-10">
             {timeline.map((entry, i) => (
               <div key={i} className="relative flex gap-6">
-                <div className="w-[80px] shrink-0 pt-0.5">
-                  <span className="text-xs text-text-muted font-medium tracking-wider uppercase">
+                <div className="w-[80px] shrink-0 pt-1">
+                  <span className="text-sm text-text-muted font-medium tracking-widest uppercase">
                     {entry.label}
                   </span>
                 </div>

@@ -68,7 +68,7 @@ export function Projects() {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs text-text-muted transition-colors hover:text-text-primary"
+                        className="inline-flex items-center gap-1.5 text-xs text-text-secondary transition-colors hover:text-text-primary"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <GitFork size={13} />
@@ -80,7 +80,7 @@ export function Projects() {
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs text-text-muted transition-colors hover:text-text-primary"
+                        className="inline-flex items-center gap-1.5 text-xs text-text-secondary transition-colors hover:text-text-primary"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <ExternalLink size={13} />
@@ -92,7 +92,7 @@ export function Projects() {
                         href={project.downloadUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 text-xs text-text-muted transition-colors hover:text-text-primary"
+                        className="inline-flex items-center gap-1.5 text-xs text-text-secondary font-medium transition-colors hover:text-text-primary"
                         onClick={(e) => e.stopPropagation()}
                       >
                         <Download size={13} />
