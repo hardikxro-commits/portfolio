@@ -1,13 +1,8 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import dynamic from "next/dynamic";
 import { site } from "@/content/data/site";
 import { ChevronDown } from "lucide-react";
-
-const HeroScene = dynamic(() => import("@/components/shared/HeroScene").then((m) => ({ default: m.HeroScene })), {
-  ssr: false,
-});
 
 const marqueeItems = [
   "Building Nothing Vault",
@@ -45,10 +40,6 @@ export function Hero() {
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
-      <div className="absolute inset-0" style={{ zIndex: 0 }}>
-        <HeroScene />
-      </div>
-
       <div className="absolute inset-0 z-[1] pointer-events-none bg-black/30" />
 
       <div
