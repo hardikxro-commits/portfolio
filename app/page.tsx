@@ -10,22 +10,26 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    const timer = setTimeout(() => setMounted(true), 50);
+    return () => clearTimeout(timer);
   }, []);
 
   const handlePreloaderComplete = useCallback(() => {
     setHeroVisible(true);
   }, []);
 
-  if (!mounted) {
-    return <div className="fixed inset-0 z-[9999] bg-[#0F0B0A]" />;
-  }
-
   return (
     <>
+      <div
+        className="fixed inset-0 z-[99999] bg-[#0F0B0A] transition-opacity duration-500"
+        style={{
+          opacity: mounted ? 0 : 1,
+          pointerEvents: mounted ? "none" : "auto",
+        }}
+      />
       {!heroVisible && <Preloader onComplete={handlePreloaderComplete} />}
       <Hero visible={heroVisible} />
-      <About />
+      {mounted && <About />}
     </>
   );
 }
