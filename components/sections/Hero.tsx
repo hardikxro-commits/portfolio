@@ -81,16 +81,6 @@ export function Hero({ visible }: HeroProps) {
       if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const cx = canvas.width / 2;
-      const cy = canvas.height / 2;
-      const bgRadius = Math.max(canvas.width, canvas.height) * 0.8;
-      const bgGrad = ctx.createRadialGradient(cx, cy * 0.8, 0, cx, cy * 0.8, bgRadius);
-      bgGrad.addColorStop(0, "#12111A");
-      bgGrad.addColorStop(0.5, "#0F0D15");
-      bgGrad.addColorStop(1, "#0F0B0A");
-      ctx.fillStyle = bgGrad;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
       for (const star of stars) {
         star.phase += star.twinkleSpeed;
         const alphaFactor = 0.5 + 0.5 * Math.sin(star.phase);
@@ -131,8 +121,7 @@ export function Hero({ visible }: HeroProps) {
         }
 
         const grad = ctx.createLinearGradient(
-          s.x,
-          s.y,
+          s.x, s.y,
           s.x - s.vx * (s.length / s.vx),
           s.y - s.vy * (s.length / s.vy)
         );
@@ -153,14 +142,6 @@ export function Hero({ visible }: HeroProps) {
         ctx.fillStyle = `rgba(245, 240, 232, ${s.life})`;
         ctx.fill();
       }
-
-      const vignetteRadius = Math.max(canvas.width, canvas.height) * 0.55;
-      const vignette = ctx.createRadialGradient(cx, cy, 0, cx, cy, vignetteRadius);
-      vignette.addColorStop(0, "rgba(15, 11, 10, 0)");
-      vignette.addColorStop(0.6, "rgba(15, 11, 10, 0.3)");
-      vignette.addColorStop(1, "rgba(15, 11, 10, 0.7)");
-      ctx.fillStyle = vignette;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
 
     lastSpawnRef.current = performance.now();
@@ -182,8 +163,18 @@ export function Hero({ visible }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen w-full overflow-hidden bg-[#0F0B0A]"
+      className="relative min-h-screen w-full overflow-hidden"
     >
+      {/* Starry Night background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url("/images/starry-night.jpg")',
+          filter: "brightness(0.5)",
+        }}
+      />
+
+      {/* Canvas stars on top */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 block"
@@ -218,24 +209,21 @@ export function Hero({ visible }: HeroProps) {
         </motion.div>
       </div>
 
-      {/* Tag line */}
-      <motion.p
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.3, duration: 0.6, ease: "easeOut" }}
-        className="absolute z-20 left-8 sm:left-12 lg:left-20"
-        style={{ top: "clamp(100px, 18vh, 160px)" }}
-      >
-        <span className="font-mono text-[11px] tracking-[0.25em] text-[#C4A35A]">
-          — Student &middot; Developer &middot; Mumbai
-        </span>
-      </motion.p>
+      {/* Content wrapper - fixes overlap */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-center px-8 sm:px-12 lg:px-20">
+        {/* Tag line */}
+        <motion.p
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1.3, duration: 0.6, ease: "easeOut" }}
+          className="mb-4"
+        >
+          <span className="font-mono text-[11px] tracking-[0.25em] text-[#C4A35A]">
+            — Student &middot; Developer &middot; Mumbai
+          </span>
+        </motion.p>
 
-      {/* Headline */}
-      <div
-        className="absolute z-20 left-8 sm:left-12 lg:left-20"
-        style={{ top: "clamp(140px, 26vh, 240px)" }}
-      >
+        {/* Headline */}
         <div className="overflow-hidden">
           <motion.h1
             initial={{ y: "110%" }}
@@ -266,45 +254,41 @@ export function Hero({ visible }: HeroProps) {
             NISHAD
           </motion.h1>
         </div>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.7, duration: 0.6, ease: "easeOut" }}
+          className="font-sans text-[16px] leading-[1.7] max-w-[420px] mt-6"
+          style={{ color: "rgba(245,240,232,0.55)" }}
+        >
+          I write code, build things, and try to get a little better every day.
+        </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.9, duration: 0.6, ease: "easeOut" }}
+          className="flex items-center gap-4 mt-8"
+        >
+          <a
+            href="/projects"
+            className="inline-flex items-center bg-[#C4A35A] text-[#0F0B0A] font-sans text-[12px] font-bold tracking-[0.2em] uppercase px-7 py-[14px] transition-opacity hover:opacity-90"
+          >
+            View Projects
+          </a>
+          <a
+            href="https://github.com/hardikxro-commits"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center border border-[rgba(196,163,90,0.3)] text-[rgba(245,240,232,0.7)] font-sans text-[12px] font-bold tracking-[0.2em] uppercase px-7 py-[14px] transition-colors hover:border-[#C4A35A]"
+          >
+            GitHub ↗
+          </a>
+        </motion.div>
       </div>
-
-      {/* Subtitle */}
-      <motion.p
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.7, duration: 0.6, ease: "easeOut" }}
-        className="absolute z-20 left-8 sm:left-12 lg:left-20 font-sans text-[16px] leading-[1.7] max-w-[420px]"
-        style={{
-          top: "clamp(340px, 54vh, 480px)",
-          color: "rgba(245,240,232,0.55)",
-        }}
-      >
-        I write code, build things, and try to get a little better every day.
-      </motion.p>
-
-      {/* CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.9, duration: 0.6, ease: "easeOut" }}
-        className="absolute z-20 left-8 sm:left-12 lg:left-20 flex items-center gap-4"
-        style={{ top: "clamp(430px, 66vh, 560px)" }}
-      >
-        <a
-          href="/projects"
-          className="inline-flex items-center bg-[#C4A35A] text-[#0F0B0A] font-sans text-[12px] font-bold tracking-[0.2em] uppercase px-7 py-[14px] transition-opacity hover:opacity-90"
-        >
-          View Projects
-        </a>
-        <a
-          href="https://github.com/hardikxro-commits"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center border border-[rgba(196,163,90,0.3)] text-[rgba(245,240,232,0.7)] font-sans text-[12px] font-bold tracking-[0.2em] uppercase px-7 py-[14px] transition-colors hover:border-[#C4A35A]"
-        >
-          GitHub ↗
-        </a>
-      </motion.div>
 
       {/* Constellation */}
       <motion.div

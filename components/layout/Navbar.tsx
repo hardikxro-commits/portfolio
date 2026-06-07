@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { site } from "@/content/data/site";
@@ -14,7 +13,6 @@ const menuVariants = {
 };
 
 export function Navbar() {
-  const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -69,8 +67,6 @@ export function Navbar() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
-
-  if (pathname === "/") return null;
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
