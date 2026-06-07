@@ -181,35 +181,7 @@ export function Hero({ visible }: HeroProps) {
         style={{ width: "100%", height: "100%" }}
       />
 
-      {/* Navigation */}
-      <div className="absolute top-10 left-0 right-0 z-20 flex items-center justify-between px-8 sm:px-12 lg:px-20">
-        <motion.span
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
-          className="font-display text-[22px] text-[#F5F0E8] tracking-tight"
-        >
-          HN<span className="text-[#C4A35A]">.</span>
-        </motion.span>
-        <motion.div
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.6, ease: "easeOut" }}
-          className="hidden md:flex items-center gap-8"
-        >
-          {["About", "Projects", "Blog", "Contact"].map((link) => (
-            <a
-              key={link}
-              href={`/#${link.toLowerCase()}`}
-              className="font-sans text-[12px] tracking-[0.15em] uppercase text-[rgba(245,240,232,0.6)] transition-colors hover:text-[#F5F0E8]"
-            >
-              {link}
-            </a>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* Content wrapper - fixes overlap */}
+      {/* Content wrapper */}
       <div className="absolute inset-0 z-20 flex flex-col justify-center px-8 sm:px-12 lg:px-20">
         {/* Tag line */}
         <motion.p
