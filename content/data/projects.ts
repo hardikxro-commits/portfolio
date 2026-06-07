@@ -31,7 +31,7 @@ export const featuredProjects: Project[] = [
     githubUrl: "https://github.com/hardikxro-commits/jobdesdecode",
     liveUrl: "https://jobdesdecode.pages.dev",
     featured: true,
-    image: "/images/projects/jobdesdecode-thumb.gif",
+    image: "/images/projects/jobdesdecode-thumb.svg",
     challenges: [
       "Taking messy job descriptions and pulling out useful info automatically",
       "Making the results easy to scan without feeling overwhelming",
