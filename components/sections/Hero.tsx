@@ -1,10 +1,13 @@
 "use client";
 
 import { useRef, useCallback } from "react";
-import { LazyMotion, domAnimation } from "framer-motion";
-import { ScrambleText } from "@/components/shared/ScrambleText";
+import dynamic from "next/dynamic";
 import { site } from "@/content/data/site";
 import { ChevronDown } from "lucide-react";
+
+const HeroScene = dynamic(() => import("@/components/shared/HeroScene").then((m) => ({ default: m.HeroScene })), {
+  ssr: false,
+});
 
 const marqueeItems = [
   "Building Nothing Vault",
@@ -24,7 +27,7 @@ export function Hero() {
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     if (contentRef.current) {
-      contentRef.current.style.transform = `perspective(800px) rotateY(${x * 4}deg) rotateX(${y * -3}deg)`;
+      contentRef.current.style.transform = `perspective(800px) rotateY(${x * 3}deg) rotateX(${y * -2}deg)`;
     }
   }, []);
 
@@ -35,7 +38,6 @@ export function Hero() {
   }, []);
 
   return (
-    <LazyMotion features={domAnimation}>
     <section
       ref={sectionRef}
       id="hero"
@@ -43,6 +45,12 @@ export function Hero() {
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
     >
+      <div className="absolute inset-0" style={{ zIndex: 0 }}>
+        <HeroScene />
+      </div>
+
+      <div className="absolute inset-0 z-[1] pointer-events-none bg-black/30" />
+
       <div
         ref={contentRef}
         className="relative z-10 max-w-full transition-transform duration-200 ease-out will-change-transform"
@@ -56,7 +64,7 @@ export function Hero() {
         </div>
 
         <h1 className="font-display text-5xl font-bold leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl text-white">
-          <ScrambleText text={site.name} />
+          {site.name}
         </h1>
 
         <p className="mt-8 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
@@ -111,7 +119,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
         <a
           href="#about"
           className="flex flex-col items-center gap-1.5 text-white/50 transition-colors hover:text-white"
@@ -122,6 +130,5 @@ export function Hero() {
         </a>
       </div>
     </section>
-    </LazyMotion>
   );
 }

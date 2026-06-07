@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { Preloader } from "@/components/shared/Preloader";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/content/data/site";
@@ -85,6 +86,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-[100dvh] bg-bg-primary text-text-primary antialiased">
+        <Preloader />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
