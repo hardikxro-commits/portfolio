@@ -4,21 +4,21 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
-  --color-bg-primary: rgba(10, 10, 10, 0.7);
-  --color-bg-secondary: rgba(20, 20, 20, 0.6);
-  --color-bg-tertiary: rgba(30, 30, 30, 0.5);
-  --color-text-primary: #ffffff;
-  --color-text-secondary: #e0e0e0;
-  --color-text-muted: #999999;
-  --color-accent-primary: #ffffff;
-  --color-accent-hover: #cccccc;
-  --color-accent-subtle: rgba(255, 255, 255, 0.08);
-  --color-accent-border: rgba(255, 255, 255, 0.2);
-  --color-border-subtle: rgba(255, 255, 255, 0.1);
-  --color-border-default: rgba(255, 255, 255, 0.2);
-  --font-sans: "DM Sans", system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --color-bg-primary: #0F0B0A;
+  --color-bg-secondary: rgba(15, 11, 10, 0.8);
+  --color-bg-tertiary: rgba(30, 25, 24, 0.6);
+  --color-text-primary: #F5F0E8;
+  --color-text-secondary: #e0d8cc;
+  --color-text-muted: #a09888;
+  --color-accent-primary: #C4A35A;
+  --color-accent-hover: #d4b36a;
+  --color-accent-subtle: rgba(196, 163, 90, 0.1);
+  --color-accent-border: rgba(196, 163, 90, 0.3);
+  --color-border-subtle: rgba(245, 240, 232, 0.1);
+  --color-border-default: rgba(245, 240, 232, 0.2);
+  --font-sans: "Syne", system-ui, sans-serif;
+  --font-display: "Bebas Neue", system-ui, sans-serif;
+  --font-mono: "Space Mono", monospace;
 }
 
 :root {
@@ -42,9 +42,19 @@
   50% { opacity: 0; }
 }
 
-@keyframes preloader-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes scanline {
+  0% { top: -4px; }
+  100% { top: 100%; }
+}
+
+@keyframes scroll-line {
+  0% { top: -100%; }
+  100% { top: 100%; }
+}
+
+@keyframes gold-line-grow {
+  from { width: 0; }
+  to { width: 200px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -62,69 +72,45 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(245, 240, 232, 0.15);
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(245, 240, 232, 0.25);
 }
 
 ::selection {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
+  background: rgba(196, 163, 90, 0.3);
+  color: #F5F0E8;
 }
 
 body {
-  background-color: #0a0a0a;
-  color: var(--color-text-primary);
+  background-color: #0F0B0A;
+  color: #F5F0E8;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: url("/images/starry-night.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: rgba(0, 0, 0, 0.55);
-}
-
-/* === Card & Container Backgrounds === */
-
 .liquid-glass-nav {
-  background: rgba(10, 10, 10, 0.85);
+  background: rgba(15, 11, 10, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 .liquid-glass-card {
-  background: rgba(20, 20, 20, 0.6);
+  background: rgba(20, 18, 17, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(196, 163, 90, 0.08);
 }
 
 .liquid-glass {
-  background: rgba(20, 20, 20, 0.5);
+  background: rgba(20, 18, 17, 0.5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(196, 163, 90, 0.06);
 }
 
 .prose {
@@ -138,7 +124,7 @@ body::after {
   --tw-prose-quotes: var(--color-text-secondary);
   --tw-prose-quote-borders: var(--color-accent-primary);
   --tw-prose-code: var(--color-text-primary);
-  --tw-prose-pre-code: #e0e0e0;
+  --tw-prose-pre-code: #e0d8cc;
   --tw-prose-pre-bg: rgba(0, 0, 0, 0.4);
   --tw-prose-th-borders: var(--color-border-subtle);
   --tw-prose-td-borders: var(--color-border-subtle);
@@ -147,7 +133,7 @@ body::after {
 .prose code {
   font-size: 0.875em;
   font-weight: 500;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(196, 163, 90, 0.1);
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
 }

@@ -1,125 +1,364 @@
 "use client";
 
-import { useRef, useCallback } from "react";
-import { site } from "@/content/data/site";
-import { ChevronDown } from "lucide-react";
+import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
-const marqueeItems = [
-  "Building Nothing Vault",
-  "Learning Jetpack Compose",
-  "Reading at 2AM",
-  "Based in Mumbai",
-];
+interface Star {
+  x: number;
+  y: number;
+  r: number;
+  baseAlpha: number;
+  twinkleSpeed: number;
+  phase: number;
+  gold: boolean;
+}
 
-export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
+interface ShootingStar {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  decay: number;
+  length: number;
+}
 
-  const onMouseMove = useCallback((e: React.MouseEvent) => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    if (contentRef.current) {
-      contentRef.current.style.transform = `perspective(800px) rotateY(${x * 3}deg) rotateX(${y * -2}deg)`;
+interface HeroProps {
+  visible: boolean;
+}
+
+export function Hero({ visible }: HeroProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const starsRef = useRef<Star[]>([]);
+  const shootingStarsRef = useRef<ShootingStar[]>([]);
+  const rafRef = useRef(0);
+  const lastSpawnRef = useRef(0);
+
+  useEffect(() => {
+    if (!visible) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const stars: Star[] = [];
+    for (let i = 0; i < 320; i++) {
+      const gold = Math.random() < 0.18;
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: 0.1 + Math.random() * 1.8,
+        baseAlpha: gold ? 0.5 + Math.random() * 0.5 : 0.3 + Math.random() * 0.5,
+        twinkleSpeed: 0.015 + Math.random() * 0.05,
+        phase: Math.random() * Math.PI * 2,
+        gold,
+      });
     }
-  }, []);
+    starsRef.current = stars;
 
-  const onMouseLeave = useCallback(() => {
-    if (contentRef.current) {
-      contentRef.current.style.transform = "perspective(800px) rotateY(0deg) rotateX(0deg)";
-    }
-  }, []);
+    const spawnShootingStar = () => {
+      const angle = Math.PI / 6 + Math.random() * (Math.PI / 3 - Math.PI / 6);
+      const speed = 12 + Math.random() * 8;
+      shootingStarsRef.current.push({
+        x: Math.random() * canvas.width * 0.7,
+        y: Math.random() * canvas.height * 0.4,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 1,
+        decay: 0.025 + Math.random() * 0.015,
+        length: 80 + Math.random() * 60,
+      });
+    };
+
+    const draw = (time: number) => {
+      if (!canvas || !ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const bgRadius = Math.max(canvas.width, canvas.height) * 0.8;
+      const bgGrad = ctx.createRadialGradient(cx, cy * 0.8, 0, cx, cy * 0.8, bgRadius);
+      bgGrad.addColorStop(0, "#12111A");
+      bgGrad.addColorStop(0.5, "#0F0D15");
+      bgGrad.addColorStop(1, "#0F0B0A");
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (const star of stars) {
+        star.phase += star.twinkleSpeed;
+        const alphaFactor = 0.5 + 0.5 * Math.sin(star.phase);
+        const alpha = star.baseAlpha * alphaFactor;
+        const color = star.gold
+          ? `rgba(196, 163, 90, ${alpha})`
+          : `rgba(232, 213, 163, ${alpha * 0.7})`;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        if (star.r > 1.2) {
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.r * 3, 0, Math.PI * 2);
+          ctx.fillStyle = star.gold
+            ? `rgba(196, 163, 90, 0.05)`
+            : `rgba(232, 213, 163, 0.06)`;
+          ctx.fill();
+        }
+      }
+
+      if (time - lastSpawnRef.current > 2200 + Math.random() * 3500) {
+        spawnShootingStar();
+        lastSpawnRef.current = time;
+      }
+
+      const sStars = shootingStarsRef.current;
+      for (let i = sStars.length - 1; i >= 0; i--) {
+        const s = sStars[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.life -= s.decay;
+
+        if (s.life <= 0) {
+          sStars.splice(i, 1);
+          continue;
+        }
+
+        const grad = ctx.createLinearGradient(
+          s.x,
+          s.y,
+          s.x - s.vx * (s.length / s.vx),
+          s.y - s.vy * (s.length / s.vy)
+        );
+        grad.addColorStop(0, `rgba(196, 163, 90, ${s.life})`);
+        grad.addColorStop(1, "rgba(196, 163, 90, 0)");
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(
+          s.x - (s.vx / Math.sqrt(s.vx * s.vx + s.vy * s.vy)) * s.length,
+          s.y - (s.vy / Math.sqrt(s.vx * s.vx + s.vy * s.vy)) * s.length
+        );
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(245, 240, 232, ${s.life})`;
+        ctx.fill();
+      }
+
+      const vignetteRadius = Math.max(canvas.width, canvas.height) * 0.55;
+      const vignette = ctx.createRadialGradient(cx, cy, 0, cx, cy, vignetteRadius);
+      vignette.addColorStop(0, "rgba(15, 11, 10, 0)");
+      vignette.addColorStop(0.6, "rgba(15, 11, 10, 0.3)");
+      vignette.addColorStop(1, "rgba(15, 11, 10, 0.7)");
+      ctx.fillStyle = vignette;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    };
+
+    lastSpawnRef.current = performance.now();
+
+    const loop = (time: number) => {
+      draw(time);
+      rafRef.current = requestAnimationFrame(loop);
+    };
+    rafRef.current = requestAnimationFrame(loop);
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("resize", resize);
+    };
+  }, [visible]);
+
+  if (!visible) return null;
 
   return (
     <section
-      ref={sectionRef}
       id="hero"
-      className="relative flex min-h-[100dvh] flex-col items-start justify-center overflow-hidden px-6 sm:px-12 lg:px-20 text-white"
-      onMouseMove={onMouseMove}
-      onMouseLeave={onMouseLeave}
+      className="relative min-h-screen w-full overflow-hidden bg-[#0F0B0A]"
     >
-      <div className="absolute inset-0 z-[1] pointer-events-none bg-black/30" />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 block"
+        style={{ width: "100%", height: "100%" }}
+      />
 
-      <div
-        ref={contentRef}
-        className="relative z-10 max-w-full transition-transform duration-200 ease-out will-change-transform"
-        style={{ transform: "perspective(800px) rotateY(0deg) rotateX(0deg)" }}
+      {/* Navigation */}
+      <div className="absolute top-10 left-0 right-0 z-20 flex items-center justify-between px-8 sm:px-12 lg:px-20">
+        <motion.span
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.2, duration: 0.6, ease: "easeOut" }}
+          className="font-display text-[22px] text-[#F5F0E8] tracking-tight"
+        >
+          HN<span className="text-[#C4A35A]">.</span>
+        </motion.span>
+        <motion.div
+          initial={{ opacity: 0, y: -16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4, duration: 0.6, ease: "easeOut" }}
+          className="hidden md:flex items-center gap-8"
+        >
+          {["About", "Projects", "Blog", "Contact"].map((link) => (
+            <a
+              key={link}
+              href={`/#${link.toLowerCase()}`}
+              className="font-sans text-[12px] tracking-[0.15em] uppercase text-[rgba(245,240,232,0.6)] transition-colors hover:text-[#F5F0E8]"
+            >
+              {link}
+            </a>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Tag line */}
+      <motion.p
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 1.3, duration: 0.6, ease: "easeOut" }}
+        className="absolute z-20 left-8 sm:left-12 lg:left-20"
+        style={{ top: "clamp(100px, 18vh, 160px)" }}
       >
-        <div className="flex items-center gap-3 mb-6">
-          <span className="inline-block h-2 w-2 rounded-full bg-white animate-pulse" />
-          <span className="text-sm font-medium tracking-[0.2em] text-white/70 uppercase">
-            Student & Developer
+        <span className="font-mono text-[11px] tracking-[0.25em] text-[#C4A35A]">
+          — Student &middot; Developer &middot; Mumbai
+        </span>
+      </motion.p>
+
+      {/* Headline */}
+      <div
+        className="absolute z-20 left-8 sm:left-12 lg:left-20"
+        style={{ top: "clamp(140px, 26vh, 240px)" }}
+      >
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            transition={{
+              delay: 1.1,
+              duration: 0.8,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="font-display leading-[0.92] text-[#F5F0E8] select-none"
+            style={{ fontSize: "clamp(52px, 11vw, 160px)" }}
+          >
+            HARDIK
+          </motion.h1>
+        </div>
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            transition={{
+              delay: 1.25,
+              duration: 0.8,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="font-display leading-[0.92] select-none"
+            style={{ fontSize: "clamp(52px, 11vw, 160px)", color: "#C4A35A" }}
+          >
+            NISHAD
+          </motion.h1>
+        </div>
+      </div>
+
+      {/* Subtitle */}
+      <motion.p
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.7, duration: 0.6, ease: "easeOut" }}
+        className="absolute z-20 left-8 sm:left-12 lg:left-20 font-sans text-[16px] leading-[1.7] max-w-[420px]"
+        style={{
+          top: "clamp(340px, 54vh, 480px)",
+          color: "rgba(245,240,232,0.55)",
+        }}
+      >
+        I write code, build things, and try to get a little better every day.
+      </motion.p>
+
+      {/* CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.9, duration: 0.6, ease: "easeOut" }}
+        className="absolute z-20 left-8 sm:left-12 lg:left-20 flex items-center gap-4"
+        style={{ top: "clamp(430px, 66vh, 560px)" }}
+      >
+        <a
+          href="/projects"
+          className="inline-flex items-center bg-[#C4A35A] text-[#0F0B0A] font-sans text-[12px] font-bold tracking-[0.2em] uppercase px-7 py-[14px] transition-opacity hover:opacity-90"
+        >
+          View Projects
+        </a>
+        <a
+          href="https://github.com/hardikxro-commits"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center border border-[rgba(196,163,90,0.3)] text-[rgba(245,240,232,0.7)] font-sans text-[12px] font-bold tracking-[0.2em] uppercase px-7 py-[14px] transition-colors hover:border-[#C4A35A]"
+        >
+          GitHub ↗
+        </a>
+      </motion.div>
+
+      {/* Constellation */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ delay: 2, duration: 0.8 }}
+        className="absolute z-20"
+        style={{
+          right: "clamp(20px, 6vw, 80px)",
+          top: "clamp(200px, 35vh, 360px)",
+        }}
+      >
+        <svg width="140" height="100" viewBox="0 0 140 100" fill="none">
+          <circle cx="20" cy="50" r="2" fill="#C4A35A" />
+          <circle cx="50" cy="20" r="1.5" fill="#C4A35A" />
+          <circle cx="70" cy="60" r="2.5" fill="#C4A35A" />
+          <circle cx="100" cy="30" r="1.5" fill="#C4A35A" />
+          <circle cx="120" cy="70" r="2" fill="#C4A35A" />
+          <circle cx="90" cy="80" r="1.5" fill="#C4A35A" />
+          <circle cx="40" cy="75" r="1" fill="#C4A35A" />
+          <line x1="20" y1="50" x2="50" y2="20" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+          <line x1="50" y1="20" x2="100" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+          <line x1="70" y1="60" x2="20" y2="50" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+          <line x1="70" y1="60" x2="100" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+          <line x1="70" y1="60" x2="120" y2="70" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+          <line x1="120" y1="70" x2="100" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+          <line x1="70" y1="60" x2="90" y2="80" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+          <line x1="40" y1="75" x2="90" y2="80" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+          <line x1="40" y1="75" x2="20" y2="50" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+        </svg>
+      </motion.div>
+
+      {/* Bottom strip */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.1, duration: 0.6 }}
+        className="absolute bottom-10 left-0 right-0 z-20 flex items-center justify-between px-8 sm:px-12 lg:px-20"
+      >
+        <div className="flex items-center gap-3">
+          <div className="relative h-10 w-[1px] overflow-hidden bg-[rgba(196,163,90,0.3)]">
+            <div
+              className="absolute left-0 w-full h-full bg-[#C4A35A]"
+              style={{ animation: "scroll-line 1.8s ease-in-out infinite" }}
+            />
+          </div>
+          <span className="font-mono text-[10px] tracking-[0.15em] text-[rgba(245,240,232,0.5)]">
+            SCROLL
           </span>
         </div>
-
-        <h1 className="font-display text-5xl font-bold leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl text-white">
-          {site.name}
-        </h1>
-
-        <p className="mt-8 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-          {site.description}
+        <p className="font-mono text-[10px] text-[rgba(245,240,232,0.35)] text-right">
+          Mumbai, India / &copy; 2026
         </p>
-
-        <div className="mt-10 flex items-center gap-6">
-          <a
-            href="/projects"
-            className="group relative inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-white hover:bg-white/10"
-          >
-            View Projects
-            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </a>
-          <a
-            href={site.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-white/60 underline-offset-4 transition-all duration-200 hover:text-white hover:underline"
-          >
-            GitHub ↗
-          </a>
-        </div>
-
-        <div className="mt-16 w-full overflow-hidden border-t border-white/10 pt-5">
-          <div className="marquee-track flex min-w-max gap-0" style={{ animation: "marquee 40s linear infinite" }}>
-            <div className="flex shrink-0 items-center gap-0">
-              {marqueeItems.map((item, i) => (
-                <span key={i} className="flex items-center gap-0">
-                  <span className="text-[11px] tracking-[0.15em] text-white/50 uppercase font-medium">
-                    {item}
-                  </span>
-                  {i < marqueeItems.length - 1 && (
-                    <span className="mx-5 text-white/20 text-xs">·</span>
-                  )}
-                </span>
-              ))}
-            </div>
-            <div className="flex shrink-0 items-center gap-0">
-              {marqueeItems.map((item, i) => (
-                <span key={i} className="flex items-center gap-0">
-                  <span className="text-[11px] tracking-[0.15em] text-white/50 uppercase font-medium">
-                    {item}
-                  </span>
-                  {i < marqueeItems.length - 1 && (
-                    <span className="mx-5 text-white/20 text-xs">·</span>
-                  )}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
-        <a
-          href="#about"
-          className="flex flex-col items-center gap-1.5 text-white/50 transition-colors hover:text-white"
-          style={{ animation: "bounce-arrow 2s ease-in-out infinite" }}
-        >
-          <span className="text-[10px] tracking-[0.2em] uppercase font-medium">Scroll</span>
-          <ChevronDown size={14} />
-        </a>
-      </div>
+      </motion.div>
     </section>
   );
 }

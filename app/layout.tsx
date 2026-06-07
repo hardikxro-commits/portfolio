@@ -1,30 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import { Bebas_Neue, Syne, Space_Mono } from "next/font/google";
 import "./globals.css";
-import { Preloader } from "@/components/shared/Preloader";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { site } from "@/content/data/site";
 
-const dmSans = DM_Sans({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "700"],
-});
-
-const bricolage = Bricolage_Grotesque({
+const bebasNeue = Bebas_Neue({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
-  weight: ["600", "700", "800"],
+  weight: "400",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const syne = Syne({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700", "800"],
+});
+
+const spaceMono = Space_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500"],
+  weight: ["400", "700"],
 });
 
 export const viewport: Viewport = {
@@ -74,7 +73,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${dmSans.variable} ${bricolage.variable} ${jetbrainsMono.variable} dark`}
+      className={`${bebasNeue.variable} ${syne.variable} ${spaceMono.variable} dark`}
       suppressHydrationWarning
     >
       <head>
@@ -85,8 +84,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className="min-h-[100dvh] bg-bg-primary text-text-primary antialiased">
-        <Preloader />
+      <body className="min-h-[100dvh] bg-[#0F0B0A] text-[#F5F0E8] antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
