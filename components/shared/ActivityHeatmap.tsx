@@ -7,10 +7,10 @@ const ROWS = 7;
 
 const LEVEL_COLORS = [
   "transparent",
-  "rgba(0,0,0,0.04)",
-  "rgba(0,0,0,0.12)",
-  "rgba(0,0,0,0.25)",
-  "rgba(0,0,0,0.45)",
+  "rgba(255,255,255,0.04)",
+  "rgba(255,255,255,0.12)",
+  "rgba(255,255,255,0.25)",
+  "rgba(255,255,255,0.45)",
 ];
 
 interface DayData {
@@ -43,7 +43,7 @@ export function ActivityHeatmap() {
                 <div
                   key={ri}
                   className="h-[4px] w-[4px] rounded-[1px]"
-                  style={{ backgroundColor: "rgba(0,0,0,0.08)" }}
+                  style={{ backgroundColor: "rgba(255,255,255,0.08)" }}
                 />
               ))}
             </div>

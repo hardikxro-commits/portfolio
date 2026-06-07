@@ -50,7 +50,7 @@ export function Skills() {
               className={cn(
                 "inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200",
                 activeTab === cat
-                  ? "bg-accent-primary text-white shadow-lg"
+                  ? "bg-accent-primary text-black shadow-lg"
                   : "bg-bg-tertiary text-text-secondary hover:text-text-primary hover:bg-bg-tertiary/80",
               )}
             >

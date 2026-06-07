@@ -215,13 +215,13 @@ function LanguageDonut({ languages }: { languages: Record<string, number> }) {
   const total = Object.values(languages).reduce((a, b) => a + b, 0);
   const sorted = Object.entries(languages).sort(([, a], [, b]) => b - a);
   const colors = [
-    "#F9B2D7",
-    "#CFECF3",
-    "#DAF9DE",
-    "#F6FFDC",
-    "#e89ec5",
-    "#b5dde5",
-    "#c5e8c9",
+    "#FF8FBF",
+    "#6FD4E8",
+    "#7AE88A",
+    "#FFE066",
+    "#FF77A9",
+    "#4DB8D4",
+    "#5ED470",
   ];
 
   const conicGradient = sorted

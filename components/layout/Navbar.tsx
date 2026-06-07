@@ -91,12 +91,12 @@ export function Navbar() {
             </a>
 
             <div className="hidden items-center md:flex">
-              <div className="flex items-center gap-0.5 rounded-xl bg-black/[0.03] px-1 py-0.5">
+              <div className="flex items-center gap-0.5 rounded-xl bg-white/[0.06] px-1 py-0.5">
                 {site.navLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
-                    className="rounded-lg px-3.5 py-1.5 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:bg-black/[0.05]"
+                    className="rounded-lg px-3.5 py-1.5 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:bg-white/[0.1]"
                   >
                     {link.label}
                   </a>

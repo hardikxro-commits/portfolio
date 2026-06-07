@@ -101,7 +101,7 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
 
         <button
           onClick={prev}
-          className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white transition-all hover:bg-black/60 active:scale-95"
+          className="absolute left-1 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white transition-all hover:bg-white/30 active:scale-95"
           aria-label="Previous"
         >
           <ChevronLeft size={20} />
@@ -109,7 +109,7 @@ export function ScreenshotCarousel({ screenshots }: ScreenshotCarouselProps) {
 
         <button
           onClick={next}
-          className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/40 text-white transition-all hover:bg-black/60 active:scale-95"
+          className="absolute right-1 top-1/2 -translate-y-1/2 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/20 text-white transition-all hover:bg-white/30 active:scale-95"
           aria-label="Next"
         >
           <ChevronRight size={20} />

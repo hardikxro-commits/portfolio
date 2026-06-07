@@ -25,7 +25,7 @@ export function ReadingProgress() {
         className="h-full transition-[width] duration-100 ease-linear"
         style={{
           width: `${progress}%`,
-          backgroundColor: "#0F0B0A",
+          backgroundColor: "#ffffff",
         }}
       />
     </div>
