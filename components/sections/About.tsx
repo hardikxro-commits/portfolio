@@ -2,6 +2,7 @@
 
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { ActivityHeatmap } from "@/components/shared/ActivityHeatmap";
 import { Code2, ArrowRight } from "lucide-react";
 
 export function About() {
@@ -86,6 +87,7 @@ export function About() {
   goal: "Study CS, build random ideas"
 };`}</code>
                 </pre>
+                <ActivityHeatmap />
               </div>
               </div>
             </ScrollReveal>

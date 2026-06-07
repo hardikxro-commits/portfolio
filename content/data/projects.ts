@@ -17,6 +17,7 @@ export interface Project {
   screenshots?: Screenshot[];
   challenges?: string[];
   learnings?: string[];
+  learned?: string;
   date: string;
 }
 
@@ -74,6 +75,7 @@ export const featuredProjects: Project[] = [
       "How to hash PINs properly with PBKDF2 so they're never stored as plaintext",
       "How to build custom UI components in Compose — a PIN pad, animated dots, frosted cards",
     ],
+    learned: "Scoped storage on Android is more restrictive than I expected. Biometric auth with androidx.biometric is straightforward once you understand the callback flow. The hardest part wasn't the code — it was deciding what the decoy screen should say.",
     date: "2026-06",
   },
 ];

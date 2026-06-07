@@ -126,6 +126,18 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
         </section>
       )}
 
+      {project.learned && (
+        <section className="mt-16">
+          <hr className="mb-6 border-border-subtle" />
+          <p className="text-xs italic text-text-muted tracking-wider uppercase mb-2">
+            What I learned
+          </p>
+          <p className="text-sm italic leading-relaxed text-text-secondary max-w-prose">
+            {project.learned}
+          </p>
+        </section>
+      )}
+
       {hasScreenshots && (
         <div className="mt-10">
           <h2 className="font-display text-xl font-semibold text-text-primary mb-6">

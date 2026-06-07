@@ -1,7 +1,5 @@
 import { nowData } from "@/content/data/now";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Badge } from "@/components/ui/Badge";
-import { BookOpen, Target, Code2, Bookmark, Crown } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -9,132 +7,87 @@ export const metadata: Metadata = {
   description: "What Hardik is currently learning, building, and focused on.",
 };
 
+const timeline = [
+  {
+    label: "Learning",
+    content: (
+      <ul className="space-y-2">
+        {nowData.currentlyLearning.map((item, i) => (
+          <li key={i} className="text-sm text-text-secondary">{item}</li>
+        ))}
+      </ul>
+    ),
+  },
+  {
+    label: "Building",
+    content: (
+      <ul className="space-y-2">
+        {nowData.currentProjects.map((p) => (
+          <li key={p.name} className="text-sm text-text-secondary">
+            <span className="font-medium text-text-primary">{p.name}</span>
+            {" — "}{p.description}
+          </li>
+        ))}
+      </ul>
+    ),
+  },
+  {
+    label: "Goals",
+    content: (
+      <ul className="space-y-2">
+        {nowData.currentGoals.map((goal, i) => (
+          <li key={i} className="text-sm text-text-secondary">{goal}</li>
+        ))}
+      </ul>
+    ),
+  },
+  {
+    label: "Reading",
+    content: (
+      <ul className="space-y-1">
+        {nowData.readingList.map((book, i) => (
+          <li key={i} className="text-sm italic text-text-muted">&mdash; {book}</li>
+        ))}
+      </ul>
+    ),
+  },
+  {
+    label: "Goal",
+    content: (
+      <p className="font-display text-base font-bold text-accent-primary">
+        &ldquo;{nowData.ultimateGoal}&rdquo;
+      </p>
+    ),
+  },
+];
+
 export default function NowPage() {
   return (
     <div className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
-      <div>
+      <div className="max-w-3xl">
         <SectionHeading
           title="Now"
           subtitle="What I'm focused on right now"
           badge="Current"
         />
 
-        <div className="space-y-10">
-          <section>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
-                <BookOpen size={16} />
-              </div>
-              <h2 className="font-display text-lg font-semibold text-text-primary">
-                Currently Learning
-              </h2>
-            </div>
-            <ul className="space-y-3">
-              {nowData.currentlyLearning.map((item, i) => (
-                <li key={i} className="flex gap-3 text-sm text-text-secondary">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent-subtle text-[10px] font-medium text-accent-primary">
-                    {i + 1}
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </section>
+        <div className="relative mt-12">
+          <div className="absolute left-[80px] top-0 h-full w-px bg-border-default" />
 
-          <section>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
-                <Code2 size={16} />
-              </div>
-              <h2 className="font-display text-lg font-semibold text-text-primary">
-                Current Projects
-              </h2>
-            </div>
-            <div className="space-y-4">
-              {nowData.currentProjects.map((project) => (
-                <div
-                  key={project.name}
-                  className="relative overflow-hidden rounded-lg border border-border-subtle bg-bg-secondary p-4"
-                >
-                  <div className="relative z-10"
-                >
-                  <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-text-primary">
-                      {project.name}
-                    </h3>
-                    <Badge
-                      variant={
-                        project.status === "Building MVP" ? "accent" : "default"
-                      }
-                    >
-                      {project.status}
-                    </Badge>
-                  </div>
-                  <p className="mt-1 text-xs text-text-secondary">
-                    {project.description}
-                  </p>
-                  </div>
+          <div className="space-y-10">
+            {timeline.map((entry, i) => (
+              <div key={i} className="relative flex gap-6">
+                <div className="w-[80px] shrink-0 pt-0.5">
+                  <span className="text-xs text-text-muted font-medium tracking-wider uppercase">
+                    {entry.label}
+                  </span>
                 </div>
-                ))}
+                <div className="pl-6 flex-1 min-w-0">
+                  {entry.content}
+                </div>
               </div>
-          </section>
-
-          <section>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
-                <Target size={16} />
-              </div>
-              <h2 className="font-display text-lg font-semibold text-text-primary">
-                Current Goals
-              </h2>
-            </div>
-            <ul className="space-y-3">
-              {nowData.currentGoals.map((goal, i) => (
-                <li key={i} className="flex gap-3 text-sm text-text-secondary">
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-green-500/10 text-[10px] font-medium text-green-400">
-                    &#10003;
-                  </span>
-                  {goal}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
-                <Bookmark size={16} />
-              </div>
-              <h2 className="font-display text-lg font-semibold text-text-primary">
-                Reading List
-              </h2>
-            </div>
-            <ul className="space-y-2">
-              {nowData.readingList.map((book, i) => (
-                <li key={i} className="text-sm italic text-text-muted">
-                  &mdash; {book}
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-subtle text-accent-primary">
-                <Crown size={16} />
-              </div>
-              <h2 className="font-display text-lg font-semibold text-text-primary">
-                Ultimate Goal
-              </h2>
-            </div>
-            <div className="relative overflow-hidden rounded-lg border border-border-subtle bg-bg-secondary p-6">
-              <div className="relative z-10">
-                <p className="font-display text-xl font-bold text-accent-primary">
-                  &ldquo;{nowData.ultimateGoal}&rdquo;
-                </p>
-              </div>
-            </div>
-          </section>
+            ))}
+          </div>
         </div>
 
         <p className="mt-12 text-xs text-text-muted">

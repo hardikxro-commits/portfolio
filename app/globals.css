@@ -27,6 +27,11 @@
   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 @keyframes bounce-arrow {
   0%, 100% { transform: translateY(0); opacity: 0.6; }
   50% { transform: translateY(6px); opacity: 1; }

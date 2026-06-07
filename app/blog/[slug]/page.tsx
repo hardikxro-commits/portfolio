@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, CalendarDays, Clock, Tag } from "lucide-react";
 import { blogPosts } from "@/content/data/blog";
 import { ScreenshotCarousel } from "@/components/shared/ScreenshotCarousel";
+import { ReadingProgress } from "@/components/shared/ReadingProgress";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import type { Metadata } from "next";
@@ -48,7 +49,9 @@ export default async function BlogPostPage({
   ];
 
   return (
-    <article className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
+    <>
+      <ReadingProgress />
+      <article className="px-4 pt-28 pb-20 sm:px-6 lg:px-8">
       <Link
         href="/blog"
         className="group mb-8 inline-flex items-center gap-1.5 text-sm text-text-muted transition-colors hover:text-text-primary"
@@ -104,5 +107,6 @@ export default async function BlogPostPage({
         </div>
       )}
     </article>
+    </>
   );
 }

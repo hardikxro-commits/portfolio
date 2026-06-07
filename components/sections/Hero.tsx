@@ -1,8 +1,16 @@
 "use client";
 
 import { LazyMotion, domAnimation } from "framer-motion";
+import { ScrambleText } from "@/components/shared/ScrambleText";
 import { site } from "@/content/data/site";
 import { ChevronDown } from "lucide-react";
+
+const marqueeItems = [
+  "Building Nothing Vault",
+  "Learning Jetpack Compose",
+  "Reading at 2AM",
+  "Based in Mumbai",
+];
 
 export function Hero() {
   return (
@@ -11,20 +19,49 @@ export function Hero() {
       id="hero"
       className="relative flex min-h-[100dvh] flex-col items-start justify-center overflow-hidden px-6 sm:px-12 lg:px-20"
     >
-      <div className="relative z-10">
+      <div className="relative z-10 max-w-full">
         <p className="text-sm font-medium tracking-[0.2em] text-text-muted uppercase">
           Student & Developer
         </p>
 
         <h1 className="mt-4 font-display text-5xl font-bold leading-[0.9] tracking-tight sm:text-7xl lg:text-8xl">
-          {site.name}
+          <ScrambleText text={site.name} />
         </h1>
 
         <p className="mt-6 max-w-lg text-base leading-relaxed text-text-secondary sm:text-lg">
           {site.description}
         </p>
 
-        <div className="mt-10 flex items-center gap-6">
+        <div className="mt-6 w-full overflow-hidden">
+          <div className="marquee-track flex min-w-max gap-0" style={{ animation: "marquee 30s linear infinite" }}>
+            <div className="flex shrink-0 items-center gap-0">
+              {marqueeItems.map((item, i) => (
+                <span key={i} className="flex items-center gap-0">
+                  <span className="text-[11px] tracking-[0.15em] text-text-muted uppercase">
+                    {item}
+                  </span>
+                  {i < marqueeItems.length - 1 && (
+                    <span className="mx-5 text-text-muted/40 text-xs">·</span>
+                  )}
+                </span>
+              ))}
+            </div>
+            <div className="flex shrink-0 items-center gap-0">
+              {marqueeItems.map((item, i) => (
+                <span key={i} className="flex items-center gap-0">
+                  <span className="text-[11px] tracking-[0.15em] text-text-muted uppercase">
+                    {item}
+                  </span>
+                  {i < marqueeItems.length - 1 && (
+                    <span className="mx-5 text-text-muted/40 text-xs">·</span>
+                  )}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex items-center gap-6">
           <a
             href="/projects"
             className="group relative inline-flex items-center gap-2 rounded-full border border-border-default px-6 py-3 text-sm font-medium text-text-primary transition-all duration-300 hover:border-accent-primary hover:bg-accent-primary/10 hover:text-accent-primary"
