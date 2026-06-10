@@ -23,14 +23,14 @@ export function Button({
   disabled,
 }: ButtonProps) {
   const classes = cn(
-    "relative inline-flex items-center justify-center gap-2 overflow-hidden font-medium transition-all duration-200 rounded-lg",
+    "relative inline-flex items-center justify-center gap-2 overflow-hidden font-medium transition-all duration-200",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-2 focus-visible:ring-offset-bg-primary",
     variant === "primary" &&
-      "bg-white text-black hover:bg-gray-200 active:scale-[0.98]",
+      "bg-accent-primary text-[#080706] hover:shadow-[0_0_24px_rgba(196,163,90,0.25)] active:scale-[0.98]",
     variant === "ghost" &&
-      "text-text-secondary hover:text-text-primary hover:bg-accent-subtle",
+      "text-text-secondary hover:text-accent-primary hover:bg-accent-subtle",
     variant === "outline" &&
-      "border border-border-subtle bg-bg-secondary text-text-secondary hover:border-border-default hover:text-text-primary",
+      "border border-accent-border/50 bg-transparent text-text-secondary hover:border-accent-primary hover:text-accent-primary",
     size === "sm" && "px-3 py-1.5 text-xs",
     size === "md" && "px-5 py-2.5 text-sm",
     size === "lg" && "px-7 py-3 text-base",

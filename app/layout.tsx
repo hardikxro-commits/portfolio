@@ -1,22 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, Syne, Space_Mono } from "next/font/google";
+import { Playfair_Display, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { BackToTop } from "@/components/shared/BackToTop";
 import { site } from "@/content/data/site";
 
-const bebasNeue = Bebas_Neue({
+const playfair = Playfair_Display({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
-  weight: "400",
+  weight: ["400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
 });
 
-const syne = Syne({
+const inter = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const spaceMono = Space_Mono({
@@ -29,7 +32,7 @@ const spaceMono = Space_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0F0B0A",
+  themeColor: "#0A0807",
 };
 
 export const metadata: Metadata = {
@@ -73,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${bebasNeue.variable} ${syne.variable} ${spaceMono.variable} dark`}
+      className={`${playfair.variable} ${inter.variable} ${spaceMono.variable} dark`}
       suppressHydrationWarning
     >
       <head>
@@ -85,9 +88,12 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-[100dvh] bg-bg-primary text-text-primary antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <BackToTop />
+        </ThemeProvider>
       </body>
     </html>
   );

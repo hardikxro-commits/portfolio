@@ -70,11 +70,12 @@ export function About() {
 
           <div className="lg:col-span-2">
             <ScrollReveal delay={0.3}>
-              <div className="sticky top-24 relative overflow-hidden rounded-xl border border-border-subtle p-5">
+              <div className="sticky top-24 relative overflow-hidden rounded-xl border border-accent-border/15 bg-bg-secondary/50 backdrop-blur-sm p-6">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-accent-primary/5 rounded-full blur-3xl" />
                 <div className="relative z-10">
-                <div className="mb-3 flex items-center gap-2 text-xs text-text-muted">
-                  <Code2 size={14} />
-                  <span>about.tsx</span>
+                <div className="mb-4 flex items-center gap-2 text-xs text-text-muted">
+                  <div className="w-2 h-2 rounded-full bg-accent-primary/60" />
+                  <span className="font-mono tracking-wide">about.tsx</span>
                 </div>
                 <pre className="overflow-x-auto text-xs leading-relaxed text-text-secondary">
                   <code>{`const hardik = {
@@ -87,7 +88,9 @@ export function About() {
   goal: "Study CS, build random ideas"
 };`}</code>
                 </pre>
-                <ActivityHeatmap />
+                <div className="mt-4 pt-4 border-t border-accent-border/10">
+                  <ActivityHeatmap />
+                </div>
               </div>
               </div>
             </ScrollReveal>

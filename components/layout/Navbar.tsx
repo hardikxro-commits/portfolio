@@ -1,10 +1,14 @@
 "use client";
 
+import { useActiveSection } from "@/hooks/useActiveSection";
 import { useEffect, useState, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { site } from "@/content/data/site";
 import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
+
+const sectionIds = ["hero", "about", "skills", "projects"];
 
 const menuVariants = {
   hidden: { opacity: 0, y: -16, scale: 0.96 },
@@ -17,6 +21,7 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const activeSection = useActiveSection(sectionIds);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -78,42 +83,59 @@ export function Navbar() {
           className={cn(
             "relative overflow-hidden transition-all duration-500",
             scrolled
-              ? "rounded-2xl border border-border-subtle liquid-glass-nav shadow-2xl"
+              ? "rounded-2xl border border-accent-border/60 liquid-glass-nav shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
               : "rounded-none bg-transparent",
           )}
         >
+          {/* Gold accent line on top when scrolled */}
+          {scrolled && (
+            <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[#C4A35A]/50 to-transparent" />
+          )}
           <nav className="relative z-50 flex items-center justify-between px-4 py-2.5 sm:px-5">
             <a
               href="/"
-              className="font-display text-lg font-bold tracking-tight text-text-primary"
+              className="font-display text-lg font-bold tracking-tight text-[#F5F0E8]"
             >
-              HN<span className="text-accent-primary">.</span>
+              <span className="italic font-medium">H</span>
+              <span className="gold-gradient-text">N</span>
             </a>
 
             <div className="hidden items-center md:flex">
-              <div className="flex items-center gap-0.5 rounded-xl bg-white/[0.06] px-1 py-0.5">
-                {site.navLinks.map((link) => (
-                  <a
-                    key={link.href}
-                    href={link.href}
-                    className="rounded-lg px-3.5 py-1.5 text-sm font-medium text-text-secondary transition-all duration-200 hover:text-text-primary hover:bg-white/[0.1]"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+              <div className="flex items-center gap-0.5 rounded-xl bg-[rgba(196,163,90,0.04)] border border-[rgba(196,163,90,0.08)] px-1 py-0.5">
+                {site.navLinks.map((link) => {
+                  const sectionId = link.href.replace("/#", "");
+                  const isActive = sectionIds.includes(sectionId) && activeSection === sectionId;
+                  return (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        "rounded-lg px-3.5 py-1.5 text-sm font-medium transition-all duration-200",
+                        isActive
+                          ? "bg-[rgba(196,163,90,0.12)] text-[#C4A35A]"
+                          : "text-text-secondary hover:text-[#C4A35A] hover:bg-[rgba(196,163,90,0.06)]"
+                      )}
+                    >
+                      {link.label}
+                    </a>
+                  );
+                })}
               </div>
             </div>
 
-            <button
-              ref={toggleRef}
-              onClick={() => setMobileOpen(!mobileOpen)}
-              className="relative z-50 rounded-lg p-2 text-text-secondary hover:text-text-primary md:hidden"
-              aria-label="Toggle menu"
-              aria-expanded={mobileOpen}
-              aria-controls="mobile-menu"
-            >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
+            <div className="flex items-center gap-1">
+              <ThemeToggle />
+              <button
+                ref={toggleRef}
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="relative z-50 rounded-lg p-2 text-text-secondary hover:text-[#C4A35A] md:hidden transition-colors duration-200"
+                aria-label="Toggle menu"
+                aria-expanded={mobileOpen}
+                aria-controls="mobile-menu"
+              >
+                {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
           </nav>
         </div>
       </div>
@@ -133,12 +155,14 @@ export function Navbar() {
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="fixed inset-0 z-40 flex flex-col items-start gap-6 px-4 pt-28 md:hidden liquid-glass-nav"
           >
+            {/* Gold accent line */}
+            <div className="w-12 h-px bg-gradient-to-r from-[#C4A35A] to-transparent mb-2" />
             {site.navLinks.map((link, i) => (
               <motion.a
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-xl font-medium text-text-secondary transition-colors hover:text-text-primary"
+                className="text-xl font-display text-text-secondary transition-colors hover:text-[#C4A35A]"
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 * i, duration: 0.2 }}

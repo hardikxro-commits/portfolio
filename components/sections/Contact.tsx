@@ -65,7 +65,7 @@ export function Contact() {
                     <input
                       id="name"
                       {...register("name")}
-                      className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
+                      className="w-full rounded-lg border border-accent-border/20 bg-bg-secondary/60 backdrop-blur-sm px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-primary/50 focus:ring-1 focus:ring-accent-primary/20"
                       placeholder="Your name"
                       inputMode="text"
                     />
@@ -81,7 +81,7 @@ export function Contact() {
                       id="email"
                       type="email"
                       {...register("email")}
-                      className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
+                      className="w-full rounded-lg border border-accent-border/20 bg-bg-secondary/60 backdrop-blur-sm px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-primary/50 focus:ring-1 focus:ring-accent-primary/20"
                       placeholder="you@example.com"
                       inputMode="email"
                       autoComplete="email"
@@ -99,7 +99,7 @@ export function Contact() {
                     <input
                       id="subject"
                       {...register("subject")}
-                      className="w-full rounded-lg border border-border-default bg-bg-secondary px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-border focus:ring-1 focus:ring-accent-primary/30"
+                      className="w-full rounded-lg border border-accent-border/20 bg-bg-secondary/60 backdrop-blur-sm px-4 py-3 text-sm text-text-primary placeholder-text-muted outline-none transition-colors focus:border-accent-primary/50 focus:ring-1 focus:ring-accent-primary/20"
                       placeholder="What's this about?"
                       inputMode="text"
                     />
@@ -154,10 +154,11 @@ export function Contact() {
           <div className="lg:col-span-2">
             <ScrollReveal delay={0.2}>
               <div className="space-y-6">
-                <div className="relative overflow-hidden rounded-xl border border-border-subtle bg-bg-secondary p-5">
+                <div className="relative overflow-hidden rounded-xl border border-accent-border/15 bg-bg-secondary/60 backdrop-blur-sm p-6">
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-accent-primary/5 rounded-full blur-2xl" />
                   <div className="relative z-10">
                   <h3 className="text-sm font-medium text-text-primary">Let&apos;s collaborate</h3>
-                  <p className="mt-1 text-xs leading-relaxed text-text-secondary">
+                  <p className="mt-2 text-xs leading-relaxed text-text-secondary">
                     Got a project idea, an internship opening, or just want to say hi? 
                     I&apos;d love to hear from you.
                   </p>
@@ -167,7 +168,7 @@ export function Contact() {
                 <div className="space-y-3">
                   <a
                     href={`mailto:${site.email}`}
-                    className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-border-subtle bg-bg-secondary p-3.5 text-sm text-text-secondary transition-colors hover:border-border-default hover:text-text-primary"
+                    className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-accent-border/10 bg-bg-secondary/60 backdrop-blur-sm p-3.5 text-sm text-text-secondary transition-all duration-200 hover:border-accent-border/30 hover:text-accent-primary"
                   >
                     <Mail size={16} className="text-accent-primary" />
                     <span className="relative z-10">{site.email}</span>
@@ -176,7 +177,7 @@ export function Contact() {
                     href={site.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-border-subtle bg-bg-secondary p-3.5 text-sm text-text-secondary transition-colors hover:border-border-default hover:text-text-primary"
+                    className="relative flex items-center gap-3 overflow-hidden rounded-lg border border-accent-border/10 bg-bg-secondary/60 backdrop-blur-sm p-3.5 text-sm text-text-secondary transition-all duration-200 hover:border-accent-border/30 hover:text-accent-primary"
                   >
                     <GitFork size={16} className="text-accent-primary" />
                     <span>GitHub</span>

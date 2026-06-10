@@ -49,7 +49,7 @@ export function Timeline() {
         />
 
         <div className="relative">
-          <div className="absolute left-[23px] top-0 h-full w-px bg-border-default md:left-1/2 md:-translate-x-px" />
+          <div className="absolute left-[23px] top-0 h-full w-px bg-gradient-to-b from-accent-primary/40 via-accent-primary/20 to-transparent md:left-1/2 md:-translate-x-px" />
 
           <div className="space-y-8">
             {timeline.map((event, i) => {

@@ -1,16 +1,25 @@
 "use client";
 
 import Image from "next/image";
+import { useState } from "react";
 import { ScrollReveal } from "@/components/shared/ScrollReveal";
 import { GlowCard } from "@/components/shared/GlowCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
+import { TagCloud } from "@/components/shared/TagCloud";
 import { featuredProjects } from "@/content/data/projects";
 import { GitFork, ExternalLink, Download, ArrowRight, CalendarDays } from "lucide-react";
 
 export function Projects() {
-  const featured = featuredProjects.filter((p) => p.featured);
-  const others = featuredProjects.filter((p) => !p.featured);
+  const [filterTag, setFilterTag] = useState("");
+  const allTags = featuredProjects.flatMap((p) => p.tags);
+
+  const filtered = filterTag
+    ? featuredProjects.filter((p) => p.tags.includes(filterTag))
+    : featuredProjects;
+
+  const featured = filtered.filter((p) => p.featured);
+  const others = filtered.filter((p) => !p.featured);
 
   return (
     <section id="projects" className="relative px-4 py-24 sm:px-6 lg:px-8">
@@ -19,6 +28,13 @@ export function Projects() {
           title="Projects"
           subtitle="Stuff I&apos;ve built, from idea to shipping"
           badge="Work"
+        />
+
+        <TagCloud
+          tags={allTags}
+          selected={filterTag}
+          onSelect={setFilterTag}
+          className="mb-8"
         />
 
         <div className="grid gap-8 lg:grid-cols-2">
@@ -37,11 +53,16 @@ export function Projects() {
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080706]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-accent-primary bg-[#080706]/60 backdrop-blur-sm px-2.5 py-1 rounded-md">
+                      View <ArrowRight size={10} />
+                    </span>
+                  </div>
                 </div>
                 <div className="flex-1 flex flex-col px-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h3 className="font-display text-lg font-semibold text-text-primary transition-colors">
+                    <h3 className="font-display text-xl font-semibold text-text-primary transition-colors group-hover:text-accent-primary">
                       {project.title}
                     </h3>
                     <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-text-muted ml-auto">
@@ -58,8 +79,8 @@ export function Projects() {
                         {tag}
                       </Badge>
                     ))}
-                    <span className="ml-auto inline-flex items-center gap-1 text-xs font-medium text-accent-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                      View case study <ArrowRight size={12} />
+                    <span className="ml-auto inline-flex items-center gap-1.5 text-[11px] font-medium text-accent-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      Case study <ArrowRight size={11} />
                     </span>
                   </div>
                   <div className="mt-4 pt-4 border-t border-border-subtle flex items-center gap-3">
@@ -115,7 +136,7 @@ export function Projects() {
               <ScrollReveal key={project.slug} delay={i * 0.06}>
                 <GlowCard className="flex flex-col h-full group">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="font-display text-base font-semibold text-text-primary">
+                    <h3 className="font-display text-base font-semibold text-text-primary group-hover:text-accent-primary transition-colors">
                       {project.title}
                     </h3>
                     <span className="text-[10px] text-text-muted ml-auto">{project.date}</span>

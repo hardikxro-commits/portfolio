@@ -170,9 +170,12 @@ export function Hero({ visible }: HeroProps) {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: 'url("/images/starry-night.jpg")',
-          filter: "brightness(0.5)",
+          filter: "brightness(0.4)",
         }}
       />
+
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#080706]/60 via-transparent to-[#080706]/80" />
 
       {/* Canvas stars on top */}
       <canvas
@@ -183,6 +186,14 @@ export function Hero({ visible }: HeroProps) {
 
       {/* Content wrapper */}
       <div className="absolute inset-0 z-20 flex flex-col justify-center px-8 sm:px-12 lg:px-20">
+        {/* Gold decorative line */}
+        <motion.div
+          initial={{ width: 0 }}
+          animate={{ width: 60 }}
+          transition={{ delay: 0.8, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="h-px bg-gradient-to-r from-[#C4A35A] to-transparent mb-8"
+        />
+
         {/* Tag line */}
         <motion.p
           initial={{ opacity: 0, x: -20 }}
@@ -195,7 +206,7 @@ export function Hero({ visible }: HeroProps) {
           </span>
         </motion.p>
 
-        {/* Headline */}
+        {/* Headline - luxury serif treatment */}
         <div className="overflow-hidden">
           <motion.h1
             initial={{ y: "110%" }}
@@ -205,10 +216,10 @@ export function Hero({ visible }: HeroProps) {
               duration: 0.8,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="font-display leading-[0.92] text-[#F5F0E8] select-none"
-            style={{ fontSize: "clamp(52px, 11vw, 160px)" }}
+            className="font-display leading-[0.85] text-[#F5F0E8] select-none italic"
+            style={{ fontSize: "clamp(48px, 10vw, 140px)", fontWeight: 500 }}
           >
-            HARDIK
+            Hardik
           </motion.h1>
         </div>
         <div className="overflow-hidden">
@@ -220,10 +231,10 @@ export function Hero({ visible }: HeroProps) {
               duration: 0.8,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="font-display leading-[0.92] select-none"
-            style={{ fontSize: "clamp(52px, 11vw, 160px)", color: "#C4A35A" }}
+            className="font-display leading-[0.85] select-none gold-gradient-text"
+            style={{ fontSize: "clamp(48px, 10vw, 140px)", fontWeight: 700 }}
           >
-            NISHAD
+            Nishad
           </motion.h1>
         </div>
 
@@ -232,8 +243,7 @@ export function Hero({ visible }: HeroProps) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.7, duration: 0.6, ease: "easeOut" }}
-          className="font-sans text-[16px] leading-[1.7] max-w-[420px] mt-6"
-          style={{ color: "rgba(245,240,232,0.55)" }}
+          className="font-sans text-[15px] leading-[1.8] max-w-[440px] mt-6 text-[rgba(245,240,232,0.5)]"
         >
           I write code, build things, and try to get a little better every day.
         </motion.p>
@@ -243,29 +253,31 @@ export function Hero({ visible }: HeroProps) {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.9, duration: 0.6, ease: "easeOut" }}
-          className="flex items-center gap-4 mt-8"
+          className="flex items-center gap-5 mt-10"
         >
           <a
             href="/projects"
-            className="inline-flex items-center bg-[#C4A35A] text-[#0F0B0A] font-sans text-[12px] font-bold tracking-[0.2em] uppercase px-7 py-[14px] transition-opacity hover:opacity-90"
+            className="group relative inline-flex items-center bg-[#C4A35A] text-[#080706] font-sans text-[11px] font-semibold tracking-[0.2em] uppercase px-8 py-[15px] overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(196,163,90,0.3)]"
           >
-            View Projects
+            <span className="relative z-10">View Projects</span>
+            <span className="absolute inset-0 bg-gradient-to-r from-[#D4B96E] via-[#E8D4A3] to-[#C4A35A] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </a>
           <a
             href="https://github.com/hardikxro-commits"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center border border-[rgba(196,163,90,0.3)] text-[rgba(245,240,232,0.7)] font-sans text-[12px] font-bold tracking-[0.2em] uppercase px-7 py-[14px] transition-colors hover:border-[#C4A35A]"
+            className="group inline-flex items-center border border-[rgba(196,163,90,0.2)] text-[rgba(245,240,232,0.6)] font-sans text-[11px] font-semibold tracking-[0.2em] uppercase px-8 py-[15px] transition-all duration-300 hover:border-[#C4A35A] hover:text-[#C4A35A]"
           >
-            GitHub ↗
+            GitHub
+            <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">↗</span>
           </a>
         </motion.div>
       </div>
 
-      {/* Constellation */}
+      {/* Constellation - enhanced */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.6 }}
+        animate={{ opacity: 0.5 }}
         transition={{ delay: 2, duration: 0.8 }}
         className="absolute z-20"
         style={{
@@ -273,23 +285,26 @@ export function Hero({ visible }: HeroProps) {
           top: "clamp(200px, 35vh, 360px)",
         }}
       >
-        <svg width="140" height="100" viewBox="0 0 140 100" fill="none">
-          <circle cx="20" cy="50" r="2" fill="#C4A35A" />
-          <circle cx="50" cy="20" r="1.5" fill="#C4A35A" />
-          <circle cx="70" cy="60" r="2.5" fill="#C4A35A" />
-          <circle cx="100" cy="30" r="1.5" fill="#C4A35A" />
-          <circle cx="120" cy="70" r="2" fill="#C4A35A" />
-          <circle cx="90" cy="80" r="1.5" fill="#C4A35A" />
-          <circle cx="40" cy="75" r="1" fill="#C4A35A" />
-          <line x1="20" y1="50" x2="50" y2="20" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
-          <line x1="50" y1="20" x2="100" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
-          <line x1="70" y1="60" x2="20" y2="50" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
-          <line x1="70" y1="60" x2="100" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
-          <line x1="70" y1="60" x2="120" y2="70" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
-          <line x1="120" y1="70" x2="100" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
-          <line x1="70" y1="60" x2="90" y2="80" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
-          <line x1="40" y1="75" x2="90" y2="80" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
-          <line x1="40" y1="75" x2="20" y2="50" stroke="#C4A35A" strokeWidth="0.5" opacity="0.6" />
+        <svg width="160" height="120" viewBox="0 0 160 120" fill="none">
+          <circle cx="20" cy="50" r="2.5" fill="#C4A35A" opacity="0.8" />
+          <circle cx="50" cy="20" r="2" fill="#C4A35A" opacity="0.6" />
+          <circle cx="80" cy="65" r="3" fill="#E8D4A3" opacity="0.9" />
+          <circle cx="110" cy="30" r="2" fill="#C4A35A" opacity="0.6" />
+          <circle cx="135" cy="75" r="2.5" fill="#C4A35A" opacity="0.7" />
+          <circle cx="100" cy="90" r="2" fill="#D4B96E" opacity="0.5" />
+          <circle cx="50" cy="80" r="1.5" fill="#C4A35A" opacity="0.5" />
+          <circle cx="30" cy="30" r="1.5" fill="#E8D4A3" opacity="0.4" />
+          <line x1="20" y1="50" x2="50" y2="20" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="50" y1="20" x2="110" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="80" y1="65" x2="20" y2="50" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="80" y1="65" x2="110" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="80" y1="65" x2="135" y2="75" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="135" y1="75" x2="110" y2="30" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="80" y1="65" x2="100" y2="90" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="50" y1="80" x2="100" y2="90" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="50" y1="80" x2="20" y2="50" stroke="#C4A35A" strokeWidth="0.5" opacity="0.4" />
+          <line x1="30" y1="30" x2="20" y2="50" stroke="#C4A35A" strokeWidth="0.5" opacity="0.3" />
+          <line x1="30" y1="30" x2="50" y2="20" stroke="#C4A35A" strokeWidth="0.5" opacity="0.3" />
         </svg>
       </motion.div>
 
@@ -301,19 +316,24 @@ export function Hero({ visible }: HeroProps) {
         className="absolute bottom-10 left-0 right-0 z-20 flex items-center justify-between px-8 sm:px-12 lg:px-20"
       >
         <div className="flex items-center gap-3">
-          <div className="relative h-10 w-[1px] overflow-hidden bg-[rgba(196,163,90,0.3)]">
+          <div className="relative h-12 w-[1px] overflow-hidden bg-[rgba(196,163,90,0.15)]">
             <div
-              className="absolute left-0 w-full h-full bg-[#C4A35A]"
+              className="absolute left-0 w-full h-full bg-gradient-to-b from-[#C4A35A] to-transparent"
               style={{ animation: "scroll-line 1.8s ease-in-out infinite" }}
             />
           </div>
-          <span className="font-mono text-[10px] tracking-[0.15em] text-[rgba(245,240,232,0.5)]">
+          <span className="font-mono text-[9px] tracking-[0.2em] text-[rgba(245,240,232,0.35)]">
             SCROLL
           </span>
         </div>
-        <p className="font-mono text-[10px] text-[rgba(245,240,232,0.35)] text-right">
-          Mumbai, India / &copy; 2026
-        </p>
+        <div className="flex items-center gap-6">
+          <span className="font-mono text-[9px] text-[rgba(245,240,232,0.25)]">
+            Mumbai, India
+          </span>
+          <span className="font-mono text-[9px] text-[rgba(245,240,232,0.25)]">
+            &copy; 2026
+          </span>
+        </div>
       </motion.div>
     </section>
   );
