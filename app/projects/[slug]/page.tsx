@@ -60,22 +60,28 @@ export default async function ProjectCaseStudy({ params }: { params: Promise<{ s
 
         <div className="mt-6 flex gap-3">
           {project.githubUrl && (
-            <Button href={project.githubUrl} variant="outline">
-              <GitFork size={14} />
-              Source Code
-            </Button>
+            <Link href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline">
+                <GitFork size={14} />
+                Source Code
+              </Button>
+            </Link>
           )}
           {project.liveUrl && (
-            <Button href={project.liveUrl} variant="primary">
-              <ExternalLink size={14} />
-              Live Demo
-            </Button>
+            <Link href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+              <Button variant="default">
+                <ExternalLink size={14} />
+                Live Demo
+              </Button>
+            </Link>
           )}
           {project.downloadUrl && (
-            <Button href={project.downloadUrl} variant="primary">
-              <Download size={14} />
-              Download APK
-            </Button>
+            <Link href={project.downloadUrl} target="_blank" rel="noopener noreferrer">
+              <Button variant="default">
+                <Download size={14} />
+                Download APK
+              </Button>
+            </Link>
           )}
         </div>
 
