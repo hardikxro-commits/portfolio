@@ -1,138 +1,199 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ExternalLink, GitFork } from "lucide-react";
-import Link from "next/link";
-
-const projects = [
-  {
-    title: "Portfolio Platform",
-    description:
-      "A modern portfolio website built with Next.js, featuring a luxurious dark theme with gold accents, animated star field, and responsive design.",
-    tags: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-    github: "https://github.com/hardikxro-commits",
-    live: "https://hardiknishad.dev",
-  },
-  {
-    title: "Open Source Contributions",
-    description:
-      "Active contributor to various open source projects. Focused on improving documentation, fixing bugs, and adding features to community tools.",
-    tags: ["Open Source", "Git", "Collaboration"],
-    github: "https://github.com/hardikxro-commits",
-  },
-  {
-    title: "Web Application",
-    description:
-      "Full-stack web application demonstrating modern development practices with clean architecture and thoughtful user experience design.",
-    tags: ["React", "Node.js", "PostgreSQL", "Docker"],
-    github: "https://github.com/hardikxro-commits",
-  },
-  {
-    title: "API Service",
-    description:
-      "RESTful API service built with performance and scalability in mind, featuring comprehensive documentation and error handling.",
-    tags: ["Python", "FastAPI", "Redis", "Docker"],
-    github: "https://github.com/hardikxro-commits",
-  },
-];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
-};
+import Image from "next/image";
+import { useState } from "react";
+import { ScrollReveal } from "@/components/shared/ScrollReveal";
+import { GlowCard } from "@/components/shared/GlowCard";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { Badge } from "@/components/ui/Badge";
+import { TagCloud } from "@/components/shared/TagCloud";
+import { featuredProjects } from "@/content/data/projects";
+import { GitFork, ExternalLink, Download, ArrowRight, CalendarDays } from "lucide-react";
 
 export function Projects() {
+  const [filterTag, setFilterTag] = useState("");
+  const allTags = featuredProjects.flatMap((p) => p.tags);
+
+  const filtered = filterTag
+    ? featuredProjects.filter((p) => p.tags.includes(filterTag))
+    : featuredProjects;
+
+  const featured = filtered.filter((p) => p.featured);
+  const others = filtered.filter((p) => !p.featured);
+
   return (
-    <section id="projects" className="relative py-32 px-6">
-      <div className="mx-auto max-w-6xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-4"
-        >
-          <span className="font-mono text-[11px] tracking-[0.2em] text-accent-primary">
-            03 &mdash; PROJECTS
-          </span>
-        </motion.div>
+    <section id="projects" className="relative px-4 py-24 sm:px-6 lg:px-8">
+      <div>
+        <SectionHeading
+          title="Projects"
+          subtitle="Stuff I&apos;ve built, from idea to shipping"
+          badge="Work"
+        />
 
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-          className="font-display text-4xl md:text-5xl lg:text-6xl leading-tight text-text-primary"
-        >
-          Selected <span className="gold-gradient-text">works</span>
-        </motion.h2>
+        <TagCloud
+          tags={allTags}
+          selected={filterTag}
+          onSelect={setFilterTag}
+          className="mb-8"
+        />
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="mt-16 grid gap-6 md:grid-cols-2"
-        >
-          {projects.map((project) => (
-            <motion.div
-              key={project.title}
-              variants={cardVariants}
-              className="group relative rounded-xl border border-accent-border/10 bg-accent-subtle/5 p-8 transition-all duration-500 hover:border-accent-border/30 hover:bg-accent-subtle/10"
-            >
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="font-display text-xl text-text-primary group-hover:text-accent-primary transition-colors duration-300">
-                  {project.title}
-                </h3>
-                <div className="flex gap-2">
-                  <Link
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-8 w-8 items-center justify-center rounded-full border border-accent-border/20 text-text-muted transition-all duration-300 hover:border-accent-primary hover:text-accent-primary"
-                  >
-                    <GitFork className="h-4 w-4" />
-                  </Link>
-                  {project.live && (
-                    <Link
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-accent-border/20 text-text-muted transition-all duration-300 hover:border-accent-primary hover:text-accent-primary"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                    </Link>
-                  )}
+        <div className="grid gap-8 lg:grid-cols-2">
+          {featured.map((project, i) => (
+            <ScrollReveal key={project.slug} delay={i * 0.1}>
+              <GlowCard
+                as="a"
+                href={`/projects/${project.slug}`}
+                className="flex flex-col h-full group"
+              >
+                <div className="relative mb-5 aspect-video overflow-hidden rounded-lg bg-bg-tertiary">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#080706]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
+                    <span className="inline-flex items-center gap-1 text-[10px] font-medium text-accent-primary bg-[#080706]/60 backdrop-blur-sm px-2.5 py-1 rounded-md">
+                      View <ArrowRight size={10} />
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <p className="mb-6 font-sans text-sm leading-relaxed text-text-muted">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border border-accent-border/10 bg-accent-subtle/5 px-2.5 py-0.5 font-mono text-[10px] text-text-muted"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+                <div className="flex-1 flex flex-col px-1">
+                  <div className="flex items-center gap-3 mb-2">
+                    <h3 className="font-display text-xl font-semibold text-text-primary transition-colors group-hover:text-accent-primary">
+                      {project.title}
+                    </h3>
+                    <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-text-muted ml-auto">
+                      <CalendarDays size={11} />
+                      {project.date}
+                    </span>
+                  </div>
+                  <p className="flex-1 text-sm leading-relaxed text-text-secondary">
+                    {project.description}
+                  </p>
+                  <div className="mt-4 flex flex-wrap items-center gap-2">
+                    {project.tags.slice(0, 4).map((tag) => (
+                      <Badge key={tag} variant="default" className="text-[10px]">
+                        {tag}
+                      </Badge>
+                    ))}
+                    <span className="ml-auto inline-flex items-center gap-1.5 text-[11px] font-medium text-accent-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                      Case study <ArrowRight size={11} />
+                    </span>
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-border-subtle flex items-center gap-3">
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs text-text-secondary transition-colors hover:text-text-primary"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <GitFork size={13} />
+                        Source
+                      </a>
+                    )}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs text-text-secondary transition-colors hover:text-text-primary"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <ExternalLink size={13} />
+                        Live
+                      </a>
+                    )}
+                    {project.downloadUrl && (
+                      <a
+                        href={project.downloadUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 text-xs text-text-secondary font-medium transition-colors hover:text-text-primary"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <Download size={13} />
+                        APK
+                      </a>
+                    )}
+                    <span className="sm:hidden ml-auto inline-flex items-center gap-1 text-xs font-medium text-accent-primary">
+                      Case study <ArrowRight size={12} />
+                    </span>
+                  </div>
+                </div>
+              </GlowCard>
+            </ScrollReveal>
           ))}
-        </motion.div>
+        </div>
+
+        {others.length > 0 && (
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {others.map((project, i) => (
+              <ScrollReveal key={project.slug} delay={i * 0.06}>
+                <GlowCard className="flex flex-col h-full group">
+                  <div className="flex items-center gap-2 mb-2">
+                    <h3 className="font-display text-base font-semibold text-text-primary group-hover:text-accent-primary transition-colors">
+                      {project.title}
+                    </h3>
+                    <span className="text-[10px] text-text-muted ml-auto">{project.date}</span>
+                  </div>
+                  <p className="flex-1 text-sm leading-relaxed text-text-secondary">
+                    {project.description}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {project.tags.slice(0, 3).map((tag) => (
+                      <Badge key={tag} variant="default" className="text-[10px]">
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-border-subtle flex items-center gap-3">
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-muted transition-colors hover:text-text-primary"
+                        aria-label="GitHub repository"
+                      >
+                        <GitFork size={14} />
+                      </a>
+                    )}
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-text-muted transition-colors hover:text-text-primary"
+                        aria-label="Live demo"
+                      >
+                        <ExternalLink size={14} />
+                      </a>
+                    )}
+                  </div>
+                </GlowCard>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
+
+        <ScrollReveal delay={0.3}>
+           <div className="mt-12">
+            <a
+              href="https://github.com/hardikxro-commits"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 text-sm font-medium text-text-muted transition-colors hover:text-text-primary"
+            >
+              View all on GitHub
+              <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

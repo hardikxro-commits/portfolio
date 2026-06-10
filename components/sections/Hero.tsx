@@ -2,13 +2,26 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import HeroBadge from "@/components/ui/hero-badge";
-import { buttonVariants } from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
-import { ArrowRight, GitFork } from "lucide-react";
 
-const ease = [0.16, 1, 0.3, 1] as [number, number, number, number];
+interface Star {
+  x: number;
+  y: number;
+  r: number;
+  baseAlpha: number;
+  twinkleSpeed: number;
+  phase: number;
+  gold: boolean;
+}
+
+interface ShootingStar {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  life: number;
+  decay: number;
+  length: number;
+}
 
 interface HeroProps {
   visible: boolean;
@@ -16,7 +29,10 @@ interface HeroProps {
 
 export function Hero({ visible }: HeroProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const starsRef = useRef<Star[]>([]);
+  const shootingStarsRef = useRef<ShootingStar[]>([]);
   const rafRef = useRef(0);
+  const lastSpawnRef = useRef(0);
 
   useEffect(() => {
     if (!visible) return;
@@ -32,38 +48,106 @@ export function Hero({ visible }: HeroProps) {
     resize();
     window.addEventListener("resize", resize);
 
-    const stars: Array<{ x: number; y: number; r: number; baseAlpha: number; twinkleSpeed: number; phase: number; gold: boolean }> = [];
-    for (let i = 0; i < 200; i++) {
-      const gold = Math.random() < 0.15;
+    const stars: Star[] = [];
+    for (let i = 0; i < 320; i++) {
+      const gold = Math.random() < 0.18;
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        r: 0.3 + Math.random() * 1.5,
-        baseAlpha: gold ? 0.4 + Math.random() * 0.6 : 0.2 + Math.random() * 0.4,
-        twinkleSpeed: 0.01 + Math.random() * 0.04,
+        r: 0.1 + Math.random() * 1.8,
+        baseAlpha: gold ? 0.5 + Math.random() * 0.5 : 0.3 + Math.random() * 0.5,
+        twinkleSpeed: 0.015 + Math.random() * 0.05,
         phase: Math.random() * Math.PI * 2,
         gold,
       });
     }
+    starsRef.current = stars;
 
-    const draw = () => {
+    const spawnShootingStar = () => {
+      const angle = Math.PI / 6 + Math.random() * (Math.PI / 3 - Math.PI / 6);
+      const speed = 12 + Math.random() * 8;
+      shootingStarsRef.current.push({
+        x: Math.random() * canvas.width * 0.7,
+        y: Math.random() * canvas.height * 0.4,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        life: 1,
+        decay: 0.025 + Math.random() * 0.015,
+        length: 80 + Math.random() * 60,
+      });
+    };
+
+    const draw = (time: number) => {
       if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const star of stars) {
         star.phase += star.twinkleSpeed;
-        const alpha = star.baseAlpha * (0.5 + 0.5 * Math.sin(star.phase));
+        const alphaFactor = 0.5 + 0.5 * Math.sin(star.phase);
+        const alpha = star.baseAlpha * alphaFactor;
+        const color = star.gold
+          ? `rgba(196, 163, 90, ${alpha})`
+          : `rgba(232, 213, 163, ${alpha * 0.7})`;
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        ctx.fillStyle = star.gold
-          ? `rgba(196, 163, 90, ${alpha})`
-          : `rgba(232, 213, 163, ${alpha * 0.6})`;
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        if (star.r > 1.2) {
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.r * 3, 0, Math.PI * 2);
+          ctx.fillStyle = star.gold
+            ? `rgba(196, 163, 90, 0.05)`
+            : `rgba(232, 213, 163, 0.06)`;
+          ctx.fill();
+        }
+      }
+
+      if (time - lastSpawnRef.current > 2200 + Math.random() * 3500) {
+        spawnShootingStar();
+        lastSpawnRef.current = time;
+      }
+
+      const sStars = shootingStarsRef.current;
+      for (let i = sStars.length - 1; i >= 0; i--) {
+        const s = sStars[i];
+        s.x += s.vx;
+        s.y += s.vy;
+        s.life -= s.decay;
+
+        if (s.life <= 0) {
+          sStars.splice(i, 1);
+          continue;
+        }
+
+        const grad = ctx.createLinearGradient(
+          s.x, s.y,
+          s.x - s.vx * (s.length / s.vx),
+          s.y - s.vy * (s.length / s.vy)
+        );
+        grad.addColorStop(0, `rgba(196, 163, 90, ${s.life})`);
+        grad.addColorStop(1, "rgba(196, 163, 90, 0)");
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y);
+        ctx.lineTo(
+          s.x - (s.vx / Math.sqrt(s.vx * s.vx + s.vy * s.vy)) * s.length,
+          s.y - (s.vy / Math.sqrt(s.vx * s.vx + s.vy * s.vy)) * s.length
+        );
+        ctx.strokeStyle = grad;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 1.5, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(245, 240, 232, ${s.life})`;
         ctx.fill();
       }
     };
 
-    const loop = () => {
-      draw();
+    lastSpawnRef.current = performance.now();
+
+    const loop = (time: number) => {
+      draw(time);
       rafRef.current = requestAnimationFrame(loop);
     };
     rafRef.current = requestAnimationFrame(loop);
@@ -77,97 +161,125 @@ export function Hero({ visible }: HeroProps) {
   if (!visible) return null;
 
   return (
-    <section id="hero" className="relative min-h-screen w-full overflow-hidden">
+    <section
+      id="hero"
+      className="relative min-h-screen w-full overflow-hidden"
+    >
+      {/* Starry Night background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: 'url("/images/starry-night.jpg")',
+          filter: "brightness(0.4)",
+        }}
+      />
+
+      {/* Dark gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#080706]/60 via-transparent to-[#080706]/80" />
+
+      {/* Canvas stars on top */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 block"
         style={{ width: "100%", height: "100%" }}
       />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-[#080706]/40 via-transparent to-[#080706]/80" />
-
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6">
+      {/* Content wrapper */}
+      <div className="absolute inset-0 z-20 flex flex-col justify-center px-8 sm:px-12 lg:px-20">
+        {/* Gold decorative line */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease, delay: 0.5 }}
-        >
-          <HeroBadge
-            text="Just building things and learning along the way."
-            variant="default"
-            size="sm"
-          />
-        </motion.div>
+          initial={{ width: 0 }}
+          animate={{ width: 60 }}
+          transition={{ delay: 0.8, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="h-px bg-gradient-to-r from-[#C4A35A] to-transparent mb-8"
+        />
 
-        <div className="mt-8 text-center">
-          <div className="overflow-hidden">
-            <motion.h1
-              initial={{ y: "120%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, ease, delay: 0.7 }}
-              className="font-display italic leading-[0.85] text-[#F5F0E8] select-none"
-              style={{ fontSize: "clamp(48px, 10vw, 140px)", fontWeight: 500 }}
-            >
-              Hardik
-            </motion.h1>
-          </div>
-          <div className="overflow-hidden">
-            <motion.h1
-              initial={{ y: "120%" }}
-              animate={{ y: 0 }}
-              transition={{ duration: 0.8, ease, delay: 0.85 }}
-              className="font-display leading-[0.85] select-none gold-gradient-text"
-              style={{ fontSize: "clamp(48px, 10vw, 140px)", fontWeight: 700 }}
-            >
-              Nishad
-            </motion.h1>
-          </div>
-        </div>
-
+        {/* Tag line */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease, delay: 1.2 }}
-          className="mt-6 max-w-lg text-center font-sans text-[15px] leading-relaxed text-text-muted"
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 1.3, duration: 0.6, ease: "easeOut" }}
+          className="mb-4"
         >
-          I write code, build things, and try to get a little better every day. Student & Developer based in India.
+          <span className="font-mono text-[11px] tracking-[0.25em] text-[#C4A35A]">
+            — Student &middot; Developer &middot; Mumbai
+          </span>
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease, delay: 1.4 }}
-          className="mt-10 flex items-center gap-4"
-        >
-          <Link
-            href="/projects"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "gap-2 bg-accent-primary text-[#080706] hover:bg-accent-hover hover:shadow-[0_0_30px_rgba(196,163,90,0.3)]"
-            )}
+        {/* Headline - luxury serif treatment */}
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            transition={{
+              delay: 1.1,
+              duration: 0.8,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="font-display leading-[0.85] text-[#F5F0E8] select-none italic"
+            style={{ fontSize: "clamp(48px, 10vw, 140px)", fontWeight: 500 }}
           >
-            View Projects <ArrowRight className="h-4 w-4" />
-          </Link>
-          <Link
+            Hardik
+          </motion.h1>
+        </div>
+        <div className="overflow-hidden">
+          <motion.h1
+            initial={{ y: "110%" }}
+            animate={{ y: 0 }}
+            transition={{
+              delay: 1.25,
+              duration: 0.8,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="font-display leading-[0.85] select-none gold-gradient-text"
+            style={{ fontSize: "clamp(48px, 10vw, 140px)", fontWeight: 700 }}
+          >
+            Nishad
+          </motion.h1>
+        </div>
+
+        {/* Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.7, duration: 0.6, ease: "easeOut" }}
+          className="font-sans text-[15px] leading-[1.8] max-w-[440px] mt-6 text-[rgba(245,240,232,0.5)]"
+        >
+          I write code, build things, and try to get a little better every day.
+        </motion.p>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.9, duration: 0.6, ease: "easeOut" }}
+          className="flex items-center gap-5 mt-10"
+        >
+          <a
+            href="/projects"
+            className="group relative inline-flex items-center bg-[#C4A35A] text-[#080706] font-sans text-[11px] font-semibold tracking-[0.2em] uppercase px-8 py-[15px] overflow-hidden transition-all duration-300 hover:shadow-[0_0_30px_rgba(196,163,90,0.3)]"
+          >
+            <span className="relative z-10">View Projects</span>
+            <span className="absolute inset-0 bg-gradient-to-r from-[#D4B96E] via-[#E8D4A3] to-[#C4A35A] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </a>
+          <a
             href="https://github.com/hardikxro-commits"
             target="_blank"
             rel="noopener noreferrer"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "gap-2 border-accent-border text-text-secondary hover:text-accent-primary hover:border-accent-primary"
-            )}
+            className="group inline-flex items-center border border-[rgba(196,163,90,0.2)] text-[rgba(245,240,232,0.6)] font-sans text-[11px] font-semibold tracking-[0.2em] uppercase px-8 py-[15px] transition-all duration-300 hover:border-[#C4A35A] hover:text-[#C4A35A]"
           >
-            <GitFork className="h-4 w-4" /> GitHub
-          </Link>
+            GitHub
+            <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">↗</span>
+          </a>
         </motion.div>
       </div>
 
-      {/* Constellation */}
+      {/* Constellation - enhanced */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
-        transition={{ delay: 1.8, duration: 0.8 }}
-        className="absolute z-10"
+        transition={{ delay: 2, duration: 0.8 }}
+        className="absolute z-20"
         style={{
           right: "clamp(20px, 6vw, 80px)",
           top: "clamp(200px, 35vh, 360px)",
@@ -196,24 +308,31 @@ export function Hero({ visible }: HeroProps) {
         </svg>
       </motion.div>
 
-      {/* Scroll indicator */}
+      {/* Bottom strip */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 0.6 }}
-        className="absolute bottom-10 left-0 right-0 z-10 flex items-center justify-between px-8 sm:px-12 lg:px-20"
+        transition={{ delay: 2.1, duration: 0.6 }}
+        className="absolute bottom-10 left-0 right-0 z-20 flex items-center justify-between px-8 sm:px-12 lg:px-20"
       >
         <div className="flex items-center gap-3">
-          <div className="relative h-12 w-[1px] overflow-hidden bg-accent-border/30">
-            <div className="absolute left-0 w-full h-full bg-gradient-to-b from-accent-primary to-transparent animate-[scroll-line_1.8s_ease-in-out_infinite]" />
+          <div className="relative h-12 w-[1px] overflow-hidden bg-[rgba(196,163,90,0.15)]">
+            <div
+              className="absolute left-0 w-full h-full bg-gradient-to-b from-[#C4A35A] to-transparent"
+              style={{ animation: "scroll-line 1.8s ease-in-out infinite" }}
+            />
           </div>
-          <span className="font-mono text-[9px] tracking-[0.2em] text-text-muted/50">
+          <span className="font-mono text-[9px] tracking-[0.2em] text-[rgba(245,240,232,0.35)]">
             SCROLL
           </span>
         </div>
         <div className="flex items-center gap-6">
-          <span className="font-mono text-[9px] text-text-muted/30">Mumbai, India</span>
-          <span className="font-mono text-[9px] text-text-muted/30">&copy; 2026</span>
+          <span className="font-mono text-[9px] text-[rgba(245,240,232,0.25)]">
+            Mumbai, India
+          </span>
+          <span className="font-mono text-[9px] text-[rgba(245,240,232,0.25)]">
+            &copy; 2026
+          </span>
         </div>
       </motion.div>
     </section>

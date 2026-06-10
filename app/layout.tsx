@@ -1,12 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Playfair_Display, Inter, Space_Mono, Geist } from "next/font/google";
+import { Playfair_Display, Inter, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { BackToTop } from "@/components/shared/BackToTop";
 import { site } from "@/content/data/site";
-import { cn } from "@/lib/utils";
 
 const playfair = Playfair_Display({
   variable: "--font-display",
@@ -16,7 +15,12 @@ const playfair = Playfair_Display({
   style: ["normal", "italic"],
 });
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const inter = Inter({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
 
 const spaceMono = Space_Mono({
   variable: "--font-mono",
@@ -72,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("dark", playfair.variable, spaceMono.variable, "font-sans", geist.variable)}
+      className={`${playfair.variable} ${inter.variable} ${spaceMono.variable} dark`}
       suppressHydrationWarning
     >
       <head>
